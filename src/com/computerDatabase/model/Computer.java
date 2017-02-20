@@ -1,11 +1,16 @@
 package com.computerDatabase.model;
+import java.sql.Date;
 
 public class Computer {
 	private int id;
 	private String name;
-	private String introduced;
-	private String discontinued;
+	private Date introduced;
+	private Date discontinued;
 	private int company_id;
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public int getId() {
 		return id;
@@ -15,7 +20,7 @@ public class Computer {
 		
 	}
 	
-	public Computer(String name, String introduced, String discontinued, int company_id) {
+	public Computer(String name, Date introduced, Date discontinued, int company_id) {
 		super();
 		this.name = name;
 		this.introduced = introduced;
@@ -29,16 +34,16 @@ public class Computer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getIntroduced() {
+	public Date getIntroduced() {
 		return introduced;
 	}
-	public void setIntroduced(String introduced) {
+	public void setIntroduced(Date introduced) {
 		this.introduced = introduced;
 	}
-	public String getDiscontinued() {
+	public Date getDiscontinued() {
 		return discontinued;
 	}
-	public void setDiscontinued(String discontinued) {
+	public void setDiscontinued(Date discontinued) {
 		this.discontinued = discontinued;
 	}
 	public int getCompany_id() {
@@ -47,5 +52,6 @@ public class Computer {
 	public void setCompany_id(int company_id) {
 		this.company_id = company_id;
 	}
+	
 	
 }

@@ -14,8 +14,12 @@ public class Company {
 		this.name = name;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getName() {
