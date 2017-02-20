@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.computerDatabase.model.*;
 
-public interface computerDao {
+public interface ComputerDao {
 	
     void create( Computer computer ) throws DAOException;
     void delete(int id) throws DAOException;
