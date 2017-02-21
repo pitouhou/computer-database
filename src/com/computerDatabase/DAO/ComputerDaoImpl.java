@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -14,38 +12,14 @@ import com.computerDatabase.model.Computer;
 
 import static com.computerDatabase.DAO.DAOUtils.*;
 
+import static com.computerDatabase.mapper.ComputerMapper.*;
+
 public class ComputerDaoImpl implements ComputerDao {
 
 	private DAOFactory daoFactory;
 	
 	ComputerDaoImpl(DAOFactory daoFactory){
 		this.daoFactory = daoFactory;
-	}
-	
-	private static Computer mapComputer( ResultSet resultSet ) throws SQLException {
-		Computer computer = new Computer();
-		computer.setId(resultSet.getInt("id"));
-		computer.setName(resultSet.getString("name"));
-		computer.setCompany_id( resultSet.getInt( "company_id" ) );
-		computer.setIntroduced( resultSet.getDate( "introduced" ) );
-		computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
-	    return computer;
-	}
-	
-	private static Collection<Computer> mapListComputer( ResultSet resultSet ) throws SQLException {
-		
-		Collection<Computer> computerList = new ArrayList<Computer>();
-		while(resultSet.next()){
-			Computer computer = new Computer();
-			computer.setId(resultSet.getInt("id"));
-			computer.setName(resultSet.getString("name"));
-			computer.setCompany_id( resultSet.getInt( "company_id" ) );
-			computer.setIntroduced( resultSet.getDate( "introduced" ) );
-			computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
-			computerList.add(computer);
-		}
-		
-	    return computerList;
 	}
 	
 	private static final String SQL_FIND_BY_ID = "SELECT id, name, introduced, discontinued, company_id FROM computer WHERE id = ?";
