@@ -54,4 +54,8 @@ public class DAOFactory {
         return new ComputerDaoImpl( this );
     }
 	
+	public CompanyDao getCompanyDao() {
+        return new CompanyDaoImpl( this );
+    }
+	
 }

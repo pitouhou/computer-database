@@ -38,7 +38,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	    return computer;
 	}
 	
-	private static Collection<Computer> mapList( ResultSet resultSet ) throws SQLException {
+	private static Collection<Computer> mapListComputer( ResultSet resultSet ) throws SQLException {
 		
 		Collection<Computer> computerList = new ArrayList<Computer>();
 		while(resultSet.next()){
@@ -96,7 +96,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 	
 	private static final String SQL_FIND_BY_ID = "SELECT id, name, introduced, discontinued, company_id FROM computer WHERE id = ?";
-	private static final String SQL_FIND_ALL = "SELECT * FROM computer";
+	private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer";
 	private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
 	private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
 	private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
@@ -186,11 +186,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		try{
 			
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_FIND_ALL, false);
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_FIND_ALL_COMPUTER, false);
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()){
-				listComputer = mapList(resultSet);
+				listComputer = mapListComputer(resultSet);
 			}
 			
 		}catch(SQLException e){
