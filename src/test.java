@@ -8,15 +8,15 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		//Computer compNew = new Computer("hello2", null, null, 4);
+		//compNew.setId(575);
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
 		
-		Collection<Computer> comp1 = comp.list();
+		comp.delete(575);
+		//Collection<Computer> comp1 = comp.list();
 		
-		for(Computer computer : comp1){
-			System.out.println(computer.getId());
-			System.out.println(computer.getName());
-		}
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.computerDatabase.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,25 +97,33 @@ public class ComputerDaoImpl implements ComputerDao {
 	
 	private static final String SQL_FIND_BY_ID = "SELECT id, name, introduced, discontinued, company_id FROM computer WHERE id = ?";
 	private static final String SQL_FIND_ALL = "SELECT * FROM computer";
-	private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES = ?";
+	private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
+	private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
+	private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
+	
 	
 	@Override
 	public void create(Computer computer) throws DAOException {
 		
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		int resultSet;
+		String name = computer.getName();
+		Date introduced = computer.getIntroduced();
+		Date discontinued = computer.getDiscontinued();
+		int company_id = computer.getCompany_id();
 		
 		try{
 			
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_CREATE_COMPUTER, false, (computer.getName(), computer.getIntroduced(), computer.getDiscontinued(), computer.getCompany_id()));
-			resultSet = preparedStatement.executeQuery();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_CREATE_COMPUTER, false, name, introduced, discontinued, company_id);
+			resultSet = preparedStatement.executeUpdate();
+			//System.out.println(resultSet);
 			
 		}catch(SQLException e){
 			throw new DAOException(e);
 		}finally{
-			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 		
 
@@ -122,13 +131,48 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	@Override
 	public void delete(int id) throws DAOException {
-		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		int resultSet;
+		
+		try{
+			
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_DELETE_COMPUTER, false, id);
+			resultSet = preparedStatement.executeUpdate();
+			System.out.println(resultSet);
+			
+		}catch(SQLException e){
+			throw new DAOException(e);
+		}finally{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
 
 	}
 
 	@Override
 	public void update(Computer computer) throws DAOException {
-		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		int resultSet;
+		int id = computer.getId();
+		String name = computer.getName();
+		Date introduced = computer.getIntroduced();
+		Date discontinued = computer.getDiscontinued();
+		int company_id = computer.getCompany_id();
+		
+		try{
+			
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_COMPUTER, false, name, introduced, discontinued, company_id, id);
+			resultSet = preparedStatement.executeUpdate();
+			System.out.println(resultSet);
+			
+		}catch(SQLException e){
+			throw new DAOException(e);
+		}finally{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
 
 	}
 
