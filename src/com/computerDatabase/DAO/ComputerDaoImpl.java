@@ -53,7 +53,6 @@ public class ComputerDaoImpl implements ComputerDao {
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 		
-
 	}
 
 	@Override

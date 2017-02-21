@@ -8,6 +8,10 @@ import com.computerDatabase.model.Computer;
 
 public class ComputerServices {
 	
+	public ComputerServices(){
+		
+	}
+	
 	public Collection<Computer> getComputerList(){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
