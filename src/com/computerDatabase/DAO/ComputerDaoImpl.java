@@ -38,7 +38,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		String name = computer.getName();
 		Date introduced = computer.getIntroduced();
 		Date discontinued = computer.getDiscontinued();
-		int company_id = computer.getCompany_id();
+		int company_id = computer.getCompany().getId();
 		
 		try{
 			
@@ -85,7 +85,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		String name = computer.getName();
 		Date introduced = computer.getIntroduced();
 		Date discontinued = computer.getDiscontinued();
-		int company_id = computer.getCompany_id();
+		int company_id = computer.getCompany().getId();
 		
 		try{
 			

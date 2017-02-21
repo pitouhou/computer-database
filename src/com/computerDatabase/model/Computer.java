@@ -6,7 +6,7 @@ public class Computer {
 	private String name;
 	private Date introduced;
 	private Date discontinued;
-	private int company_id;
+	private Company company;
 	
 	public void setId(int id) {
 		this.id = id;
@@ -20,12 +20,12 @@ public class Computer {
 		
 	}
 	
-	public Computer(String name, Date introduced, Date discontinued, int company_id) {
+	public Computer(String name, Date introduced, Date discontinued, Company company) {
 		super();
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.company_id = company_id;
+		this.company = company;
 	}
 
 	public String getName() {
@@ -46,11 +46,11 @@ public class Computer {
 	public void setDiscontinued(Date discontinued) {
 		this.discontinued = discontinued;
 	}
-	public int getCompany_id() {
-		return company_id;
+	public Company getCompany() {
+		return company;
 	}
-	public void setCompany_id(int company_id) {
-		this.company_id = company_id;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 	

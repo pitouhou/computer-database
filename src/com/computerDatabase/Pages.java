@@ -47,14 +47,9 @@ public class Pages {
 		System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
 		
 		for(Computer comp : list){
-			if(comp.getCompany_id() != 0){
-				Company company = compService.getCompany(comp.getCompany_id());
-				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + company.getId() + "	 |	" + company.getName() + "	|");
-			}else{
-				
-				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany_id() + "	 |");
-				
-			}
+			
+				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany().getId() + "	 |	" + comp.getCompany().getName() + "	|");
+			
 		}
 		menu();
 	}
@@ -68,14 +63,9 @@ public class Pages {
 		Computer computer = service.getComputerDetails(id);
 		CompanyServices compService = CompanyServices.getInstance();
 		
-		if(computer.getCompany_id() != 0){
-			Company company = compService.getCompany(computer.getCompany_id());
-			System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + company.getId() + "	 |	" + company.getName() + "	|");
-		}else{
-			
-			System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
-			
-		}
+		
+		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "	|");
+		
 		menu();
 	}
 	
@@ -97,12 +87,25 @@ public class Pages {
 		Date discontinued = DateUtils.convertDate(discontinue);
 		if(DateUtils.compareDate( introduced, discontinued)){
 			
+			Company company = new Company();
+			
+			if(company_id != 0){
+				
+				CompanyServices compService = CompanyServices.getInstance();
+				company = compService.getCompany(company_id);
+				
+			}else{
+				
+				company = null;
+				
+			}
+			
 			computer.setName(name);
 			computer.setIntroduced(introduced);
 			computer.setDiscontinued(discontinued);
-			computer.setCompany_id(company_id);
+			computer.setCompany(company);
 			
-			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
 			ComputerServices service = ComputerServices.getInstance();
 			service.addComputer(computer);
 			menu();
@@ -123,7 +126,7 @@ public class Pages {
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
 		
 		
 		System.out.println("Entrez le nouveau nom de l'ordinateur :");
@@ -138,12 +141,25 @@ public class Pages {
 		Date discontinued = DateUtils.convertDate(discontinue);
 		if(DateUtils.compareDate( introduced, discontinued)){
 			
+			Company company = new Company();
+			
+			if(company_id != 0){
+				
+				CompanyServices compService = CompanyServices.getInstance();
+				company = compService.getCompany(company_id);
+				
+			}else{
+				
+				company = null;
+				
+			}
+			
 			computer.setName(name);
 			computer.setIntroduced(introduced);
 			computer.setDiscontinued(discontinued);
-			computer.setCompany_id(company_id);
+			computer.setCompany(company);
 			
-			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "	|");
 			//ComputerServices service = new ComputerServices();
 			service.updateComputer(computer);
 			menu();
@@ -165,7 +181,7 @@ public class Pages {
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
 		System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
 		int rep = sc.nextInt();
 		if(rep == 1){
