@@ -12,6 +12,8 @@ import java.util.Collection;
 
 import com.computerDatabase.model.Computer;
 
+import static com.computerDatabase.DAO.DAOUtils.*;
+
 public class ComputerDaoImpl implements ComputerDao {
 
 	private DAOFactory daoFactory;
@@ -20,15 +22,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		this.daoFactory = daoFactory;
 	}
 	
-	public static PreparedStatement initialisationRequetePreparee( Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets ) throws SQLException {
-	    PreparedStatement preparedStatement = connexion.prepareStatement( sql, returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS );
-	    for ( int i = 0; i < objets.length; i++ ) {
-	        preparedStatement.setObject( i + 1, objets[i] );
-	    }
-	    return preparedStatement;
-	}
-	
-	private static Computer map( ResultSet resultSet ) throws SQLException {
+	private static Computer mapComputer( ResultSet resultSet ) throws SQLException {
 		Computer computer = new Computer();
 		computer.setId(resultSet.getInt("id"));
 		computer.setName(resultSet.getString("name"));
@@ -52,47 +46,6 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 		
 	    return computerList;
-	}
-	
-	public static void fermetureSilencieuse( ResultSet resultSet ) {
-	    if ( resultSet != null ) {
-	        try {
-	            resultSet.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture du ResultSet : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	public static void fermetureSilencieuse( Statement statement ) {
-	    if ( statement != null ) {
-	        try {
-	            statement.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture du Statement : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	public static void fermetureSilencieuse( Connection connexion ) {
-	    if ( connexion != null ) {
-	        try {
-	            connexion.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture de la connexion : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	public static void fermeturesSilencieuses( Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
-	}
-
-	public static void fermeturesSilencieuses( ResultSet resultSet, Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( resultSet );
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
 	}
 	
 	private static final String SQL_FIND_BY_ID = "SELECT id, name, introduced, discontinued, company_id FROM computer WHERE id = ?";
@@ -216,7 +169,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()){
-				computer = map(resultSet);
+				computer = mapComputer(resultSet);
 			}
 			
 		}catch(SQLException e){
