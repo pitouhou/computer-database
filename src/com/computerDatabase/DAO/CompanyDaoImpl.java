@@ -11,6 +11,8 @@ import java.util.Collection;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
 
+import static com.computerDatabase.mapper.CompanyMapper.*;
+
 import static com.computerDatabase.DAO.DAOUtils.*;
 
 public class CompanyDaoImpl implements CompanyDao {
@@ -21,19 +23,6 @@ public class CompanyDaoImpl implements CompanyDao {
 	
 	CompanyDaoImpl(DAOFactory daoFactory){
 		this.daoFactory = daoFactory;
-	}
-	
-	private static Collection<Company> mapListCompany( ResultSet resultSet ) throws SQLException {
-		
-		Collection<Company> companyList = new ArrayList<Company>();
-		while(resultSet.next()){
-			Company company = new Company();
-			company.setId(resultSet.getInt("id"));
-			company.setName(resultSet.getString("name"));
-			companyList.add(company);
-		}
-		
-	    return companyList;
 	}
 	
 	@Override
