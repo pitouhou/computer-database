@@ -22,4 +22,13 @@ public class CompanyMapper {
 	    return companyList;
 	}
 	
+	public static Company mapCompany( ResultSet resultSet ) throws SQLException {
+		
+			Company company = new Company();
+			company.setId(resultSet.getInt("id"));
+			company.setName(resultSet.getString("name"));
+		
+	    return company;
+	}
+	
 }

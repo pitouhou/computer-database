@@ -40,15 +40,21 @@ public class Pages {
 	}
 	
 	public void listComputers(){
-		ComputerServices service = new ComputerServices();
+		ComputerServices service = ComputerServices.getInstance();
+		CompanyServices compService = CompanyServices.getInstance();
 		
 		Collection<Computer> list = service.getComputerList();
 		System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
 		
 		for(Computer comp : list){
-			
-			System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany_id() + "	 |");
-			
+			if(comp.getCompany_id() != 0){
+				Company company = compService.getCompany(comp.getCompany_id());
+				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + company.getId() + "	 |	" + company.getName() + "	|");
+			}else{
+				
+				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany_id() + "	 |");
+				
+			}
 		}
 		menu();
 	}
@@ -58,9 +64,18 @@ public class Pages {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrez l'identifiant de l'ordinateur :");
 		int id = sc.nextInt();
-		ComputerServices service = new ComputerServices();
+		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = service.getComputerDetails(id);
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+		CompanyServices compService = CompanyServices.getInstance();
+		
+		if(computer.getCompany_id() != 0){
+			Company company = compService.getCompany(computer.getCompany_id());
+			System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + company.getId() + "	 |	" + company.getName() + "	|");
+		}else{
+			
+			System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
+			
+		}
 		menu();
 	}
 	
@@ -88,7 +103,7 @@ public class Pages {
 			computer.setCompany_id(company_id);
 			
 			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
-			ComputerServices service = new ComputerServices();
+			ComputerServices service = ComputerServices.getInstance();
 			service.addComputer(computer);
 			menu();
 			
@@ -105,7 +120,7 @@ public class Pages {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
 		int id = sc.nextInt();
-		ComputerServices service = new ComputerServices();
+		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);
 		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
@@ -147,7 +162,7 @@ public class Pages {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
 		int id = sc.nextInt();
-		ComputerServices service = new ComputerServices();
+		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);
 		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany_id() + "	 |");
@@ -166,9 +181,9 @@ public class Pages {
 	
 	public void listCompanies(){
 		
-		CompanyServices service = new CompanyServices();
+		CompanyServices compService = CompanyServices.getInstance();
 		
-		Collection<Company> list = service.getCompanyList();
+		Collection<Company> list = compService.getCompanyList();
 		System.out.println("| 	id	 | 	nom  | ");
 		
 		for(Company comp : list){

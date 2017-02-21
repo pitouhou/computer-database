@@ -8,7 +8,16 @@ import com.computerDatabase.model.Computer;
 
 public class ComputerServices {
 	
-	public ComputerServices(){
+	private static ComputerServices instance;
+	
+	public static ComputerServices getInstance() {
+        if (null == instance) { 
+            instance = new ComputerServices();
+        }
+        return instance;
+    }
+    
+	private ComputerServices(){
 		
 	}
 	
