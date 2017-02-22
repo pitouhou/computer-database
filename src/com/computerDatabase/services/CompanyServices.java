@@ -6,15 +6,12 @@ import com.computerDatabase.DAO.CompanyDao;
 import com.computerDatabase.DAO.DAOFactory;
 import com.computerDatabase.model.Company;
 
-public class CompanyServices {
+public enum CompanyServices {
 
-	private static CompanyServices instance;
+	instance;
 	
 	public static CompanyServices getInstance() {
-        if (null == instance) { 
-            instance = new CompanyServices();
-        }
-        return instance;
+        return CompanyServices.instance;
     }
 
     

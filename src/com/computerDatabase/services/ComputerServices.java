@@ -6,17 +6,17 @@ import com.computerDatabase.DAO.ComputerDao;
 import com.computerDatabase.DAO.DAOFactory;
 import com.computerDatabase.model.Computer;
 
-public class ComputerServices {
+public enum ComputerServices {
 	
-	private static ComputerServices instance;
+	instance;
+	//private static ComputerServices instance;
 	
 	public static ComputerServices getInstance() {
-        if (null == instance) { 
-            instance = new ComputerServices();
-        }
-        return instance;
+        
+		return ComputerServices.instance;
+		
     }
-    
+	
 	private ComputerServices(){
 		
 	}
