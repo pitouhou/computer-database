@@ -24,7 +24,7 @@ public class Pages {
 		System.out.println("[ COMPUTER DATABASE ]");
 		System.out.println("/////////////////////");
 		System.out.println("| (1) liste des ordinateurs || (2) liste des entreprises || (3) details ordinateur || (4) nouvel ordinateur || (5) modifier ordinateur || (6) supprimer ordinateur |");
-		System.out.println("Choisissez votre action et tapez entré");
+		System.out.println("Choisissez votre action et tapez entrée");
 		int pt = sc.nextInt();
 		
 		switch(pt){
@@ -61,7 +61,6 @@ public class Pages {
 		int id = sc.nextInt();
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = service.getComputerDetails(id);
-		CompanyServices compService = CompanyServices.getInstance();
 		
 		
 		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "	|");

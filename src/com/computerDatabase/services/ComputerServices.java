@@ -36,8 +36,14 @@ public class ComputerServices {
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
-				
-		Computer comp1 = comp.details(id);
+		Computer comp1 = new Computer();
+		try{
+			comp1 = comp.details(id);
+		}catch(NullPointerException e){
+			System.out.println("L'identifiant ne correspond a aucun ordinateur");
+			return comp1;
+		}
+		
 		
 		return comp1;
 	}
@@ -47,7 +53,13 @@ public class ComputerServices {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
 		
-		comp.create(computer);
+		try{
+			comp.create(computer);
+			System.out.println("Ordinateur ajouté avec succés");
+		}catch(NullPointerException e){
+			System.out.println("Erreur lors de l'ajout de l'ordinateur");
+		}
+		
 		
 	}
 	
@@ -56,7 +68,13 @@ public class ComputerServices {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
 		
-		comp.update(computer);
+		try{
+			comp.update(computer);
+			System.out.println("Ordinateur modifié avec succés");
+		}catch(NullPointerException e){
+			System.out.println("Erreur lors de la modification des details de l'ordinateur");
+		}
+		
 		
 	}
 	
@@ -64,8 +82,13 @@ public class ComputerServices {
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
+		try{
+			comp.delete(id);
+			System.out.println("Ordinateur supprimé avec succés");
+		}catch(NullPointerException e){
+			System.out.println("Erreur lors de la suppression de l'ordinateur");
+		}
 		
-		comp.delete(id);
 		
 	}
 	

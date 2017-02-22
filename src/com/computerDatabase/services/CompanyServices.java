@@ -38,8 +38,14 @@ public class CompanyServices {
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		CompanyDao comp = daoFactory.getCompanyDao();
-				
-		Company comp1 = comp.getCompanyById(id);	
+		Company comp1 = new Company();
+		try{
+			comp1 = comp.getCompanyById(id);
+		}catch(NullPointerException e){
+			System.out.println("Aucune entreprise ne correspond à cet identifiant");
+			return comp1;
+		}
+			
 				
 		return comp1;
 		
