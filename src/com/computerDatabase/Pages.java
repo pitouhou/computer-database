@@ -41,7 +41,6 @@ public class Pages {
 	
 	public void listComputers(){
 		ComputerServices service = ComputerServices.getInstance();
-		CompanyServices compService = CompanyServices.getInstance();
 		
 		Collection<Computer> list = service.getComputerList();
 		System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
@@ -58,7 +57,7 @@ public class Pages {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrez l'identifiant de l'ordinateur :");
-		int id = sc.nextInt();
+		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = service.getComputerDetails(id);
 		
@@ -81,7 +80,7 @@ public class Pages {
 		System.out.println("Entrez la date d'arrêt de l'ordinateur :");
 		String discontinue = sc.next();
 		System.out.println("Entrez l'identifiant de l'entreprise :");
-		int company_id = sc.nextInt();
+		long company_id = sc.nextLong();
 		Date introduced = DateUtils.convertDate(introduce);
 		Date discontinued = DateUtils.convertDate(discontinue);
 		if(DateUtils.compareDate( introduced, discontinued)){
@@ -121,7 +120,7 @@ public class Pages {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
-		int id = sc.nextInt();
+		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);
@@ -135,7 +134,7 @@ public class Pages {
 		System.out.println("Entrez la nouvelle date d'arrêt de l'ordinateur :");
 		String discontinue = sc.next();
 		System.out.println("Entrez le nouvel identifiant de l'entreprise :");
-		int company_id = sc.nextInt();
+		long company_id = sc.nextLong();
 		Date introduced = DateUtils.convertDate(introduce);
 		Date discontinued = DateUtils.convertDate(discontinue);
 		if(DateUtils.compareDate( introduced, discontinued)){
@@ -176,7 +175,7 @@ public class Pages {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
-		int id = sc.nextInt();
+		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer = new Computer();
 		computer = service.getComputerDetails(id);

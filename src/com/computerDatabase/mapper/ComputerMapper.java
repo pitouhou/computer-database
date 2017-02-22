@@ -13,9 +13,9 @@ public class ComputerMapper {
 	public static Computer mapComputer( ResultSet resultSet ) throws SQLException {
 		Computer computer = new Computer();
 		CompanyServices compService = CompanyServices.getInstance();
-		computer.setId(resultSet.getInt("id"));
+		computer.setId(resultSet.getLong("id"));
 		computer.setName(resultSet.getString("name"));
-		computer.setCompany( compService.getCompany(resultSet.getInt( "company_id" )) );
+		computer.setCompany( compService.getCompany(resultSet.getLong( "company_id" )) );
 		computer.setIntroduced( resultSet.getDate( "introduced" ) );
 		computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
 	    return computer;
@@ -27,9 +27,9 @@ public class ComputerMapper {
 		while(resultSet.next()){
 			Computer computer = new Computer();
 			CompanyServices compService = CompanyServices.getInstance();
-			computer.setId(resultSet.getInt("id"));
+			computer.setId(resultSet.getLong("id"));
 			computer.setName(resultSet.getString("name"));
-			computer.setCompany( compService.getCompany(resultSet.getInt( "company_id" )) );
+			computer.setCompany( compService.getCompany(resultSet.getLong( "company_id" )) );
 			computer.setIntroduced( resultSet.getDate( "introduced" ) );
 			computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
 			computerList.add(computer);

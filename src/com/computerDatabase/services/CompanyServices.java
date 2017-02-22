@@ -34,7 +34,7 @@ public class CompanyServices {
 		
 	}
 	
-	public Company getCompany(int id){
+	public Company getCompany(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		CompanyDao comp = daoFactory.getCompanyDao();

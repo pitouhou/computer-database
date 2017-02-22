@@ -7,5 +7,5 @@ import com.computerDatabase.model.Company;
 public interface CompanyDao {
 	
 	Collection<Company> list() throws DAOException;
-	Company getCompanyById(int id) throws DAOException;
+	Company getCompanyById(long id) throws DAOException;
 }

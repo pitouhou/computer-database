@@ -50,7 +50,7 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 	
 	@Override
-	public Company getCompanyById(int id) throws DAOException {
+	public Company getCompanyById(long id) throws DAOException {
 		
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;

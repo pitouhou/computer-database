@@ -38,7 +38,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		String name = computer.getName();
 		Date introduced = computer.getIntroduced();
 		Date discontinued = computer.getDiscontinued();
-		int company_id = computer.getCompany().getId();
+		long company_id = computer.getCompany().getId();
 		
 		try{
 			
@@ -56,7 +56,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public void delete(int id) throws DAOException {
+	public void delete(long id) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		int resultSet;
@@ -81,11 +81,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		int resultSet;
-		int id = computer.getId();
+		long id = computer.getId();
 		String name = computer.getName();
 		Date introduced = computer.getIntroduced();
 		Date discontinued = computer.getDiscontinued();
-		int company_id = computer.getCompany().getId();
+		long company_id = computer.getCompany().getId();
 		
 		try{
 			
@@ -129,7 +129,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public Computer details(int id) throws DAOException {
+	public Computer details(long id) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

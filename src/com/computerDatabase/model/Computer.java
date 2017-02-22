@@ -1,18 +1,19 @@
 package com.computerDatabase.model;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Computer {
-	private int id;
+	private long id;
 	private String name;
 	private Date introduced;
 	private Date discontinued;
 	private Company company;
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -53,5 +54,35 @@ public class Computer {
 		this.company = company;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		
+	    if (this == o)
+	    {
+	        return true;
+	    }
+	    
+	    if (o == null)
+	    {
+	        return false;
+	    }
+	    if (getClass() != o.getClass())
+	    {
+	        return false;
+	    }
+	    Computer computer = (Computer) o;
+	    
+	    return Objects.equals(id, computer.id) && Objects.equals(name, computer.name) && Objects.equals(introduced, computer.introduced) && Objects.equals(discontinued, computer.discontinued) && Objects.equals(company,  computer.company);
+	}
+	
+	@Override
+    public int hashCode() {
+        return Objects.hash(id, name, introduced, discontinued, company);
+    }
+	
+	@Override
+    public String toString() {
+        return String.valueOf(this);
+    }
 	
 }

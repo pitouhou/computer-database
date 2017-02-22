@@ -32,7 +32,7 @@ public class ComputerServices {
 		
 	}
 	
-	public Computer getComputerDetails(int id){
+	public Computer getComputerDetails(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();
@@ -78,7 +78,7 @@ public class ComputerServices {
 		
 	}
 	
-	public void deleteComputer(int id){
+	public void deleteComputer(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		ComputerDao comp = daoFactory.getComputerDao();

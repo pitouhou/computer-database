@@ -14,7 +14,7 @@ public class CompanyMapper {
 		Collection<Company> companyList = new ArrayList<Company>();
 		while(resultSet.next()){
 			Company company = new Company();
-			company.setId(resultSet.getInt("id"));
+			company.setId(resultSet.getLong("id"));
 			company.setName(resultSet.getString("name"));
 			companyList.add(company);
 		}
@@ -25,7 +25,7 @@ public class CompanyMapper {
 	public static Company mapCompany( ResultSet resultSet ) throws SQLException {
 		
 			Company company = new Company();
-			company.setId(resultSet.getInt("id"));
+			company.setId(resultSet.getLong("id"));
 			company.setName(resultSet.getString("name"));
 		
 	    return company;
