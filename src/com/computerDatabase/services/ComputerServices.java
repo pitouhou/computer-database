@@ -6,7 +6,7 @@ import com.computerDatabase.DAO.ComputerDao;
 import com.computerDatabase.DAO.DAOFactory;
 import com.computerDatabase.model.Computer;
 
-public enum ComputerServices {
+public enum ComputerServices implements ComputerServicesInterface{
 	
 	instance;
 	//private static ComputerServices instance;
@@ -21,6 +21,7 @@ public enum ComputerServices {
 		
 	}
 	
+	@Override
 	public Collection<Computer> getComputerList(){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -32,6 +33,7 @@ public enum ComputerServices {
 		
 	}
 	
+	@Override
 	public Computer getComputerDetails(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -48,6 +50,7 @@ public enum ComputerServices {
 		return comp1;
 	}
 	
+	@Override
 	public void addComputer(Computer computer){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -63,6 +66,7 @@ public enum ComputerServices {
 		
 	}
 	
+	@Override
 	public void updateComputer(Computer computer){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -78,6 +82,7 @@ public enum ComputerServices {
 		
 	}
 	
+	@Override
 	public void deleteComputer(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();

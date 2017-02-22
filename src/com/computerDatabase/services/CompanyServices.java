@@ -6,7 +6,7 @@ import com.computerDatabase.DAO.CompanyDao;
 import com.computerDatabase.DAO.DAOFactory;
 import com.computerDatabase.model.Company;
 
-public enum CompanyServices {
+public enum CompanyServices implements CompanyServicesInterface {
 
 	instance;
 	
@@ -19,7 +19,7 @@ public enum CompanyServices {
     	
     }
 
-    
+    @Override
 	public Collection<Company> getCompanyList(){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -30,7 +30,7 @@ public enum CompanyServices {
 		return comp1;
 		
 	}
-	
+    @Override
 	public Company getCompany(long id){
 		
 		DAOFactory daoFactory = DAOFactory.getInstance();
