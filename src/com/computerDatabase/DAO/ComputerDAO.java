@@ -15,8 +15,8 @@ import com.computerDatabase.model.Computer;
 
 public class ComputerDAO implements DAO<Computer>{
 
-	private static final String SQL_FIND_BY_ID = "SELECT id, name, introduced, discontinued, company_id FROM computer WHERE id = ?";
-	private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer";
+	private static final String SQL_FIND_BY_ID = "SELECT * FROM computer RIGHT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
+	private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer RIGHT JOIN company ON computer.company_id = company.id";
 	private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
 	private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
 	private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
@@ -46,7 +46,6 @@ public class ComputerDAO implements DAO<Computer>{
 			connexion = DAO.connect;
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
 			resultSet = preparedStatement.executeQuery();
-			
 			if(resultSet.next()){
 				computer = mapComputer(resultSet);
 			}
@@ -155,7 +154,8 @@ public class ComputerDAO implements DAO<Computer>{
 		}
 		
 	}
-
+	
+	
 	
 	
 }

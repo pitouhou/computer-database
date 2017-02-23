@@ -8,7 +8,6 @@ import com.computerDatabase.model.Computer;
 public enum ComputerServices implements ComputerServicesInterface{
 	
 	instance;
-	//private static ComputerServices instance;
 	
 	public static ComputerServices getInstance() {
         
