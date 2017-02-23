@@ -2,8 +2,7 @@ package com.computerDatabase.services;
 
 import java.util.Collection;
 
-import com.computerDatabase.DAO.ComputerDao;
-import com.computerDatabase.DAO.DAOFactory;
+import com.computerDatabase.DAO.ComputerDAO;
 import com.computerDatabase.model.Computer;
 
 public enum ComputerServices implements ComputerServicesInterface{
@@ -24,10 +23,9 @@ public enum ComputerServices implements ComputerServicesInterface{
 	@Override
 	public Collection<Computer> getComputerList(){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		ComputerDao comp = daoFactory.getComputerDao();
+		ComputerDAO comp = ComputerDAO.getInstance();
 				
-		Collection<Computer> comp1 = comp.list();		
+		Collection<Computer> comp1 = comp.findAll();		
 				
 		return comp1;
 		
@@ -36,11 +34,10 @@ public enum ComputerServices implements ComputerServicesInterface{
 	@Override
 	public Computer getComputerDetails(long id){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		ComputerDao comp = daoFactory.getComputerDao();
+		ComputerDAO comp = ComputerDAO.getInstance();
 		Computer comp1 = new Computer();
 		try{
-			comp1 = comp.details(id);
+			comp1 = comp.findById(id);
 		}catch(NullPointerException e){
 			System.out.println("L'identifiant ne correspond a aucun ordinateur");
 			return comp1;
@@ -53,8 +50,7 @@ public enum ComputerServices implements ComputerServicesInterface{
 	@Override
 	public void addComputer(Computer computer){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		ComputerDao comp = daoFactory.getComputerDao();
+		ComputerDAO comp = ComputerDAO.getInstance();
 		
 		try{
 			comp.create(computer);
@@ -69,8 +65,7 @@ public enum ComputerServices implements ComputerServicesInterface{
 	@Override
 	public void updateComputer(Computer computer){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		ComputerDao comp = daoFactory.getComputerDao();
+		ComputerDAO comp = ComputerDAO.getInstance();
 		
 		try{
 			comp.update(computer);
@@ -85,8 +80,7 @@ public enum ComputerServices implements ComputerServicesInterface{
 	@Override
 	public void deleteComputer(long id){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		ComputerDao comp = daoFactory.getComputerDao();
+		ComputerDAO comp = ComputerDAO.getInstance();
 		try{
 			comp.delete(id);
 			System.out.println("Ordinateur supprimé avec succés");

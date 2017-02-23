@@ -2,8 +2,7 @@ package com.computerDatabase.services;
 
 import java.util.Collection;
 
-import com.computerDatabase.DAO.CompanyDao;
-import com.computerDatabase.DAO.DAOFactory;
+import com.computerDatabase.DAO.CompanyDAO;
 import com.computerDatabase.model.Company;
 
 public enum CompanyServices implements CompanyServicesInterface {
@@ -22,10 +21,9 @@ public enum CompanyServices implements CompanyServicesInterface {
     @Override
 	public Collection<Company> getCompanyList(){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		CompanyDao comp = daoFactory.getCompanyDao();
+		CompanyDAO comp = CompanyDAO.getInstance();
 				
-		Collection<Company> comp1 = comp.list();		
+		Collection<Company> comp1 = comp.findAll();		
 				
 		return comp1;
 		
@@ -33,11 +31,10 @@ public enum CompanyServices implements CompanyServicesInterface {
     @Override
 	public Company getCompany(long id){
 		
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		CompanyDao comp = daoFactory.getCompanyDao();
+    	CompanyDAO comp = CompanyDAO.getInstance();
 		Company comp1 = new Company();
 		try{
-			comp1 = comp.getCompanyById(id);
+			comp1 = comp.findById(id);
 		}catch(NullPointerException e){
 			System.out.println("Aucune entreprise ne correspond à cet identifiant");
 			return comp1;

@@ -1,9 +1,7 @@
 package com.computerDatabase.DAO;
 
 public class DAOException extends RuntimeException {
-	/*
-     * Constructeur
-     */
+	
     public DAOException( String message ) {
         super( message );
     }

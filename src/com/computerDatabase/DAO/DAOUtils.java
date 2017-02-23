@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DAOUtils {
 	
-	public static PreparedStatement initialisationRequetePreparee( Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets ) throws SQLException {
+	public static PreparedStatement initPreparedStatement( Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets ) throws SQLException {
 	    PreparedStatement preparedStatement = connexion.prepareStatement( sql, returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS );
 	    for ( int i = 0; i < objets.length; i++ ) {
 	        preparedStatement.setObject( i + 1, objets[i] );
@@ -16,7 +16,7 @@ public class DAOUtils {
 	    return preparedStatement;
 	}
 	
-	public static void fermetureSilencieuse( ResultSet resultSet ) {
+	public static void silentClose( ResultSet resultSet ) {
 	    if ( resultSet != null ) {
 	        try {
 	            resultSet.close();
@@ -26,7 +26,7 @@ public class DAOUtils {
 	    }
 	}
 	
-	public static void fermetureSilencieuse( Statement statement ) {
+	public static void silentClose( Statement statement ) {
 	    if ( statement != null ) {
 	        try {
 	            statement.close();
@@ -36,7 +36,7 @@ public class DAOUtils {
 	    }
 	}
 
-	public static void fermetureSilencieuse( Connection connexion ) {
+	public static void silentClose( Connection connexion ) {
 	    if ( connexion != null ) {
 	        try {
 	            connexion.close();
@@ -46,15 +46,15 @@ public class DAOUtils {
 	    }
 	}
 
-	public static void fermeturesSilencieuses( Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
+	public static void silentCloses( Statement statement, Connection connexion ) {
+		silentClose( statement );
+		silentClose( connexion );
 	}
 
-	public static void fermeturesSilencieuses( ResultSet resultSet, Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( resultSet );
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
+	public static void silentCloses( ResultSet resultSet, Statement statement, Connection connexion ) {
+		silentClose( resultSet );
+		silentClose( statement );
+		silentClose( connexion );
 	}
 	
 }
