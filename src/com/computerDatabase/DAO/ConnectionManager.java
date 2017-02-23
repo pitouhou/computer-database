@@ -16,7 +16,7 @@ public class ConnectionManager {
 	
 	public static Connection getInstance(){
 		try {
-			Optional<Properties> propertiesTmp = ConnectionManager.getProperties("DAO.properties");
+			Optional<Properties> propertiesTmp = ConnectionManager.getProperties("src/com/computerDatabase/DAO/DAO.properties");
 			Properties properties = propertiesTmp.get();
 			if(connect == null){
 				try {
@@ -36,6 +36,7 @@ public class ConnectionManager {
 		
 		Properties properties = new Properties();
 		File	file = new File(fileName);
+		System.out.println(file.exists());
 		if(file.exists()){
 			FileInputStream input = new FileInputStream(fileName); 
 		    
