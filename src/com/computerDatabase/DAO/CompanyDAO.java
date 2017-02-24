@@ -50,8 +50,7 @@ public class CompanyDAO implements DAO<Company>{
 			}
 			
 		}catch(SQLException e){
-			Optional.empty();
-			throw new DAOException(e);
+			return Optional.empty();
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
@@ -77,8 +76,7 @@ public class CompanyDAO implements DAO<Company>{
 			}
 			
 		}catch(SQLException e){
-			Optional.empty();
-			throw new DAOException(e);
+			return Optional.empty();
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}

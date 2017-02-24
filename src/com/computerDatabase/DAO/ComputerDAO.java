@@ -51,8 +51,7 @@ public class ComputerDAO implements DAO<Computer>{
 				computer = mapComputer(resultSet);
 			}
 		}catch(SQLException e){
-			Optional.empty();
-			throw new DAOException(e);
+			return Optional.empty();
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
@@ -77,8 +76,7 @@ public class ComputerDAO implements DAO<Computer>{
 			}
 			
 		}catch(SQLException e){
-			Optional.empty();
-			throw new DAOException(e);
+			return Optional.empty();
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}

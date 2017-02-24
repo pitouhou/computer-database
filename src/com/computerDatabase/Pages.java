@@ -36,7 +36,6 @@ public class Pages {
                                 
             default : System.out.println("entrez un choix"); break;
 		}
-		sc.close();
 		menu();
 	}
 	
@@ -71,11 +70,11 @@ public class Pages {
 		if(computer.isPresent()){
 			Computer computer1 = computer.get();
 			System.out.println("| " + computer1.getId() + " | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "	|");
-			sc.close();
+			sc.reset();
 			menu();
 		}else{
 			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
-			sc.close();
+			sc.reset();
 			menu();
 		}
 	}
@@ -119,12 +118,12 @@ public class Pages {
 			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
 			ComputerServices service = ComputerServices.getInstance();
 			service.addComputer(computer);
-			sc.close();
+			sc.reset();
 			menu();
 		
 		}else{
 			System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
-			sc.close();
+			sc.reset();
 			createComputer();
 		}
 	}
@@ -176,16 +175,16 @@ public class Pages {
 				System.out.println(" | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "	|");
 				
 				service.updateComputer(computer1);
-				sc.close();
+				sc.reset();
 				menu();
 			}else{
 				System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
-				sc.close();
+				sc.reset();
 				updateComputer();
 			}
 		}else{
 			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
-			sc.close();
+			sc.reset();
 			createComputer();
 		}
 	}
@@ -209,17 +208,17 @@ public class Pages {
 			if(rep == 1){
 				service.deleteComputer(id);
 				System.out.println("Ordinateur supprimé !");
-				sc.close();
+				sc.reset();
 				menu();
 			}else{
 				System.out.println("Opération annulée !");
-				sc.close();
+				sc.reset();
 				menu();
 			}
 			
 		}else{
 			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
-			sc.close();
+			sc.reset();
 			menu();
 		}
 	}
