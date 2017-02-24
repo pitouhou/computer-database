@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Optional;
+
 import com.computerDatabase.model.Computer;
 
 public class ComputerDAO implements DAO<Computer>{
@@ -35,36 +37,34 @@ public class ComputerDAO implements DAO<Computer>{
 	}
 	
 	@Override
-	public Computer findById(long id) {
+	public Optional<Computer> findById(long id) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Computer computer = null;
+		Optional<Computer> computer = Optional.empty();
 		
 		try{
-			
 			connexion = DAO.connect;
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
 				computer = mapComputer(resultSet);
 			}
-			
 		}catch(SQLException e){
+			Optional.empty();
 			throw new DAOException(e);
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
-		
 		return computer;
 	}
 
 	@Override
-	public Collection<Computer> findAll() {
+	public Optional<Collection<Computer>> findAll() {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Collection<Computer> listComputer = null;
+		Optional<Collection<Computer>> listComputer = Optional.empty();
 		
 		try{
 			
@@ -77,11 +77,11 @@ public class ComputerDAO implements DAO<Computer>{
 			}
 			
 		}catch(SQLException e){
+			Optional.empty();
 			throw new DAOException(e);
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
-		
 		return listComputer;
 	}
 

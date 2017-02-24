@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Optional;
 
 import com.computerDatabase.model.Company;
 
@@ -32,11 +33,11 @@ public class CompanyDAO implements DAO<Company>{
 	}
 	
 	@Override
-	public Company findById(long id) {
+	public Optional<Company> findById(long id) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Company company = null;
+		Optional<Company> company = Optional.empty();
 		
 		try{
 			
@@ -49,6 +50,7 @@ public class CompanyDAO implements DAO<Company>{
 			}
 			
 		}catch(SQLException e){
+			Optional.empty();
 			throw new DAOException(e);
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
@@ -58,11 +60,11 @@ public class CompanyDAO implements DAO<Company>{
 	}
 
 	@Override
-	public Collection<Company> findAll() {
+	public Optional<Collection<Company>> findAll() {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Collection<Company> listCompany = null;
+		Optional<Collection<Company>> listCompany = Optional.empty();
 		
 		try{
 			
@@ -75,6 +77,7 @@ public class CompanyDAO implements DAO<Company>{
 			}
 			
 		}catch(SQLException e){
+			Optional.empty();
 			throw new DAOException(e);
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);

@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
-import com.computerDatabase.services.CompanyServices;
 
 public class ComputerMapper {
 
-	public static Computer mapComputer( ResultSet resultSet ) throws SQLException {
+	public static Optional<Computer> mapComputer( ResultSet resultSet ) throws SQLException {
 		Computer computer = new Computer();
 		Company company = new Company();
 		company.setId(resultSet.getLong("company.id"));
@@ -21,10 +21,10 @@ public class ComputerMapper {
 		computer.setCompany(company);
 		computer.setIntroduced( resultSet.getDate( "introduced" ) );
 		computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
-	    return computer;
+	    return Optional.of(computer);
 	}
 	
-	public static Collection<Computer> mapListComputer( ResultSet resultSet ) throws SQLException {
+	public static Optional<Collection<Computer>> mapListComputer( ResultSet resultSet ) throws SQLException {
 		
 		Collection<Computer> computerList = new ArrayList<Computer>();
 		while(resultSet.next()){
@@ -40,7 +40,7 @@ public class ComputerMapper {
 			computerList.add(computer);
 		}
 		
-	    return computerList;
+	    return Optional.of(computerList);
 	}
 	
 }

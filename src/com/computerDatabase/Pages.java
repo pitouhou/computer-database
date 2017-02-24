@@ -1,9 +1,8 @@
 package com.computerDatabase;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Scanner;
 
 import com.computerDatabase.entryUtils.DateUtils;
@@ -37,20 +36,28 @@ public class Pages {
                                 
             default : System.out.println("entrez un choix"); break;
 		}
+		sc.close();
+		menu();
 	}
 	
 	public void listComputers(){
 		ComputerServices service = ComputerServices.getInstance();
 		
-		Collection<Computer> list = service.getComputerList();
-		System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
-		
-		for(Computer comp : list){
+		Optional<Collection<Computer>> list = service.getComputerList();
+		if(list.isPresent()){
 			
-				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany().getId() + "	 |	" + comp.getCompany().getName() + "	|");
+			System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
 			
+			for(Computer comp : list.get()){
+				
+					System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	" + comp.getIntroduced() + "	 | 	" + comp.getDiscontinued() + "	 | 	" + comp.getCompany().getId() + "	 |	" + comp.getCompany().getName() + "	|");
+				
+			}
+			menu();
+		}else{
+			System.out.println("Aucun ordinateur trouvé !");
+			menu();
 		}
-		menu();
 	}
 	
 	public void computerDetails(){
@@ -59,12 +66,18 @@ public class Pages {
 		System.out.println("Entrez l'identifiant de l'ordinateur :");
 		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
-		Computer computer = service.getComputerDetails(id);
+		Optional<Computer> computer = service.getComputerDetails(id);
 		
-		
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "	|");
-		
-		menu();
+		if(computer.isPresent()){
+			Computer computer1 = computer.get();
+			System.out.println("| " + computer1.getId() + " | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "	|");
+			sc.close();
+			menu();
+		}else{
+			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
+			sc.close();
+			menu();
+		}
 	}
 	
 	public void createComputer(){
@@ -85,33 +98,33 @@ public class Pages {
 		Date discontinued = DateUtils.convertDate(discontinue);
 		if(DateUtils.compareDate( introduced, discontinued)){
 			
-			Company company = new Company();
-			
-			if(company_id != 0){
+			Company company1 = new Company();
+			CompanyServices compService = CompanyServices.getInstance();
+			Optional<Company> company = compService.getCompany(company_id);
+			if(company.isPresent()){
 				
-				CompanyServices compService = CompanyServices.getInstance();
-				company = compService.getCompany(company_id);
+				company1 = company.get();
 				
 			}else{
 				
-				company = null;
+				company1 = null;
 				
 			}
 			
 			computer.setName(name);
 			computer.setIntroduced(introduced);
 			computer.setDiscontinued(discontinued);
-			computer.setCompany(company);
+			computer.setCompany(company1);
 			
 			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
 			ComputerServices service = ComputerServices.getInstance();
 			service.addComputer(computer);
+			sc.close();
 			menu();
-			
 		
 		}else{
-			
 			System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
+			sc.close();
 			createComputer();
 		}
 	}
@@ -122,53 +135,59 @@ public class Pages {
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
 		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
-		Computer computer = new Computer();
-		computer = service.getComputerDetails(id);
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
+		Computer computer1 = new Computer();
+		Optional<Computer> computer = service.getComputerDetails(id);
 		
-		
-		System.out.println("Entrez le nouveau nom de l'ordinateur :");
-		String name = sc.next();
-		System.out.println("Entrez la nouvelle date d'introduction de l'ordinateur :");
-		String introduce = sc.next();
-		System.out.println("Entrez la nouvelle date d'arrêt de l'ordinateur :");
-		String discontinue = sc.next();
-		System.out.println("Entrez le nouvel identifiant de l'entreprise :");
-		long company_id = sc.nextLong();
-		Date introduced = DateUtils.convertDate(introduce);
-		Date discontinued = DateUtils.convertDate(discontinue);
-		if(DateUtils.compareDate( introduced, discontinued)){
+		if(computer.isPresent()){
 			
-			Company company = new Company();
-			
-			if(company_id != 0){
+			computer1 = computer.get();
+			System.out.println("| " + computer1.getId() + " | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "		|");
+			System.out.println("Entrez le nouveau nom de l'ordinateur :");
+			String name = sc.next();
+			System.out.println("Entrez la nouvelle date d'introduction de l'ordinateur :");
+			String introduce = sc.next();
+			System.out.println("Entrez la nouvelle date d'arrêt de l'ordinateur :");
+			String discontinue = sc.next();
+			System.out.println("Entrez le nouvel identifiant de l'entreprise :");
+			long company_id = sc.nextLong();
+			Date introduced = DateUtils.convertDate(introduce);
+			Date discontinued = DateUtils.convertDate(discontinue);
+			if(DateUtils.compareDate( introduced, discontinued)){
 				
+				Company company1 = new Company();
+				Optional<Company> company = Optional.empty();
 				CompanyServices compService = CompanyServices.getInstance();
 				company = compService.getCompany(company_id);
+				if(company.isPresent()){
+					
+					company1 = company.get();
+					
+				}else{
+					
+					company = null;
+					
+				}
 				
+				computer1.setName(name);
+				computer1.setIntroduced(introduced);
+				computer1.setDiscontinued(discontinued);
+				computer1.setCompany(company1);
+				
+				System.out.println(" | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "	|");
+				
+				service.updateComputer(computer1);
+				sc.close();
+				menu();
 			}else{
-				
-				company = null;
-				
+				System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
+				sc.close();
+				updateComputer();
 			}
-			
-			computer.setName(name);
-			computer.setIntroduced(introduced);
-			computer.setDiscontinued(discontinued);
-			computer.setCompany(company);
-			
-			System.out.println(" | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "	|");
-			//ComputerServices service = new ComputerServices();
-			service.updateComputer(computer);
-			menu();
-			
-		
 		}else{
-			
-			System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
-			updateComputer();
+			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
+			sc.close();
+			createComputer();
 		}
-		
 	}
 	
 	public void deleteComputer(){
@@ -177,18 +196,30 @@ public class Pages {
 		System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
 		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
-		Computer computer = new Computer();
+		Computer computer1 = new Computer();
+		Optional<Computer> computer = Optional.empty();
 		computer = service.getComputerDetails(id);
-		System.out.println("| " + computer.getId() + " | 	" + computer.getName() + " 	| 	" + computer.getIntroduced() + "	 | 	" + computer.getDiscontinued() + "	 | 	" + computer.getCompany().getId() + "	 |	" + computer.getCompany().getName() + "		|");
-		System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
-		int rep = sc.nextInt();
-		if(rep == 1){
+		
+		if(computer.isPresent()){
 			
-			service.deleteComputer(id);
-			System.out.println("Ordinateur supprimé !");
+			computer1 = computer.get();
+			System.out.println("| " + computer1.getId() + " | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "		|");
+			System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
+			int rep = sc.nextInt();
+			if(rep == 1){
+				service.deleteComputer(id);
+				System.out.println("Ordinateur supprimé !");
+				sc.close();
+				menu();
+			}else{
+				System.out.println("Opération annulée !");
+				sc.close();
+				menu();
+			}
 			
 		}else{
-			System.out.println("Opération annulée !");
+			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
+			sc.close();
 			menu();
 		}
 	}
@@ -196,17 +227,17 @@ public class Pages {
 	public void listCompanies(){
 		
 		CompanyServices compService = CompanyServices.getInstance();
+		Optional<Collection<Company>> list = compService.getCompanyList();
 		
-		Collection<Company> list = compService.getCompanyList();
-		System.out.println("| 	id	 | 	nom  | ");
-		
-		for(Company comp : list){
+		if(list.isPresent()){
+			System.out.println("| 	id	 | 	nom  | ");
+			for(Company comp : list.get()){
+				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	");
+			}
+			menu();
 			
-			System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	");
+		}else{
 			
 		}
-		menu();
-		
 	}
-	
 }

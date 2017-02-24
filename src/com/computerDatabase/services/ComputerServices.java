@@ -2,6 +2,8 @@ package com.computerDatabase.services;
 
 import java.util.Collection;
 
+import java.util.Optional;
+
 import com.computerDatabase.DAO.ComputerDAO;
 import com.computerDatabase.model.Computer;
 
@@ -20,29 +22,26 @@ public enum ComputerServices implements ComputerServicesInterface{
 	}
 	
 	@Override
-	public Collection<Computer> getComputerList(){
+	public Optional<Collection<Computer>> getComputerList(){
 		
 		ComputerDAO comp = ComputerDAO.getInstance();
-				
-		Collection<Computer> comp1 = comp.findAll();		
-				
-		return comp1;
+		Optional<Collection<Computer>> comp1;
+		comp1 = comp.findAll();		
 		
+		return comp1;
 	}
 	
 	@Override
-	public Computer getComputerDetails(long id){
+	public Optional<Computer> getComputerDetails(long id){
 		
 		ComputerDAO comp = ComputerDAO.getInstance();
-		Computer comp1 = new Computer();
+		Optional<Computer> comp1;
 		try{
 			comp1 = comp.findById(id);
 		}catch(NullPointerException e){
 			System.out.println("L'identifiant ne correspond a aucun ordinateur");
-			return comp1;
+			return Optional.empty();
 		}
-		
-		
 		return comp1;
 	}
 	
@@ -57,8 +56,6 @@ public enum ComputerServices implements ComputerServicesInterface{
 		}catch(NullPointerException e){
 			System.out.println("Erreur lors de l'ajout de l'ordinateur");
 		}
-		
-		
 	}
 	
 	@Override
@@ -72,8 +69,6 @@ public enum ComputerServices implements ComputerServicesInterface{
 		}catch(NullPointerException e){
 			System.out.println("Erreur lors de la modification des details de l'ordinateur");
 		}
-		
-		
 	}
 	
 	@Override
@@ -86,8 +81,5 @@ public enum ComputerServices implements ComputerServicesInterface{
 		}catch(NullPointerException e){
 			System.out.println("Erreur lors de la suppression de l'ordinateur");
 		}
-		
-		
 	}
-	
 }

@@ -1,6 +1,7 @@
 package com.computerDatabase.services;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import com.computerDatabase.DAO.CompanyDAO;
 import com.computerDatabase.model.Company;
@@ -19,30 +20,26 @@ public enum CompanyServices implements CompanyServicesInterface {
     }
 
     @Override
-	public Collection<Company> getCompanyList(){
+	public Optional<Collection<Company>> getCompanyList(){
 		
 		CompanyDAO comp = CompanyDAO.getInstance();
 				
-		Collection<Company> comp1 = comp.findAll();		
+		Optional<Collection<Company>> comp1 = comp.findAll();		
 				
 		return comp1;
 		
 	}
     @Override
-	public Company getCompany(long id){
+	public Optional<Company> getCompany(long id){
 		
     	CompanyDAO comp = CompanyDAO.getInstance();
-		Company comp1 = new Company();
+    	Optional<Company> comp1;
 		try{
 			comp1 = comp.findById(id);
 		}catch(NullPointerException e){
 			System.out.println("Aucune entreprise ne correspond à cet identifiant");
-			return comp1;
-		}
-			
-				
+			return Optional.empty();
+		}	
 		return comp1;
-		
 	}
-	
 }
