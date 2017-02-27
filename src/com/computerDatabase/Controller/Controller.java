@@ -1,6 +1,6 @@
 package com.computerDatabase.Controller;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.Optional;
@@ -162,12 +162,15 @@ public class Controller {
 			String name = sc.next();
 			System.out.println("Entrez la date d'introduction de l'ordinateur :");
 			String introduce = sc.next();
+			LocalDate introduced = DateUtils.convertDate(introduce);
 			System.out.println("Entrez la date d'arrêt de l'ordinateur :");
 			String discontinue = sc.next();
+			LocalDate discontinued = DateUtils.convertDate(discontinue);
 			System.out.println("Entrez l'identifiant de l'entreprise :");
 			long company_id = sc.nextLong();
-			Date introduced = DateUtils.convertDate(introduce);
-			Date discontinued = DateUtils.convertDate(discontinue);
+			
+			
+			
 			if(DateUtils.compareDate( introduced, discontinued)){
 				
 				Company company = isCompanyValid(company_id);

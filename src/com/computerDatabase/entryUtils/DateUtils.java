@@ -1,22 +1,22 @@
 package com.computerDatabase.entryUtils;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.computerDatabase.Controller.Controller;
 
 public class DateUtils {
 
-	public static Date convertDate(String dateIn){
+	public static LocalDate convertDate(String dateIn){
 		
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date;
-		java.sql.Date dateOut;
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		LocalDate dateOut;
 		try {
-			date = sdf1.parse(dateIn);
-			dateOut = new Date(date.getTime());
-		} catch (ParseException e) {
+			dateOut = LocalDate.parse(dateIn, formatter);
+		} catch (DateTimeParseException e) {
 			System.out.println("Le format de la date n'est pas respecté ! (yyyy-MM-dd)");
 			Controller.menu();
 			dateOut = null;
@@ -27,9 +27,9 @@ public class DateUtils {
 		
 	}
 	
-	public static boolean compareDate(Date introduced, Date discontinued){
+	public static boolean compareDate(LocalDate introduced, LocalDate discontinued){
 		
-		if(introduced.before(discontinued)){
+		if(introduced.isBefore(discontinued)){
 			return true;
 		}else{
 			return false;

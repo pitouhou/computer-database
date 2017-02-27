@@ -6,7 +6,7 @@ import static com.computerDatabase.mapper.ComputerMapper.mapComputer;
 import static com.computerDatabase.mapper.ComputerMapper.mapListComputer;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,8 +89,8 @@ public class ComputerDAO implements DAO<Computer>{
 		PreparedStatement preparedStatement = null;
 		int resultSet;
 		String name = computer.getName();
-		Date introduced = computer.getIntroduced();
-		Date discontinued = computer.getDiscontinued();
+		LocalDate introduced = computer.getIntroduced();
+		LocalDate discontinued = computer.getDiscontinued();
 		long company_id = computer.getCompany().getId();
 		
 		try{
@@ -113,8 +113,8 @@ public class ComputerDAO implements DAO<Computer>{
 		int resultSet;
 		long id = computer.getId();
 		String name = computer.getName();
-		Date introduced = computer.getIntroduced();
-		Date discontinued = computer.getDiscontinued();
+		LocalDate introduced = computer.getIntroduced();
+		LocalDate discontinued = computer.getDiscontinued();
 		long company_id = computer.getCompany().getId();
 		
 		try{

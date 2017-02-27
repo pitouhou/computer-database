@@ -1,12 +1,12 @@
 package com.computerDatabase.model;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Computer {
 	private long id;
 	private String name;
-	private Date introduced;
-	private Date discontinued;
+	private LocalDate introduced;
+	private LocalDate discontinued;
 	private Company company;
 	
 	public void setId(long id) {
@@ -21,7 +21,7 @@ public class Computer {
 		
 	}
 	
-	public Computer(String name, Date introduced, Date discontinued, Company company) {
+	public Computer(String name, LocalDate introduced, LocalDate discontinued, Company company) {
 		super();
 		this.name = name;
 		this.introduced = introduced;
@@ -35,16 +35,16 @@ public class Computer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
-	public void setIntroduced(Date introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
-	public Date getDiscontinued() {
+	public LocalDate getDiscontinued() {
 		return discontinued;
 	}
-	public void setDiscontinued(Date discontinued) {
+	public void setDiscontinued(LocalDate discontinued) {
 		this.discontinued = discontinued;
 	}
 	public Company getCompany() {

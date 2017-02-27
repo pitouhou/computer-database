@@ -1,5 +1,6 @@
 package com.computerDatabase.mapper;
 
+import java.time.LocalDate;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,13 +15,21 @@ public class ComputerMapper {
 	public static Optional<Computer> mapComputer( ResultSet resultSet ) throws SQLException {
 		Computer computer = new Computer();
 		Company company = new Company();
+		LocalDate introduced = null;
+		LocalDate discontinued = null;
+		if(resultSet.getDate( "introduced" )!=null){
+			introduced = resultSet.getDate( "introduced" ).toLocalDate();
+		}
+		if(resultSet.getDate( "discontinued" )!=null){
+			discontinued = resultSet.getDate( "discontinued" ).toLocalDate();
+		}
 		company.setId(resultSet.getLong("company.id"));
 		company.setName(resultSet.getString("company.name"));
 		computer.setId(resultSet.getLong("id"));
 		computer.setName(resultSet.getString("name"));
 		computer.setCompany(company);
-		computer.setIntroduced( resultSet.getDate( "introduced" ) );
-		computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
+		computer.setIntroduced(introduced);
+		computer.setDiscontinued(discontinued);
 	    return Optional.of(computer);
 	}
 	
@@ -30,13 +39,21 @@ public class ComputerMapper {
 		while(resultSet.next()){
 			Computer computer = new Computer();
 			Company company = new Company();
+			LocalDate introduced = null;
+			LocalDate discontinued = null;
+			if(resultSet.getDate( "introduced" )!=null){
+				introduced = resultSet.getDate( "introduced" ).toLocalDate();
+			}
+			if(resultSet.getDate( "discontinued" )!=null){
+				discontinued = resultSet.getDate( "discontinued" ).toLocalDate();
+			}
 			company.setId(resultSet.getLong("company.id"));
 			company.setName(resultSet.getString("company.name"));
 			computer.setId(resultSet.getLong("id"));
 			computer.setName(resultSet.getString("name"));
 			computer.setCompany(company);
-			computer.setIntroduced( resultSet.getDate( "introduced" ) );
-			computer.setDiscontinued( resultSet.getDate( "discontinued" ) );
+			computer.setIntroduced(introduced);
+			computer.setDiscontinued(discontinued);
 			computerList.add(computer);
 		}
 		
