@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface DAO<T> {
 
-	public Connection connect = ConnectionManager.getInstance();
+	//public Connection connect = ConnectionManager.getInstance();
 	
 	public abstract Optional<T> findById(long id);
 	

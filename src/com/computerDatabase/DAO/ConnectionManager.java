@@ -20,11 +20,26 @@ public class ConnectionManager {
 			Properties properties = propertiesTmp.get();
 			if(connect == null){
 				try {
+					Class.forName("com.mysql.jdbc.Driver");
 					connect = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}catch (ClassNotFoundException ex) { 
+					ex.printStackTrace();
 				}
-			}		
+			}else{
+				
+				try {
+					connect.close();
+					Class.forName("com.mysql.jdbc.Driver");
+					connect = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}catch (ClassNotFoundException ex) { 
+					ex.printStackTrace();
+				}
+			}
+			
 			return connect;	
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -36,7 +51,6 @@ public class ConnectionManager {
 		
 		Properties properties = new Properties();
 		File	file = new File(fileName);
-		System.out.println(file.exists());
 		if(file.exists()){
 			FileInputStream input = new FileInputStream(fileName); 
 		    

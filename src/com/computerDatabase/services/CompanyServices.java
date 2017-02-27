@@ -21,11 +21,9 @@ public enum CompanyServices implements CompanyServicesInterface {
 
     @Override
 	public Optional<Collection<Company>> getCompanyList(){
-		
 		CompanyDAO comp = CompanyDAO.getInstance();
 				
-		Optional<Collection<Company>> comp1 = comp.findAll();		
-				
+		Optional<Collection<Company>> comp1 = comp.findAll();
 		return comp1;
 		
 	}

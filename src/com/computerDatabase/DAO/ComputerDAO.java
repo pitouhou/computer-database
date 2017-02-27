@@ -44,7 +44,7 @@ public class ComputerDAO implements DAO<Computer>{
 		Optional<Computer> computer = Optional.empty();
 		
 		try{
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
@@ -67,7 +67,7 @@ public class ComputerDAO implements DAO<Computer>{
 		
 		try{
 			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false);
 			resultSet = preparedStatement.executeQuery();
 			
@@ -95,10 +95,9 @@ public class ComputerDAO implements DAO<Computer>{
 		
 		try{
 			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_CREATE_COMPUTER, false, name, introduced, discontinued, company_id);
 			resultSet = preparedStatement.executeUpdate();
-			System.out.println(resultSet);
 			
 		}catch(SQLException e){
 			throw new DAOException(e);
@@ -120,11 +119,10 @@ public class ComputerDAO implements DAO<Computer>{
 		
 		try{
 			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name, introduced, discontinued, company_id, id);
 			resultSet = preparedStatement.executeUpdate();
 			System.out.println(resultSet);
-			
 		}catch(SQLException e){
 			throw new DAOException(e);
 		}finally{
@@ -140,10 +138,9 @@ public class ComputerDAO implements DAO<Computer>{
 		
 		try{
 			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_DELETE_COMPUTER, false, id);
 			resultSet = preparedStatement.executeUpdate();
-			System.out.println(resultSet);
 			
 		}catch(SQLException e){
 			throw new DAOException(e);

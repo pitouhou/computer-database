@@ -27,12 +27,12 @@ public class Pages {
 		int pt = sc.nextInt();
 		
 		switch(pt){
-		case 1 : listComputers(); break;
-		case 2 : listCompanies(); break;
-		case 3 : computerDetails(); break;
-		case 4 : createComputer(); break;
-		case 5 : updateComputer(); break;
-		case 6 : deleteComputer(); break;
+		case 1 : sc.reset();listComputers(); break;
+		case 2 : sc.reset();listCompanies(); break;
+		case 3 : sc.reset();computerDetails(); break;
+		case 4 : sc.reset();createComputer(); break;
+		case 5 : sc.reset();updateComputer(); break;
+		case 6 : sc.reset();deleteComputer(); break;
                                 
             default : System.out.println("entrez un choix"); break;
 		}
@@ -43,6 +43,7 @@ public class Pages {
 		ComputerServices service = ComputerServices.getInstance();
 		
 		Optional<Collection<Computer>> list = service.getComputerList();
+		System.out.println(list.isPresent());
 		if(list.isPresent()){
 			
 			System.out.println("| 	id	 | 	nom  |  date d'introduction	 | 		date d'arret	 | 	id de l'entreprise	 |");
@@ -66,8 +67,8 @@ public class Pages {
 		long id = sc.nextLong();
 		ComputerServices service = ComputerServices.getInstance();
 		Optional<Computer> computer = service.getComputerDetails(id);
-		
-		if(computer.isPresent()){
+		System.out.println(computer.isPresent());
+		/*if(computer.isPresent()){
 			Computer computer1 = computer.get();
 			System.out.println("| " + computer1.getId() + " | 	" + computer1.getName() + " 	| 	" + computer1.getIntroduced() + "	 | 	" + computer1.getDiscontinued() + "	 | 	" + computer1.getCompany().getId() + "	 |	" + computer1.getCompany().getName() + "	|");
 			sc.reset();
@@ -76,7 +77,8 @@ public class Pages {
 			System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
 			sc.reset();
 			menu();
-		}
+		}*/
+		//displayComputer(computer);
 	}
 	
 	public void createComputer(){
@@ -136,7 +138,7 @@ public class Pages {
 		ComputerServices service = ComputerServices.getInstance();
 		Computer computer1 = new Computer();
 		Optional<Computer> computer = service.getComputerDetails(id);
-		
+		System.out.println(computer.isPresent());
 		if(computer.isPresent()){
 			
 			computer1 = computer.get();
@@ -198,7 +200,7 @@ public class Pages {
 		Computer computer1 = new Computer();
 		Optional<Computer> computer = Optional.empty();
 		computer = service.getComputerDetails(id);
-		
+		System.out.println(computer.isPresent());
 		if(computer.isPresent()){
 			
 			computer1 = computer.get();
@@ -228,15 +230,15 @@ public class Pages {
 		CompanyServices compService = CompanyServices.getInstance();
 		Optional<Collection<Company>> list = compService.getCompanyList();
 		
+		System.out.println(list.isPresent());
 		if(list.isPresent()){
 			System.out.println("| 	id	 | 	nom  | ");
 			for(Company comp : list.get()){
 				System.out.println("| " + comp.getId() + " | 	" + comp.getName() + " 	| 	");
 			}
 			menu();
-			
 		}else{
-			
+			System.out.println("niqué");
 		}
 	}
 }

@@ -37,25 +37,26 @@ public class CompanyDAO implements DAO<Company>{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Optional<Company> company = Optional.empty();
+		
 		
 		try{
 			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()){
-				company = mapCompany(resultSet);
+				Optional<Company> company = mapCompany(resultSet);
+				return company;
 			}
+			
 			
 		}catch(SQLException e){
 			return Optional.empty();
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
-		
-		return company;
+		return Optional.empty();
 	}
 
 	@Override
@@ -63,16 +64,13 @@ public class CompanyDAO implements DAO<Company>{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Optional<Collection<Company>> listCompany = Optional.empty();
-		
 		try{
-			
-			connexion = DAO.connect;
+			connexion = ConnectionManager.getInstance();
 			preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);
 			resultSet = preparedStatement.executeQuery();
-			
 			if(resultSet.next()){
-				listCompany = mapListCompany(resultSet);
+				Optional<Collection<Company>> listCompany = mapListCompany(resultSet);
+				return listCompany;
 			}
 			
 		}catch(SQLException e){
@@ -80,8 +78,7 @@ public class CompanyDAO implements DAO<Company>{
 		}finally{
 			silentCloses(resultSet, preparedStatement, connexion);
 		}
-		
-		return listCompany;
+		return Optional.empty();
 	}
 
 	@Override

@@ -49,7 +49,6 @@ public enum ComputerServices implements ComputerServicesInterface{
 	public void addComputer(Computer computer){
 		
 		ComputerDAO comp = ComputerDAO.getInstance();
-		
 		try{
 			comp.create(computer);
 			System.out.println("Ordinateur ajouté avec succés");

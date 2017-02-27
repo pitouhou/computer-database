@@ -1,0 +1,25 @@
+* [33m842caa3[m[33m ([1;36mHEAD[m[33m, [1;32mmaster[m[33m)[m modification DAO et ajout connectionManager, correction des services
+* [33m6f19617[m[33m ([1;31morigin/master[m[33m)[m Ajout des interfaces CompanyServices et ComputerServices
+* [33m7a94c8d[m Singleton transformé en enum pour les services company et computer
+* [33m6b76edc[m ajout equals, tostring, hashcode et id en long dans les classes
+* [33m1487537[m ajout des NullPointerExceptions sur les services
+* [33mfa26a65[m correction de la liaison Company > Computer
+* [33m6ab3686[m ajout Singleton sur les services, liaison Company à Computer
+* [33m687a7bc[m ajout classe pages, gestion des menu et des différentes fonctionnalités
+* [33m2cacf3f[m ajout du package entryUtils et de la classe DateUtils
+* [33mab27612[m ajout de la classe CompanyServices
+* [33m953038c[m ajout du package services et de la classe ComputerServices
+* [33m6d65194[m ajout de la classe CompanyMapper
+* [33m63c410e[m ajout du package mapper et de la classe ComputerMapper
+* [33m1f663af[m ajout de la classe DAOUtils
+* [33m3615b7b[m ajout listComputer
+* [33m4f61038[m createComputer teste, ajout deleteComputer, updateComputer fonctionnels
+* [33m30b082f[m ajout main test, listComputer, computerById et Create(non teste)
+* [33ma53dd51[m ajout implémentation des DAO Computer et Company vide
+* [33me8e5bff[m correction ComputerDao et ajout CompanyDao, model Company
+* [33maaa6906[m ajout model computer et computerDAO
+* [33m97b0630[m ajout DAOFactory, DAOExceptions, DAO.properties
+* [33mfcbe899[m ajout .gitignore
+* [33m19c2af1[m Initial commit
+* [33md6752ea[m ajout gitignore et architecture de base du projet
+* [33m248c449[m first commit

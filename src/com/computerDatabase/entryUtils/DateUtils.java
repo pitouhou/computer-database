@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import com.computerDatabase.Controller.Controller;
+
 public class DateUtils {
 
 	public static Date convertDate(String dateIn){
@@ -15,7 +17,8 @@ public class DateUtils {
 			date = sdf1.parse(dateIn);
 			dateOut = new Date(date.getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			System.out.println("Le format de la date n'est pas respecté ! (yyyy-MM-dd)");
+			Controller.menu();
 			dateOut = null;
 		}
 		
