@@ -13,7 +13,9 @@ public enum CompanyServices implements CompanyServicesInterface {
   public static CompanyServices getInstance() {
     return CompanyServices.instance;
   }
-
+  /**
+   * Constructor of CompanyServices class .
+   */
   CompanyServices() {
 
   }

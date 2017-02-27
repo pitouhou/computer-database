@@ -14,6 +14,10 @@ public class ConnectionManager {
 
   private static Connection connect;
 
+  /**
+   * Method to get a new instance of Connection class .
+   * @return connect
+   */
   public static Connection getInstance() {
     try {
       Optional<Properties> propertiesTmp = ConnectionManager
@@ -50,6 +54,13 @@ public class ConnectionManager {
     return connect;
   }
 
+  /**
+   * Method to get database properties .
+   * @param fileName : fileName
+   * @return Optional<Properties>
+   * @throws FileNotFoundException : e
+   * @throws IOException : ex
+   */
   public static Optional<Properties> getProperties(String fileName)
       throws FileNotFoundException, IOException {
 

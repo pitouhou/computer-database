@@ -7,10 +7,17 @@ public class Company {
   private long id;
   private String name;
 
+  /**
+   * Constructor of Company class .
+   */
   public Company() {
 
   }
 
+  /**
+   * Constructor of Company class .
+   * @param name : name
+   */
   public Company(String name) {
     super();
     this.name = name;
@@ -20,10 +27,17 @@ public class Company {
     return id;
   }
 
+  /**
+   * @param id : id
+   */
   public void setId(long id) {
     this.id = id;
   }
 
+  /**
+   * Return name.
+   * @return string name
+   */
   public String getName() {
     return name;
   }

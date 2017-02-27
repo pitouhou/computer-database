@@ -8,6 +8,15 @@ import java.sql.Statement;
 
 public class DAOUtils {
 
+  /**
+   * Method to prepare statement .
+   * @param connexion : connexion
+   * @param sql : sql
+   * @param returnGeneratedKeys : returnGeneratedKeys
+   * @param objets : objets
+   * @return preparedStatement
+   * @throws SQLException : SQLException
+   */
   public static PreparedStatement initPreparedStatement(Connection connexion, String sql,
       boolean returnGeneratedKeys, Object... objets) throws SQLException {
 
@@ -20,6 +29,10 @@ public class DAOUtils {
     return preparedStatement;
   }
 
+  /**
+   * Method to close resultSet .
+   * @param resultSet : resulSet
+   */
   public static void silentClose(ResultSet resultSet) {
     if (resultSet != null) {
       try {
@@ -30,6 +43,10 @@ public class DAOUtils {
     }
   }
 
+  /**
+   * Method to close statement .
+   * @param statement : statement
+   */
   public static void silentClose(Statement statement) {
     if (statement != null) {
       try {
@@ -40,6 +57,10 @@ public class DAOUtils {
     }
   }
 
+  /**
+   * Method to close connexion .
+   * @param connexion : connexion
+   */
   public static void silentClose(Connection connexion) {
     if (connexion != null) {
       try {
@@ -50,11 +71,22 @@ public class DAOUtils {
     }
   }
 
+  /**
+   * Method to close statement and connexion .
+   * @param statement : statement
+   * @param connexion : connexion
+   */
   public static void silentCloses(Statement statement, Connection connexion) {
     silentClose(statement);
     silentClose(connexion);
   }
 
+  /**
+   * Method to close statement, resultSet and connexion .
+   * @param resultSet : resultSet
+   * @param statement : statement
+   * @param connexion : connexion
+   */
   public static void silentCloses(ResultSet resultSet, Statement statement, Connection connexion) {
     silentClose(resultSet);
     silentClose(statement);

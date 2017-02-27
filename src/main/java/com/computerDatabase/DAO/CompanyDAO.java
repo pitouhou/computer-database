@@ -19,6 +19,9 @@ public class CompanyDAO implements DAO<Company> {
   private static final String SQL_FIND_ALL_COMPANY = "SELECT * FROM company";
   private static final String SQL_FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
 
+  /**
+   * Constructor of CompanyDAO class .
+   */
   private CompanyDAO() { }
 
   private static class CompanyDAOHolder {

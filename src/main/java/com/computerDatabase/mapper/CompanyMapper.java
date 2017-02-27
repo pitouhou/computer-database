@@ -10,6 +10,12 @@ import com.computerDatabase.model.Company;
 
 public class CompanyMapper {
 
+  /**
+   * Mapper of Company list .
+   * @param resultSet : resultSet
+   * @return : Optional<Collection<Company>>
+   * @throws SQLException : e
+   */
   public static Optional<Collection<Company>> mapListCompany(ResultSet resultSet)
       throws SQLException {
 
@@ -23,6 +29,12 @@ public class CompanyMapper {
     return Optional.of(companyList);
   }
 
+  /**
+   * Mapper of Company object .
+   * @param resultSet : resultSet
+   * @return : Optional<Company>
+   * @throws SQLException : e
+   */
   public static Optional<Company> mapCompany(ResultSet resultSet) throws SQLException {
 
     Company company = new Company();

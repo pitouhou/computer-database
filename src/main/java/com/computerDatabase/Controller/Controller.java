@@ -14,10 +14,16 @@ import com.computerDatabase.services.ComputerServices;
 
 public class Controller {
 
+  /**
+   * Constructor of Controller class .
+   */
   public Controller() {
 
   }
 
+  /**
+   * Method to get main menu .
+   */
   public static void menu() {
 
     Scanner sc = new Scanner(System.in);
@@ -61,6 +67,9 @@ public class Controller {
     menu();
   }
 
+  /**
+   * Method to get Computer list .
+   */
   public static void listComputers() {
 
     ComputerServices service = ComputerServices.getInstance();
@@ -70,6 +79,9 @@ public class Controller {
 
   }
 
+  /**
+   * Method to get Computer details .
+   */
   public static void computerDetails() {
 
     Scanner sc = new Scanner(System.in);
@@ -83,6 +95,9 @@ public class Controller {
 
   }
 
+  /**
+   * Method to get create Computer menu .
+   */
   public static void createComputer() {
 
     Computer computer = getInputComputer();
@@ -91,6 +106,9 @@ public class Controller {
 
   }
 
+  /**
+   * Method to get update Computer menu .
+   */
   public static void updateComputer() {
 
     Scanner sc = new Scanner(System.in);
@@ -113,6 +131,9 @@ public class Controller {
     }
   }
 
+  /**
+   * Method to get delete Computer menu .
+   */
   public static void deleteComputer() {
 
     Scanner sc = new Scanner(System.in);
@@ -148,6 +169,9 @@ public class Controller {
     }
   }
 
+  /**
+   * Method to get Company list .
+   */
   public static void listCompanies() {
 
     CompanyServices compService = CompanyServices.getInstance();
@@ -157,6 +181,11 @@ public class Controller {
 
   }
 
+  /**
+   * Method to check if the company is valid .
+   * @param id : id
+   * @return Company
+   */
   public static Company isCompanyValid(long id) {
 
     Company company1 = new Company();
@@ -175,6 +204,10 @@ public class Controller {
 
   }
 
+  /**
+   * Method to get the input details of a computer .
+   * @return computer
+   */
   public static Computer getInputComputer() {
 
     Computer computer = new Computer();

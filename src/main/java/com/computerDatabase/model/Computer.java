@@ -18,10 +18,20 @@ public class Computer {
     return id;
   }
 
+  /**
+   * Constructor of Computer class .
+   */
   public Computer() {
 
   }
 
+  /**
+   * Constructor of Computer class .
+   * @param name : name
+   * @param introduced : introduced
+   * @param discontinued : discontinued
+   * @param company : company
+   */
   public Computer(String name, LocalDate introduced, LocalDate discontinued, Company company) {
     super();
     this.name = name;

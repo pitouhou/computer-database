@@ -12,6 +12,12 @@ import com.computerDatabase.model.Computer;
 
 public class ComputerMapper {
 
+  /**
+   * Mapper of Computer class .
+   * @param resultSet : resultSet
+   * @return Optional<Computer>
+   * @throws SQLException : e
+   */
   public static Optional<Computer> mapComputer(ResultSet resultSet) throws SQLException {
     Computer computer = new Computer();
     Company company = new Company();
@@ -33,6 +39,12 @@ public class ComputerMapper {
     return Optional.of(computer);
   }
 
+  /**
+   * Mapper of Computer list .
+   * @param resultSet : resultSet
+   * @return Optional<Collection<Computer>>
+   * @throws SQLException : e
+   */
   public static Optional<Collection<Computer>> mapListComputer(ResultSet resultSet)
       throws SQLException {
 

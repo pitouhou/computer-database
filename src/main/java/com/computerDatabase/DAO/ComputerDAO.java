@@ -23,6 +23,9 @@ public class ComputerDAO implements DAO<Computer> {
   private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
 
+  /**
+   * Constructor of ComputerDAO class .
+   */
   private ComputerDAO() { }
 
   private static class ComputerDAOHolder {
@@ -33,7 +36,8 @@ public class ComputerDAO implements DAO<Computer> {
     return ComputerDAOHolder.INSTANCE;
   }
 
-  @Override public Optional<Computer> findById(long id) {
+  @Override
+  public Optional<Computer> findById(long id) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;

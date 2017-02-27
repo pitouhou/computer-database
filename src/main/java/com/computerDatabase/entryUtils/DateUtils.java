@@ -8,6 +8,11 @@ import com.computerDatabase.Controller.Controller;
 
 public class DateUtils {
 
+  /**
+   * Method to convert a string to LocalDate .
+   * @param dateIn : dateIn
+   * @return LocalDate
+   */
   public static LocalDate convertDate(String dateIn) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -25,6 +30,12 @@ public class DateUtils {
 
   }
 
+  /**
+   * Method to compare two LocalDate .
+   * @param introduced : introduced
+   * @param discontinued : discontinued
+   * @return boolean
+   */
   public static boolean compareDate(LocalDate introduced, LocalDate discontinued) {
 
    return introduced.isBefore(discontinued);

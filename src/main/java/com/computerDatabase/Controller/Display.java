@@ -8,6 +8,10 @@ import com.computerDatabase.model.Computer;
 
 public class Display {
 
+  /**
+   * Method to display details of a Computer .
+   * @param computer : computer
+   */
   public static void displayComputer(Optional<Computer> computer) {
 
     if (computer.isPresent()) {
@@ -21,6 +25,10 @@ public class Display {
 
   }
 
+  /**
+   * Method to display a list of Computer .
+   * @param listComputer : listComputer
+   */
   public static void displayComputers(Optional<Collection<Computer>> listComputer) {
 
     if (listComputer.isPresent()) {
@@ -39,6 +47,10 @@ public class Display {
 
   }
 
+  /**
+   * Method to display a list of Company .
+   * @param listCompany : listCompany
+   */
   public static void displayCompanies(Optional<Collection<Company>> listCompany) {
 
     if (listCompany.isPresent()) {
