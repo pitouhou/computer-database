@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Company;
@@ -38,10 +39,10 @@ public class ComputerMapper {
    * @return Optional<Collection<Computer>>
    * @throws SQLException : e
    */
-  public static Optional<Collection<Computer>> mapListComputer(ResultSet resultSet)
+  public static List<Optional<Computer>> mapListComputer(ResultSet resultSet)
       throws SQLException {
 
-    Collection<Computer> computerList = new ArrayList<Computer>();
+    List<Optional<Computer>> computerList = new ArrayList<>();
     while (resultSet.next()) {
       LocalDate introduced = null;
       LocalDate discontinued = null;
@@ -53,10 +54,10 @@ public class ComputerMapper {
       }
       Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
       Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
-      computerList.add(computer);
+      computerList.add(Optional.of(computer));
     }
 
-    return Optional.of(computerList);
+    return computerList;
   }
 
 }

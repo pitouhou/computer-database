@@ -1,6 +1,7 @@
 package com.computerDatabase.services;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Company;
@@ -9,9 +10,9 @@ public interface CompanyServicesInterface {
 
   /**
    * Method to get Company list .
-   * @return : Collection<Company>
+   * @return : List<Optional<Company>>
    */
-  Optional<Collection<Company>> getCompanyList();
+  List<Optional<Company>> getCompanyList();
 
   /**
    * Method to get Company by id .

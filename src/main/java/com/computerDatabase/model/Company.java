@@ -1,6 +1,7 @@
 package com.computerDatabase.model;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class Company {
 
@@ -20,8 +21,8 @@ public class Company {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public Optional<String> getName() {
+    return Optional.of(name);
   }
 
   public static class CompanyBuilder {

@@ -1,6 +1,7 @@
 package com.computerDatabase.Controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Company;
@@ -29,17 +30,18 @@ public class Display {
    * Method to display a list of Computer .
    * @param listComputer : listComputer
    */
-  public static void displayComputers(Optional<Collection<Computer>> listComputer) {
+  public static void displayComputers(List<Optional<Computer>> listComputer) {
 
-    if (listComputer.isPresent()) {
+    if (!listComputer.isEmpty()) {
 
       System.out.println(
           "| id | nom | date d'introduction | date d'arret | id de l'entreprise |");
 
-      for (Computer comp : listComputer.get()) {
-
-        System.out.println("| " + comp.getId() + " | " + comp.getName() + " | " + comp.getIntroduced() + " | " + comp.getDiscontinued() + " | " + comp.getCompany().getId() + " | " + comp.getCompany().getName() + " |");
-
+      for (Optional<Computer> comp : listComputer) {
+        if(comp.isPresent()){
+          Computer comp1 = comp.get();
+          System.out.println("| " + comp1.getId() + " | " + comp1.getName() + " | " + comp1.getIntroduced() + " | " + comp1.getDiscontinued() + " | " + comp1.getCompany().getId() + " | " + comp1.getCompany().getName().get() + " |");
+        }
       }
     } else {
       System.out.println("Aucun ordinateur trouvé !");
@@ -51,15 +53,17 @@ public class Display {
    * Method to display a list of Company .
    * @param listCompany : listCompany
    */
-  public static void displayCompanies(Optional<Collection<Company>> listCompany) {
+  public static void displayCompanies(List<Optional<Company>> listCompany) {
 
-    if (listCompany.isPresent()) {
+    if (!listCompany.isEmpty()) {
       System.out.println("| id | nom | ");
-      for (Company comp : listCompany.get()) {
-        System.out.println("| " + comp.getId() + " | " + comp.getName() + " | ");
+      for (Optional<Company> comp : listCompany) {
+        if(comp.isPresent()){
+          System.out.println("| " + comp.get().getId() + " | " + comp.get().getName().get() + " | ");
+        }
       }
     } else {
-      System.out.println("niqué");
+      System.out.println("Aucune entreprise trouvé");
     }
 
   }

@@ -1,6 +1,7 @@
 package com.computerDatabase.services;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.DAO.CompanyDAO;
@@ -20,10 +21,10 @@ public enum CompanyServices implements CompanyServicesInterface {
 
   }
 
-  @Override public Optional<Collection<Company>> getCompanyList() {
+  @Override public List<Optional<Company>> getCompanyList() {
     CompanyDAO comp = CompanyDAO.getInstance();
 
-    Optional<Collection<Company>> comp1 = comp.findAll();
+    List<Optional<Company>> comp1 = comp.findAll();
     return comp1;
 
   }

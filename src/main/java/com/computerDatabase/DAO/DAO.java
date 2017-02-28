@@ -1,6 +1,7 @@
 package com.computerDatabase.DAO;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface DAO<T> {
@@ -18,7 +19,7 @@ public interface DAO<T> {
    * Method to get all object .
    * @return Collection<Object>
    */
-  Optional<Collection<T>> findAll();
+  List<Optional<T>> findAll();
 
   /**
    * Method to create an object .

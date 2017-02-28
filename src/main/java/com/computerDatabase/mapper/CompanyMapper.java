@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Company;
@@ -16,15 +17,15 @@ public class CompanyMapper {
    * @return : Optional<Collection<Company>>
    * @throws SQLException : e
    */
-  public static Optional<Collection<Company>> mapListCompany(ResultSet resultSet)
+  public static List<Optional<Company>> mapListCompany(ResultSet resultSet)
       throws SQLException {
 
-    Collection<Company> companyList = new ArrayList<Company>();
+    List<Optional<Company>> companyList = new ArrayList<>();
     while (resultSet.next()) {
       Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
-      companyList.add(company);
+      companyList.add(Optional.of(company));
     }
-    return Optional.of(companyList);
+    return companyList;
   }
 
   /**

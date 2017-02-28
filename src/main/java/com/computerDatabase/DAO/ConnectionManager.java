@@ -21,7 +21,7 @@ public class ConnectionManager {
   public static Connection getInstance() {
     try {
       Optional<Properties> propertiesTmp = ConnectionManager
-          .getProperties("src/com/computerDatabase/DAO/DAO.properties");
+          .getProperties("src/main/java/com/computerDatabase/DAO/DAO.properties");
       Properties properties = propertiesTmp.get();
       if (connect == null) {
         try {

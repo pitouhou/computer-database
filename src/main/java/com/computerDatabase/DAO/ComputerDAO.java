@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Computer;
@@ -58,11 +60,11 @@ public class ComputerDAO implements DAO<Computer> {
     return computer;
   }
 
-  @Override public Optional<Collection<Computer>> findAll() {
+  @Override public List<Optional<Computer>> findAll() {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    Optional<Collection<Computer>> listComputer = Optional.empty();
+    List<Optional<Computer>> listComputer = new ArrayList<>();
 
     try {
 
@@ -75,7 +77,7 @@ public class ComputerDAO implements DAO<Computer> {
       }
 
     } catch (SQLException e) {
-      return Optional.empty();
+      return listComputer;
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
     }

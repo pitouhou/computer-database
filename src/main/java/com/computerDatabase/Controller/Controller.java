@@ -3,6 +3,7 @@ package com.computerDatabase.Controller;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -73,7 +74,7 @@ public class Controller {
   public static void listComputers() {
 
     ComputerServices service = ComputerServices.getInstance();
-    Optional<Collection<Computer>> list = service.getComputerList();
+    List<Optional<Computer>> list = service.getComputerList();
     Display.displayComputers(list);
     menu();
 
@@ -173,7 +174,7 @@ public class Controller {
   public static void listCompanies() {
 
     CompanyServices compService = CompanyServices.getInstance();
-    Optional<Collection<Company>> list = compService.getCompanyList();
+    List<Optional<Company>> list = compService.getCompanyList();
     Display.displayCompanies(list);
     menu();
 

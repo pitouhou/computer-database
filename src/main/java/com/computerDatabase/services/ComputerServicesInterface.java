@@ -1,6 +1,7 @@
 package com.computerDatabase.services;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Computer;
@@ -11,7 +12,7 @@ public interface ComputerServicesInterface {
    * Methode to get Computer list .
    * @return Optional<Collection<Computer>>
    */
-  Optional<Collection<Computer>> getComputerList();
+  List<Optional<Computer>> getComputerList();
 
   /**
    * Method to get Computer details .

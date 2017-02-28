@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.model.Company;
@@ -56,25 +58,26 @@ public class CompanyDAO implements DAO<Company> {
     return Optional.empty();
   }
 
-  @Override public Optional<Collection<Company>> findAll() {
+  @Override public List<Optional<Company>> findAll() {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
+    List<Optional<Company>> listCompany = new ArrayList<>();
     try {
       connexion = ConnectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
-        Optional<Collection<Company>> listCompany = mapListCompany(resultSet);
+        listCompany = mapListCompany(resultSet);
         return listCompany;
       }
 
     } catch (SQLException e) {
-      return Optional.empty();
+      return listCompany;
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
     }
-    return Optional.empty();
+    return listCompany;
   }
 
   @Override public void create(Company obj) {

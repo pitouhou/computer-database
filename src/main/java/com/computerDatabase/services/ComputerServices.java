@@ -1,7 +1,7 @@
 package com.computerDatabase.services;
 
 import java.util.Collection;
-
+import java.util.List;
 import java.util.Optional;
 
 import com.computerDatabase.DAO.ComputerDAO;
@@ -24,10 +24,10 @@ public enum ComputerServices implements ComputerServicesInterface {
 
   }
 
-  @Override public Optional<Collection<Computer>> getComputerList() {
+  @Override public List<Optional<Computer>> getComputerList() {
 
     ComputerDAO comp = ComputerDAO.getInstance();
-    Optional<Collection<Computer>> comp1;
+    List<Optional<Computer>> comp1;
     comp1 = comp.findAll();
 
     return comp1;
