@@ -4,46 +4,48 @@ import java.util.Objects;
 
 public class Company {
 
-  private long id;
-  private String name;
+  private final long id;
+  private final String name;
 
   /**
-   * Constructor of Company class .
+   * Builder of Company class .
+   * @param builder : builder
    */
-  public Company() {
-
-  }
-
-  /**
-   * Constructor of Company class .
-   * @param name : name
-   */
-  public Company(String name) {
-    super();
-    this.name = name;
+  private Company(CompanyBuilder builder) {
+    this.id = builder.id;
+    this.name = builder.name;
   }
 
   public long getId() {
     return id;
   }
 
-  /**
-   * @param id : id
-   */
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  /**
-   * Return name.
-   * @return string name
-   */
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public static class CompanyBuilder {
+    private final long id;
+    private final String name;
+
+    /**
+     * Method to build Company object .
+     * @param id : id
+     * @param name : name
+     */
+    public CompanyBuilder(long id, String name) {
+      this.id = id;
+      this.name = name;
+    }
+
+    /**
+     * Method to build Company object .
+     * @return new instance of Company
+     */
+    public Company build() {
+      return new Company(this);
+    }
+
   }
 
   @Override public boolean equals(Object o) {

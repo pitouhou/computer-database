@@ -20,7 +20,6 @@ public class ComputerMapper {
    */
   public static Optional<Computer> mapComputer(ResultSet resultSet) throws SQLException {
     Computer computer = new Computer();
-    Company company = new Company();
     LocalDate introduced = null;
     LocalDate discontinued = null;
     if (resultSet.getDate("introduced") != null) {
@@ -29,8 +28,7 @@ public class ComputerMapper {
     if (resultSet.getDate("discontinued") != null) {
       discontinued = resultSet.getDate("discontinued").toLocalDate();
     }
-    company.setId(resultSet.getLong("company.id"));
-    company.setName(resultSet.getString("company.name"));
+    Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
     computer.setId(resultSet.getLong("id"));
     computer.setName(resultSet.getString("name"));
     computer.setCompany(company);
@@ -51,7 +49,6 @@ public class ComputerMapper {
     Collection<Computer> computerList = new ArrayList<Computer>();
     while (resultSet.next()) {
       Computer computer = new Computer();
-      Company company = new Company();
       LocalDate introduced = null;
       LocalDate discontinued = null;
       if (resultSet.getDate("introduced") != null) {
@@ -60,8 +57,7 @@ public class ComputerMapper {
       if (resultSet.getDate("discontinued") != null) {
         discontinued = resultSet.getDate("discontinued").toLocalDate();
       }
-      company.setId(resultSet.getLong("company.id"));
-      company.setName(resultSet.getString("company.name"));
+      Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
       computer.setId(resultSet.getLong("id"));
       computer.setName(resultSet.getString("name"));
       computer.setCompany(company);

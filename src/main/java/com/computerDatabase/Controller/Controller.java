@@ -186,22 +186,19 @@ public class Controller {
    * @param id : id
    * @return Company
    */
-  public static Company isCompanyValid(long id) {
+  public static Optional<Company> isCompanyValid(long id) {
 
-    Company company1 = new Company();
     CompanyServices compService = CompanyServices.getInstance();
     Optional<Company> company = compService.getCompany(id);
     if (company.isPresent()) {
 
-      company1 = company.get();
+      return company;
 
     } else {
 
-      company1 = null;
+      return Optional.empty();
 
     }
-    return company1;
-
   }
 
   /**
@@ -227,12 +224,17 @@ public class Controller {
 
       if (DateUtils.compareDate(introduced, discontinued)) {
 
-        Company company = isCompanyValid(companyId);
+        Optional<Company> company = isCompanyValid(companyId);
 
         computer.setName(name);
         computer.setIntroduced(introduced);
         computer.setDiscontinued(discontinued);
-        computer.setCompany(company);
+
+        if (company.isPresent()) {
+          computer.setCompany(company.get());
+        } else {
+          computer.setCompany(null);
+        }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
 
