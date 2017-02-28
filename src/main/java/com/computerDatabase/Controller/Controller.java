@@ -118,8 +118,7 @@ public class Controller {
     Optional<Computer> computer = service.getComputerDetails(id);
     if (computer.isPresent()) {
 
-      Computer computer1 = getInputComputer();
-      computer1.setId(id);
+      Computer computer1 = getInputComputer(id);
       service.updateComputer(computer1);
       sc.reset();
       menu();
@@ -140,12 +139,11 @@ public class Controller {
     System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
     long id = sc.nextLong();
     ComputerServices service = ComputerServices.getInstance();
-    Computer computer1 = new Computer();
     Optional<Computer> computer = Optional.empty();
     computer = service.getComputerDetails(id);
     if (computer.isPresent()) {
 
-      computer1 = computer.get();
+      Computer computer1 = computer.get();
       System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | "
           + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | "
           + computer1.getCompany().getId() + " | " + computer1.getCompany().getName() + " |");
@@ -207,7 +205,6 @@ public class Controller {
    */
   public static Computer getInputComputer() {
 
-    Computer computer = new Computer();
     try {
 
       Scanner sc = new Scanner(System.in);
@@ -221,23 +218,21 @@ public class Controller {
       LocalDate discontinued = DateUtils.convertDate(discontinue);
       System.out.println("Entrez l'identifiant de l'entreprise :");
       long companyId = sc.nextLong();
-
+      Computer computer;
+      
       if (DateUtils.compareDate(introduced, discontinued)) {
 
         Optional<Company> company = isCompanyValid(companyId);
 
-        computer.setName(name);
-        computer.setIntroduced(introduced);
-        computer.setDiscontinued(discontinued);
-
+        
         if (company.isPresent()) {
-          computer.setCompany(company.get());
+          computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company.get()).build();
         } else {
-          computer.setCompany(null);
+          computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).build();
         }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
-
+        return computer;
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
         sc.reset();
@@ -249,6 +244,50 @@ public class Controller {
 
       menu();
     }
-    return computer;
+    return null;
+  }
+  
+  public static Computer getInputComputer(long id) {
+
+    try {
+
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Entrez le nom de l'ordinateur :");
+      String name = sc.next();
+      System.out.println("Entrez la date d'introduction de l'ordinateur :");
+      String introduce = sc.next();
+      LocalDate introduced = DateUtils.convertDate(introduce);
+      System.out.println("Entrez la date d'arrêt de l'ordinateur :");
+      String discontinue = sc.next();
+      LocalDate discontinued = DateUtils.convertDate(discontinue);
+      System.out.println("Entrez l'identifiant de l'entreprise :");
+      long companyId = sc.nextLong();
+      Computer computer;
+      
+      if (DateUtils.compareDate(introduced, discontinued)) {
+
+        Optional<Company> company = isCompanyValid(companyId);
+
+        
+        if (company.isPresent()) {
+          computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company.get()).build();
+        } else {
+          computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).build();
+        }
+
+        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
+        return computer;
+      } else {
+        System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
+        sc.reset();
+        menu();
+      }
+
+    } catch (InputMismatchException e) {
+      System.out.println("Entrée non valide !");
+
+      menu();
+    }
+    return null;
   }
 }

@@ -4,74 +4,77 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Computer {
-  private long id;
-  private String name;
-  private LocalDate introduced;
-  private LocalDate discontinued;
-  private Company company;
+  private final long id;
+  private final String name;
+  private final LocalDate introduced;
+  private final LocalDate discontinued;
+  private final Company company;
 
-  public void setId(long id) {
-    this.id = id;
+  private Computer(ComputerBuilder builder){
+    this.id = builder.id;
+    this.name = builder.name;
+    this.introduced = builder.introduced;
+    this.discontinued = builder.discontinued;
+    this.company = builder.company;
   }
 
   public long getId() {
     return id;
   }
 
-  /**
-   * Constructor of Computer class .
-   */
-  public Computer() {
-
-  }
-
-  /**
-   * Constructor of Computer class .
-   * @param name : name
-   * @param introduced : introduced
-   * @param discontinued : discontinued
-   * @param company : company
-   */
-  public Computer(String name, LocalDate introduced, LocalDate discontinued, Company company) {
-    super();
-    this.name = name;
-    this.introduced = introduced;
-    this.discontinued = discontinued;
-    this.company = company;
-  }
-
   public String getName() {
     return name;
   }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
+  
   public LocalDate getIntroduced() {
     return introduced;
   }
-
-  public void setIntroduced(LocalDate introduced) {
-    this.introduced = introduced;
-  }
-
+  
   public LocalDate getDiscontinued() {
     return discontinued;
   }
-
-  public void setDiscontinued(LocalDate discontinued) {
-    this.discontinued = discontinued;
-  }
-
+  
   public Company getCompany() {
     return company;
   }
 
-  public void setCompany(Company company) {
-    this.company = company;
-  }
+  public static class ComputerBuilder {
+    private long id;
+    private final String name;
+    private LocalDate introduced;
+    private LocalDate discontinued;
+    private Company company;
 
+    public ComputerBuilder(String name) {
+      this.name = name;
+    }
+
+    public ComputerBuilder id(long id){
+      this.id = id;
+      return this;
+    }
+    
+    public ComputerBuilder introduced(LocalDate introduced) {
+      this.introduced = introduced;
+      return this;
+    }
+
+    public ComputerBuilder discontinued(LocalDate discontinued) {
+      this.discontinued = discontinued;
+      return this;
+    }
+
+    public ComputerBuilder company(Company company) {
+      this.company = company;
+      return this;
+    }
+
+    public Computer build() {
+      return new Computer(this);
+    }
+
+  }
+  
   @Override public boolean equals(Object o) {
 
     if (this == o) {

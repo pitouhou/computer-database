@@ -19,7 +19,6 @@ public class ComputerMapper {
    * @throws SQLException : e
    */
   public static Optional<Computer> mapComputer(ResultSet resultSet) throws SQLException {
-    Computer computer = new Computer();
     LocalDate introduced = null;
     LocalDate discontinued = null;
     if (resultSet.getDate("introduced") != null) {
@@ -29,11 +28,7 @@ public class ComputerMapper {
       discontinued = resultSet.getDate("discontinued").toLocalDate();
     }
     Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
-    computer.setId(resultSet.getLong("id"));
-    computer.setName(resultSet.getString("name"));
-    computer.setCompany(company);
-    computer.setIntroduced(introduced);
-    computer.setDiscontinued(discontinued);
+    Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
     return Optional.of(computer);
   }
 
@@ -48,7 +43,6 @@ public class ComputerMapper {
 
     Collection<Computer> computerList = new ArrayList<Computer>();
     while (resultSet.next()) {
-      Computer computer = new Computer();
       LocalDate introduced = null;
       LocalDate discontinued = null;
       if (resultSet.getDate("introduced") != null) {
@@ -58,11 +52,7 @@ public class ComputerMapper {
         discontinued = resultSet.getDate("discontinued").toLocalDate();
       }
       Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
-      computer.setId(resultSet.getLong("id"));
-      computer.setName(resultSet.getString("name"));
-      computer.setCompany(company);
-      computer.setIntroduced(introduced);
-      computer.setDiscontinued(discontinued);
+      Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
       computerList.add(computer);
     }
 
