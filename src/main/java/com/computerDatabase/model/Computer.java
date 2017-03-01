@@ -2,6 +2,7 @@ package com.computerDatabase.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Computer {
   private final long id;
@@ -26,16 +27,16 @@ public class Computer {
     return name;
   }
   
-  public LocalDate getIntroduced() {
-    return introduced;
+  public Optional<LocalDate> getIntroduced() {
+    return Optional.ofNullable(introduced);
   }
   
-  public LocalDate getDiscontinued() {
-    return discontinued;
+  public Optional<LocalDate> getDiscontinued() {
+    return Optional.ofNullable(discontinued);
   }
   
-  public Company getCompany() {
-    return company;
+  public Optional<Company> getCompany() {
+    return Optional.ofNullable(company);
   }
 
   public static class ComputerBuilder {

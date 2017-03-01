@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +18,8 @@ import com.computerDatabase.model.Computer;
 
 public class ComputerDAO implements DAO<Computer> {
 
-  private static final String SQL_FIND_BY_ID = "SELECT * FROM computer RIGHT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
-  private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer RIGHT JOIN company ON computer.company_id = company.id";
+  private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
+  private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
   private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
   private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
@@ -89,9 +88,9 @@ public class ComputerDAO implements DAO<Computer> {
     PreparedStatement preparedStatement = null;
     int resultSet;
     String name = computer.getName();
-    LocalDate introduced = computer.getIntroduced();
-    LocalDate discontinued = computer.getDiscontinued();
-    long companyId = computer.getCompany().getId();
+    LocalDate introduced = computer.getIntroduced().get();
+    LocalDate discontinued = computer.getDiscontinued().get();
+    long companyId = computer.getCompany().get().getId();
 
     try {
 
@@ -113,9 +112,9 @@ public class ComputerDAO implements DAO<Computer> {
     int resultSet;
     long id = computer.getId();
     String name = computer.getName();
-    LocalDate introduced = computer.getIntroduced();
-    LocalDate discontinued = computer.getDiscontinued();
-    long companyId = computer.getCompany().getId();
+    LocalDate introduced = computer.getIntroduced().get();
+    LocalDate discontinued = computer.getDiscontinued().get();
+    long companyId = computer.getCompany().get().getId();
 
     try {
 

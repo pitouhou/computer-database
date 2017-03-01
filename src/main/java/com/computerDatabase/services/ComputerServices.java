@@ -1,6 +1,5 @@
 package com.computerDatabase.services;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,8 @@ public enum ComputerServices implements ComputerServicesInterface {
     ComputerDAO comp = ComputerDAO.getInstance();
     List<Optional<Computer>> comp1;
     comp1 = comp.findAll();
-
+    System.out.println("hello");
+    System.out.println(comp1.size());
     return comp1;
   }
 

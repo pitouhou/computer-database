@@ -1,7 +1,6 @@
 package com.computerDatabase.Controller;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
@@ -147,7 +146,7 @@ public class Controller {
       Computer computer1 = computer.get();
       System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | "
           + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | "
-          + computer1.getCompany().getId() + " | " + computer1.getCompany().getName() + " |");
+          + computer1.getCompany().get().getId() + " | " + computer1.getCompany().get().getName() + " |");
       System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
       int rep = sc.nextInt();
       if (rep == 1) {
@@ -181,26 +180,6 @@ public class Controller {
   }
 
   /**
-   * Method to check if the company is valid .
-   * @param id : id
-   * @return Company
-   */
-  public static Optional<Company> isCompanyValid(long id) {
-
-    CompanyServices compService = CompanyServices.getInstance();
-    Optional<Company> company = compService.getCompany(id);
-    if (company.isPresent()) {
-
-      return company;
-
-    } else {
-
-      return Optional.empty();
-
-    }
-  }
-
-  /**
    * Method to get the input details of a computer .
    * @return computer
    */
@@ -221,9 +200,9 @@ public class Controller {
       long companyId = sc.nextLong();
       Computer computer;
       
-      if (DateUtils.compareDate(introduced, discontinued)) {
+      if (Validation.compareDate(introduced, discontinued)) {
 
-        Optional<Company> company = isCompanyValid(companyId);
+        Optional<Company> company = Validation.isCompanyValid(companyId);
 
         
         if (company.isPresent()) {
@@ -232,7 +211,7 @@ public class Controller {
           computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).build();
         }
 
-        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
+        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
         return computer;
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
@@ -265,9 +244,9 @@ public class Controller {
       long companyId = sc.nextLong();
       Computer computer;
       
-      if (DateUtils.compareDate(introduced, discontinued)) {
+      if (Validation.compareDate(introduced, discontinued)) {
 
-        Optional<Company> company = isCompanyValid(companyId);
+        Optional<Company> company = Validation.isCompanyValid(companyId);
 
         
         if (company.isPresent()) {
@@ -276,7 +255,7 @@ public class Controller {
           computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).build();
         }
 
-        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
+        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
         return computer;
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");

@@ -1,6 +1,5 @@
 package com.computerDatabase.Controller;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public class Display {
       Computer computer1 = computer.get();
       System.out.println(
           "| id | nom | date d'introduction | date d'arret | id de l'entreprise |");
-      System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | " + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | " + computer1.getCompany().getId() + " | " + computer1.getCompany().getName() + " | ");
+      System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | " + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | " + computer1.getCompany().get().getId() + " | " + computer1.getCompany().get().getName() + " | ");
     } else {
       System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
     }
@@ -31,7 +30,15 @@ public class Display {
    * @param listComputer : listComputer
    */
   public static void displayComputers(List<Optional<Computer>> listComputer) {
-
+/*
+    <c:choose>
+    <c:when test="${ computer.getCompany().get().getId().get() }!=0">
+        <p>${ computer.getCompany().getName().get() }</p>
+    </c:when>
+    <c:otherwise>
+        <p>Non définit</p>
+    </c:otherwise>
+</c:choose>*/
     if (!listComputer.isEmpty()) {
 
       System.out.println(
@@ -40,7 +47,7 @@ public class Display {
       for (Optional<Computer> comp : listComputer) {
         if(comp.isPresent()){
           Computer comp1 = comp.get();
-          System.out.println("| " + comp1.getId() + " | " + comp1.getName() + " | " + comp1.getIntroduced() + " | " + comp1.getDiscontinued() + " | " + comp1.getCompany().getId() + " | " + comp1.getCompany().getName().get() + " |");
+          System.out.println("| " + comp1.getId() + " | " + comp1.getName() + " | " + comp1.getIntroduced() + " | " + comp1.getDiscontinued() + " | " + comp1.getCompany().get().getId() + " | " + comp1.getCompany().get().getName().get() + " |");
         }
       }
     } else {

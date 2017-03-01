@@ -1,5 +1,8 @@
 package com.computerDatabase.entryUtils;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -29,17 +32,20 @@ public class DateUtils {
     return dateOut;
 
   }
-
-  /**
-   * Method to compare two LocalDate .
-   * @param introduced : introduced
-   * @param discontinued : discontinued
-   * @return boolean
-   */
-  public static boolean compareDate(LocalDate introduced, LocalDate discontinued) {
-
-   return introduced.isBefore(discontinued);
-
+  
+  public static Date convertToSQLDate(String dateIn){
+    
+    SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date parsed = new java.util.Date();
+    try{
+      parsed = date.parse(dateIn);
+      
+    }catch(ParseException e){
+      e.getStackTrace();
+    }
+    Date dateOut = new Date(parsed.getTime());
+    return dateOut;
+    
   }
 
 }

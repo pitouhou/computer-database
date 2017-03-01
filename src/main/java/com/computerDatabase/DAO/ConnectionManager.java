@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,8 +22,8 @@ public class ConnectionManager {
    */
   public static Connection getInstance() {
     try {
-      Optional<Properties> propertiesTmp = ConnectionManager
-          .getProperties("src/main/java/com/computerDatabase/DAO/DAO.properties");
+      Optional<Properties> propertiesTmp = ConnectionManager.getProperties("/config.properties");
+      System.out.println(propertiesTmp.isPresent());
       Properties properties = propertiesTmp.get();
       if (connect == null) {
         try {
@@ -63,11 +65,12 @@ public class ConnectionManager {
    */
   public static Optional<Properties> getProperties(String fileName)
       throws FileNotFoundException, IOException {
-
+    
     Properties properties = new Properties();
     File file = new File(fileName);
-    if (file.exists()) {
-      FileInputStream input = new FileInputStream(fileName);
+    System.out.println(file.exists());
+    
+      InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream(fileName);;
 
       try {
 
@@ -79,9 +82,6 @@ public class ConnectionManager {
         input.close();
 
       }
-
-    }
-    return Optional.empty();
   }
 
 }

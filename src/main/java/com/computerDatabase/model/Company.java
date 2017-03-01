@@ -22,7 +22,7 @@ public class Company {
   }
 
   public Optional<String> getName() {
-    return Optional.of(name);
+    return Optional.ofNullable(name);
   }
 
   public static class CompanyBuilder {
