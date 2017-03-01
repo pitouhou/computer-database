@@ -5,40 +5,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.computerDatabase.DTO.CompanyDTO;
+import com.computerDatabase.DTO.ComputerDTO;
+import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.ComputerServices;
 
 public class ComputerPager {
 
-  public static List<Computer> computerList(){
+  public static List<ComputerDTO> computerList(){
     
     ComputerServices service = ComputerServices.getInstance();
     List<Optional<Computer>> list = service.getComputerList();
-    List<Computer> listOut = new ArrayList<>();
-    Company company;
-    LocalDate introduced;
-    LocalDate discontinued;
+    List<ComputerDTO> listOut = new ArrayList<>();
+    CompanyDTO company;
+    String introduced;
+    String discontinued;
     if (!list.isEmpty()) {
 
       for (Optional<Computer> comp : list) {
         if(comp.isPresent()){
           if(comp.get().getCompany().get().getId()!=0){
-            company = new Company.CompanyBuilder(comp.get().getCompany().get().getId(), comp.get().getCompany().get().getName().get()).build();
+            company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.get().getCompany().get().getId()), comp.get().getCompany().get().getName().get().toString()).build();
           }else{
-            company = null;
+            company = new CompanyDTO.CompanyDTOBuilder("Non définit", "Non définit").build();
           }
           if(comp.get().getIntroduced().isPresent()){
-            introduced = comp.get().getIntroduced().get();
+            introduced = DateUtils.convertToString(comp.get().getIntroduced().get());
           }else{
-            introduced = null;
+            introduced = "Non définit";
           }
           if(comp.get().getDiscontinued().isPresent()){
-            discontinued = comp.get().getDiscontinued().get();
+            discontinued = DateUtils.convertToString(comp.get().getDiscontinued().get());
           }else{
-            discontinued = null;
+            discontinued = "Non définit";
           }
-          Computer computer = new Computer.ComputerBuilder(comp.get().getName()).id(comp.get().getId()).introduced(introduced).discontinued(discontinued).company(company).build();
+          ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(comp.get().getName().toString()).id(Long.toString(comp.get().getId())).introduced(introduced).discontinued(discontinued).company(company).build();
           listOut.add(computer);
         }
       }
@@ -54,10 +57,10 @@ public class ComputerPager {
     
   }
   
-  public static List<Computer> getComputerPage(int current, int nb){
+  public static List<ComputerDTO> getComputerPage(int current, int nb){
     
-    List<Computer> listOut = new ArrayList<>();
-    List<Computer> listIn = computerList();
+    List<ComputerDTO> listOut = new ArrayList<>();
+    List<ComputerDTO> listIn = computerList();
     for(int i = ((current*nb)-nb); i<(current*nb);i++){
       if(i<listIn.size()){
         listOut.add(listIn.get(i));

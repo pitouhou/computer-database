@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.computerDatabase.mapper.ComputerMapperTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.21 sec
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.292 sec

@@ -40,7 +40,7 @@
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" name="companyId">
                                 <c:forEach items="${ list }" var="company">
-                                    <option value="${ company.getId() }">${ company.getName().get() }</option>
+                                    <option value="${ company.getId() }">${ company.getName() }</option>
                                 </c:forEach>
                                 </select>
                             </div>                  

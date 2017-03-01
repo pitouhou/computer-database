@@ -7,7 +7,9 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/CompanyServicesInterface.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/Controller/Validation.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/DAOException.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/pager/CompanyPager.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/Controller/Controller.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/addComputer.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/Dashboard.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/model/Company.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/mapper/CompanyMapper.java
@@ -19,3 +21,4 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/DAOConfigurationException.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/ConnectionManager.java
 /home/excilys/excilys/computer-database-db/src/main/java/Main.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/pager/ComputerPager.java

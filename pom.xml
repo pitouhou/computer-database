@@ -143,5 +143,11 @@
 	<artifactId>standard</artifactId>
 	<version>1.1.2</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
+<dependency>
+    <groupId>org.dbunit</groupId>
+    <artifactId>dbunit</artifactId>
+    <version>2.4.9</version>
+</dependency>
     </dependencies>
 </project>

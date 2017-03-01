@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.computerDatabase.DTO.ComputerDTO;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.ComputerPager;
 
@@ -27,7 +28,7 @@ public class Dashboard extends HttpServlet {
     }else{
       range = Integer.parseInt(request.getParameter("range"));
     }
-    List<Computer> list = ComputerPager.getComputerPage(current, range);
+    List<ComputerDTO> list = ComputerPager.getComputerPage(current, range);
     request.setAttribute( "list", list );
     request.setAttribute( "nbPage", ComputerPager.getNbPage(range) );
     request.setAttribute( "current", current );

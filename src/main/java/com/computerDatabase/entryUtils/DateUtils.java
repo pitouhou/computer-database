@@ -33,6 +33,12 @@ public class DateUtils {
 
   }
   
+  public static String convertToString(LocalDate dateIn){
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+    String dateOut = dateIn.format(formatter);
+    return dateOut;
+  }
+  
   public static Date convertToSQLDate(String dateIn){
     
     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");

@@ -86,34 +86,13 @@
                             <a href="editComputer.html" onclick=""><c:out value="${ computer.getName() }" /></a>
                         </td>
                         <td>
-                        <c:choose>
-						    <c:when test="${computer.getIntroduced().isPresent()}">
-						        <p>${ computer.getIntroduced().get() }</p>
-						    </c:when>
-						    <c:otherwise>
-						        <p>Non définit</p>
-						    </c:otherwise>
-						</c:choose>
+						        <p>${ computer.getIntroduced() }</p>
                         </td>
                         <td>
-                        <c:choose>
-						    <c:when test="${ computer.getDiscontinued().isPresent() }">
-						        <p>${ computer.getDiscontinued().get() }</p>
-						    </c:when>
-						    <c:otherwise>
-						        <p>Non définit</p>
-						    </c:otherwise>
-						</c:choose>
+						        <p>${ computer.getDiscontinued() }</p>
                         </td>
                         <td>
-                        <c:choose>
-						    <c:when test="${ computer.getCompany().isPresent() }">
-						        <p>${ computer.getCompany().get().getName().get() }</p>
-						    </c:when>
-						    <c:otherwise>
-						        <p>Non définit</p>
-						    </c:otherwise>
-						</c:choose>
+						        <p>${ computer.getCompany().getName() }</p>
                         </td>
                     </tr>
                     </c:forEach>

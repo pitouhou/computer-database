@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.computerDatabase.DTO.CompanyDTO;
 import com.computerDatabase.entryUtils.DateUtils;
-import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.CompanyPager;
 import com.computerDatabase.services.CompanyServices;
@@ -23,7 +23,7 @@ public class addComputer extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  
-	    List<Company> listIn = CompanyPager.getCompanyPage();
+	    List<CompanyDTO> listIn = CompanyPager.getCompanyPage();
 	    request.setAttribute( "list", listIn );
 	    
 	    this.getServletContext().getRequestDispatcher( "/WEB-INF/addComputer.jsp" ).forward( request, response );
