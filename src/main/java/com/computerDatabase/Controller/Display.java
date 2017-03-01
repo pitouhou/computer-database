@@ -30,15 +30,7 @@ public class Display {
    * @param listComputer : listComputer
    */
   public static void displayComputers(List<Optional<Computer>> listComputer) {
-/*
-    <c:choose>
-    <c:when test="${ computer.getCompany().get().getId().get() }!=0">
-        <p>${ computer.getCompany().getName().get() }</p>
-    </c:when>
-    <c:otherwise>
-        <p>Non définit</p>
-    </c:otherwise>
-</c:choose>*/
+
     if (!listComputer.isEmpty()) {
 
       System.out.println(

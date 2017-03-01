@@ -21,7 +21,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                121 Computers found
+                Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -33,7 +33,7 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="addComputer.html">Add Computer</a> 
+                    <a class="btn btn-success" id="addComputer" href="addComputer">Add Computer</a> 
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
@@ -126,7 +126,7 @@
         <div class="container text-center">
             <ul class="pagination">
                 <li>
-                    <a href="toto?current=${ current - 1 }&range=${ range }" aria-label="Previous">
+                    <a href="dashboard?current=${ current - 1 }&range=${ range }" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
@@ -136,21 +136,21 @@
 				
 				</c:when>
 				<c:otherwise>
-				    <li><a href="toto?current=${ i }&range=${ range }">${ i }</a></li>
+				    <li><a href="dashboard?current=${ i }&range=${ range }">${ i }</a></li>
 				</c:otherwise>
 			  </c:choose>
               
               </c:forEach>
               <li>
-                <a href="toto?current=${ current + 1 }&range=${ range }" aria-label="Next">
+                <a href="dashboard?current=${ current + 1 }&range=${ range }" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <a type="button" class="btn btn-default" href="toto?current=${ current }&range=10">10</a>
-            <a type="button" class="btn btn-default" href="toto?current=${ current }&range=50">50</a>
-            <a type="button" class="btn btn-default" href="toto?current=${ current }&range=100">100</a>
+            <a type="button" class="btn btn-default" href="dashboard?current=${ current }&range=10">10</a>
+            <a type="button" class="btn btn-default" href="dashboard?current=${ current }&range=50">50</a>
+            <a type="button" class="btn btn-default" href="dashboard?current=${ current }&range=100">100</a>
         </div>
 	</div>
     </footer>

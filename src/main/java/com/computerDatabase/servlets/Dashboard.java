@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.ComputerPager;
 
-@WebServlet(name = "Dashboard", urlPatterns = { "/toto" })
+@WebServlet(name = "Dashboard", urlPatterns = { "/dashboard" })
 public class Dashboard extends HttpServlet {
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
     int current;
