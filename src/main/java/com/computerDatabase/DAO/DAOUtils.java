@@ -6,8 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DAOUtils {
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   /**
    * Method to prepare statement .
    * @param connexion : connexion
@@ -38,7 +45,7 @@ public class DAOUtils {
       try {
         resultSet.close();
       } catch (SQLException e) {
-        System.out.println("Échec de la fermeture du ResultSet : " + e.getMessage());
+        LOGGER.error("SQLException on closing resultSet");
       }
     }
   }
@@ -52,7 +59,7 @@ public class DAOUtils {
       try {
         statement.close();
       } catch (SQLException e) {
-        System.out.println("Échec de la fermeture du Statement : " + e.getMessage());
+        LOGGER.error("SQLException on closing statement");
       }
     }
   }
@@ -66,7 +73,7 @@ public class DAOUtils {
       try {
         connexion.close();
       } catch (SQLException e) {
-        System.out.println("Échec de la fermeture de la connexion : " + e.getMessage());
+        LOGGER.error("SQLException on closing connection");
       }
     }
   }

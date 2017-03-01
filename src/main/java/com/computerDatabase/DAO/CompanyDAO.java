@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.computerDatabase.model.Company;
 
 public class CompanyDAO implements DAO<Company> {
@@ -20,6 +23,10 @@ public class CompanyDAO implements DAO<Company> {
   private static final String SQL_FIND_ALL_COMPANY = "SELECT * FROM company";
   private static final String SQL_FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   /**
    * Constructor of CompanyDAO class .
    */
@@ -50,6 +57,7 @@ public class CompanyDAO implements DAO<Company> {
       }
 
     } catch (SQLException e) {
+      LOGGER.error("SQLException on getting company by id");
       return Optional.empty();
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
@@ -72,6 +80,7 @@ public class CompanyDAO implements DAO<Company> {
       }
 
     } catch (SQLException e) {
+      LOGGER.error("SQLException on getting company list");
       return listCompany;
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);

@@ -3,13 +3,21 @@ package com.computerDatabase.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.computerDatabase.DAO.ComputerDAO;
+import com.computerDatabase.DAO.ConnectionManager;
 import com.computerDatabase.model.Computer;
 
 public enum ComputerServices implements ComputerServicesInterface {
 
   instance;
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   public static ComputerServices getInstance() {
 
     return ComputerServices.instance;
@@ -28,8 +36,6 @@ public enum ComputerServices implements ComputerServicesInterface {
     ComputerDAO comp = ComputerDAO.getInstance();
     List<Optional<Computer>> comp1;
     comp1 = comp.findAll();
-    System.out.println("hello");
-    System.out.println(comp1.size());
     return comp1;
   }
 
@@ -40,7 +46,7 @@ public enum ComputerServices implements ComputerServicesInterface {
     try {
       comp1 = comp.findById(id);
     } catch (NullPointerException e) {
-      System.out.println("L'identifiant ne correspond a aucun ordinateur");
+      LOGGER.error("NullPointerException on getting computer by id");
       return Optional.empty();
     }
     return comp1;
@@ -51,9 +57,9 @@ public enum ComputerServices implements ComputerServicesInterface {
     ComputerDAO comp = ComputerDAO.getInstance();
     try {
       comp.create(computer);
-      System.out.println("Ordinateur ajouté avec succés");
+      LOGGER.info("Success on adding computer");
     } catch (NullPointerException e) {
-      System.out.println("Erreur lors de l'ajout de l'ordinateur");
+      LOGGER.error("NullPointerException on adding computer");
     }
   }
 
@@ -63,9 +69,9 @@ public enum ComputerServices implements ComputerServicesInterface {
 
     try {
       comp.update(computer);
-      System.out.println("Ordinateur modifié avec succés");
+      LOGGER.info("Success on updating computer");
     } catch (NullPointerException e) {
-      System.out.println("Erreur lors de la modification des details de l'ordinateur");
+      LOGGER.error("NullPointerException on updating computer");
     }
   }
 
@@ -74,9 +80,9 @@ public enum ComputerServices implements ComputerServicesInterface {
     ComputerDAO comp = ComputerDAO.getInstance();
     try {
       comp.delete(id);
-      System.out.println("Ordinateur supprimé avec succés");
+      LOGGER.info("Success on deleting computer");
     } catch (NullPointerException e) {
-      System.out.println("Erreur lors de la suppression de l'ordinateur");
+      LOGGER.error("NullPointerException on deleting computer");
     }
   }
 }

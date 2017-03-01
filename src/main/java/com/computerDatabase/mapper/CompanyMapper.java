@@ -6,10 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.computerDatabase.DAO.ConnectionManager;
 import com.computerDatabase.model.Company;
 
 public class CompanyMapper {
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   /**
    * Mapper of Company list .
    * @param resultSet : resultSet
@@ -24,6 +32,7 @@ public class CompanyMapper {
       Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
       companyList.add(Optional.of(company));
     }
+    LOGGER.info("New company list created from database");
     return companyList;
   }
 
@@ -36,7 +45,7 @@ public class CompanyMapper {
   public static Optional<Company> mapCompany(ResultSet resultSet) throws SQLException {
 
     Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
-
+    LOGGER.info("New company created from database");
     return Optional.of(company);
   }
 

@@ -3,13 +3,21 @@ package com.computerDatabase.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.computerDatabase.DAO.CompanyDAO;
+import com.computerDatabase.DAO.ConnectionManager;
 import com.computerDatabase.model.Company;
 
 public enum CompanyServices implements CompanyServicesInterface {
 
   instance;
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   public static CompanyServices getInstance() {
     return CompanyServices.instance;
   }
@@ -35,7 +43,7 @@ public enum CompanyServices implements CompanyServicesInterface {
     try {
       comp1 = comp.findById(id);
     } catch (NullPointerException e) {
-      System.out.println("Aucune entreprise ne correspond à cet identifiant");
+      LOGGER.error("NullPointerException on getting company by id");
       return Optional.empty();
     }
     return comp1;

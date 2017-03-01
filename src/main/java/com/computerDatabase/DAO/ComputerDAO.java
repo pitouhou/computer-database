@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.computerDatabase.model.Computer;
 
 public class ComputerDAO implements DAO<Computer> {
@@ -24,6 +27,10 @@ public class ComputerDAO implements DAO<Computer> {
   private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
 
+  /** The Constant LOGGER. */
+  public static final Logger LOGGER = LoggerFactory
+          .getLogger(ConnectionManager.class);
+  
   /**
    * Constructor of ComputerDAO class .
    */
@@ -34,6 +41,7 @@ public class ComputerDAO implements DAO<Computer> {
   }
 
   public static ComputerDAO getInstance() {
+    LOGGER.info("ComputerDAO instance created");
     return ComputerDAOHolder.INSTANCE;
   }
 
@@ -52,6 +60,7 @@ public class ComputerDAO implements DAO<Computer> {
         computer = mapComputer(resultSet);
       }
     } catch (SQLException e) {
+      LOGGER.error("SQLException on getting computer by id");
       return Optional.empty();
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
@@ -76,6 +85,7 @@ public class ComputerDAO implements DAO<Computer> {
       }
 
     } catch (SQLException e) {
+      LOGGER.error("SQLException on getting computer list");
       return listComputer;
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
@@ -100,6 +110,7 @@ public class ComputerDAO implements DAO<Computer> {
       resultSet = preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
+      LOGGER.error("SQLException on creating computer");
       throw new DAOException(e);
     } finally {
       silentCloses(preparedStatement, connexion);
@@ -124,6 +135,7 @@ public class ComputerDAO implements DAO<Computer> {
       resultSet = preparedStatement.executeUpdate();
       System.out.println(resultSet);
     } catch (SQLException e) {
+      LOGGER.error("SQLException on updating computer");
       throw new DAOException(e);
     } finally {
       silentCloses(preparedStatement, connexion);
@@ -142,6 +154,7 @@ public class ComputerDAO implements DAO<Computer> {
       resultSet = preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
+      LOGGER.error("SQLException on deleting computer");
       throw new DAOException(e);
     } finally {
       silentCloses(preparedStatement, connexion);
