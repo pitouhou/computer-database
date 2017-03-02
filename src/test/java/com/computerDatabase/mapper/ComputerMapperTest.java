@@ -65,13 +65,10 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getLong("company.id")).thenReturn(1L);
     Mockito.when(resultSet.getString("company.name")).thenReturn("company_test");
 
-    List<Optional<Computer>> computerList = ComputerMapper.mapListComputer(resultSet);
+    List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
     assertTrue(!computerList.isEmpty());
     assertEquals(computerList.size(), 2);
-    for (Optional<Computer> comp: computerList) {
-      assertTrue(comp.isPresent());
-
-      Computer computer = comp.get();
+    for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
       assertTrue(computer.getIntroduced().isPresent());
@@ -121,13 +118,10 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getLong("company.id")).thenReturn(1L);
     Mockito.when(resultSet.getString("company.name")).thenReturn("company_test");
 
-    List<Optional<Computer>> computerList = ComputerMapper.mapListComputer(resultSet);
+    List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
     assertTrue(!computerList.isEmpty());
     assertEquals(computerList.size(), 2);
-    for (Optional<Computer> comp: computerList) {
-      assertTrue(comp.isPresent());
-
-      Computer computer = comp.get();
+    for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
       assertFalse(computer.getIntroduced().isPresent());
@@ -177,13 +171,10 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getLong("company.id")).thenReturn(0L);
     Mockito.when(resultSet.getString("company.name")).thenReturn("null");
 
-    List<Optional<Computer>> computerList = ComputerMapper.mapListComputer(resultSet);
+    List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
     assertTrue(!computerList.isEmpty());
     assertEquals(computerList.size(), 2);
-    for (Optional<Computer> comp: computerList) {
-      assertTrue(comp.isPresent());
-
-      Computer computer = comp.get();
+    for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
       assertTrue(computer.getIntroduced().isPresent());
@@ -233,13 +224,10 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getLong("company.id")).thenReturn(0L);
     Mockito.when(resultSet.getString("company.name")).thenReturn("null");
 
-    List<Optional<Computer>> computerList = ComputerMapper.mapListComputer(resultSet);
+    List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
     assertTrue(!computerList.isEmpty());
     assertEquals(computerList.size(), 2);
-    for (Optional<Computer> comp: computerList) {
-      assertTrue(comp.isPresent());
-
-      Computer computer = comp.get();
+    for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
       assertFalse(computer.getIntroduced().isPresent());

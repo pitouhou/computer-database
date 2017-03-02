@@ -73,7 +73,7 @@ public class Controller {
   public static void listComputers() {
 
     ComputerServices service = ComputerServices.getInstance();
-    List<Optional<Computer>> list = service.getComputerList();
+    List<Computer> list = service.getComputerList();
     Display.displayComputers(list);
     menu();
 
@@ -100,10 +100,12 @@ public class Controller {
    */
   public static void createComputer() {
 
-    Computer computer = getInputComputer();
-    ComputerServices service = ComputerServices.getInstance();
-    service.addComputer(computer);
-
+    Optional<Computer> computer = getInputComputer();
+    if(computer.isPresent()){
+      Computer computer1 = computer.get();
+      ComputerServices service = ComputerServices.getInstance();
+      service.addComputer(computer1);
+    }
   }
 
   /**
@@ -118,11 +120,16 @@ public class Controller {
     Optional<Computer> computer = service.getComputerDetails(id);
     if (computer.isPresent()) {
 
-      Computer computer1 = getInputComputer(id);
-      service.updateComputer(computer1);
+      Optional<Computer> computerOp = getInputComputer(id);
+      if(computerOp.isPresent()){
+        Computer computer1 = computerOp.get();
+        service.updateComputer(computer1);
+        sc.reset();
+        menu();
+      }
+      System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
       sc.reset();
       menu();
-
     } else {
       System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
       sc.reset();
@@ -173,7 +180,7 @@ public class Controller {
   public static void listCompanies() {
 
     CompanyServices compService = CompanyServices.getInstance();
-    List<Optional<Company>> list = compService.getCompanyList();
+    List<Company> list = compService.getCompanyList();
     Display.displayCompanies(list);
     menu();
 
@@ -183,7 +190,7 @@ public class Controller {
    * Method to get the input details of a computer .
    * @return computer
    */
-  public static Computer getInputComputer() {
+  public static Optional<Computer> getInputComputer() {
 
     try {
 
@@ -211,7 +218,7 @@ public class Controller {
         }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
-        return computer;
+        return Optional.of(computer);
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
         sc.reset();
@@ -223,10 +230,10 @@ public class Controller {
 
       menu();
     }
-    return null;
+    return Optional.empty();
   }
 
-  public static Computer getInputComputer(long id) {
+  public static Optional<Computer> getInputComputer(long id) {
 
     try {
 
@@ -254,7 +261,7 @@ public class Controller {
         }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
-        return computer;
+        return Optional.of(computer);
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
         sc.reset();
@@ -266,6 +273,6 @@ public class Controller {
 
       menu();
     }
-    return null;
+    return Optional.empty();
   }
 }

@@ -2,7 +2,6 @@ package com.computerDatabase.pager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.dto.ComputerDTO;
@@ -14,33 +13,31 @@ public class ComputerPager {
 
   public static List<ComputerDTO> computerList() {
     ComputerServices service = ComputerServices.getInstance();
-    List<Optional<Computer>> list = service.getComputerList();
+    List<Computer> list = service.getComputerList();
     List<ComputerDTO> listOut = new ArrayList<>();
     CompanyDTO company;
     String introduced;
     String discontinued;
     if (!list.isEmpty()) {
 
-      for (Optional<Computer> comp : list) {
-        if (comp.isPresent()) {
-          if (comp.get().getCompany().get().getId() != 0) {
-            company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.get().getCompany().get().getId()), comp.get().getCompany().get().getName().get().toString()).build();
+      for (Computer comp : list) {
+          if (comp.getCompany().get().getId() != 0) {
+            company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.getCompany().get().getId()), comp.getCompany().get().getName().get().toString()).build();
           } else {
             company = new CompanyDTO.CompanyDTOBuilder("Non définit", "Non définit").build();
           }
-          if (comp.get().getIntroduced().isPresent()) {
-            introduced = DateUtils.convertToString(comp.get().getIntroduced().get());
+          if (comp.getIntroduced().isPresent()) {
+            introduced = DateUtils.convertToString(comp.getIntroduced().get());
           } else {
             introduced = "Non définit";
           }
-          if (comp.get().getDiscontinued().isPresent()) {
-            discontinued = DateUtils.convertToString(comp.get().getDiscontinued().get());
+          if (comp.getDiscontinued().isPresent()) {
+            discontinued = DateUtils.convertToString(comp.getDiscontinued().get());
           } else {
             discontinued = "Non définit";
           }
-          ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(comp.get().getName().toString()).id(Long.toString(comp.get().getId())).introduced(introduced).discontinued(discontinued).company(company).build();
+          ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(comp.getName().toString()).id(Long.toString(comp.getId())).introduced(introduced).discontinued(discontinued).company(company).build();
           listOut.add(computer);
-        }
       }
     }
     return listOut;
@@ -49,7 +46,7 @@ public class ComputerPager {
   public static int getNbPage(int nb) {
 
     ComputerServices service = ComputerServices.getInstance();
-    List<Optional<Computer>> list = service.getComputerList();
+    List<Computer> list = service.getComputerList();
     return list.size() / nb;
 
   }

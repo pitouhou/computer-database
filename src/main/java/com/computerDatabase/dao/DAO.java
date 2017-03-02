@@ -18,7 +18,7 @@ public interface DAO<T> {
    * Method to get all object .
    * @return Collection<Object>
    */
-  List<Optional<T>> findAll();
+  List<T> findAll();
 
   /**
    * Method to create an object .

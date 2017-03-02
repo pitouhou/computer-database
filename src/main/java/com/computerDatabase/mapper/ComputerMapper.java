@@ -37,7 +37,6 @@ public class ComputerMapper {
     }
     Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
     Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
-    LOGGER.info("New computer created from database");
     return Optional.of(computer);
   }
 
@@ -47,10 +46,10 @@ public class ComputerMapper {
    * @return Optional<Collection<Computer>>
    * @throws SQLException : e
    */
-  public static List<Optional<Computer>> mapListComputer(ResultSet resultSet)
+  public static List<Computer> mapListComputer(ResultSet resultSet)
       throws SQLException {
 
-    List<Optional<Computer>> computerList = new ArrayList<>();
+    List<Computer> computerList = new ArrayList<>();
     while (resultSet.next()) {
       LocalDate introduced = null;
       LocalDate discontinued = null;
@@ -62,10 +61,9 @@ public class ComputerMapper {
       }
       Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
       Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
-      LOGGER.info("New computer list created from database");
-      computerList.add(Optional.of(computer));
+      computerList.add(computer);
     }
-
+    LOGGER.info("New computer list created from database");
     return computerList;
   }
 

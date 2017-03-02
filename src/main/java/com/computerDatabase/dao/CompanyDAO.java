@@ -65,11 +65,11 @@ public class CompanyDAO implements DAO<Company> {
     return Optional.empty();
   }
 
-  @Override public List<Optional<Company>> findAll() {
+  @Override public List<Company> findAll() {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    List<Optional<Company>> listCompany = new ArrayList<>();
+    List<Company> listCompany = new ArrayList<>();
     try {
       connexion = ConnectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);

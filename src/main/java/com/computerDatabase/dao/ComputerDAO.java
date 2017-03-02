@@ -68,11 +68,11 @@ public class ComputerDAO implements DAO<Computer> {
     return computer;
   }
 
-  @Override public List<Optional<Computer>> findAll() {
+  @Override public List<Computer> findAll() {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    List<Optional<Computer>> listComputer = new ArrayList<>();
+    List<Computer> listComputer = new ArrayList<>();
 
     try {
 
@@ -133,7 +133,6 @@ public class ComputerDAO implements DAO<Computer> {
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
-      System.out.println(resultSet);
     } catch (SQLException e) {
       LOGGER.error("SQLException on updating computer");
       throw new DAOException(e);

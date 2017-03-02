@@ -27,7 +27,6 @@ public class ConnectionManager {
   public static Connection getInstance() {
     try {
       Optional<Properties> propertiesTmp = ConnectionManager.getProperties("/config.properties");
-      System.out.println(propertiesTmp.isPresent());
       Properties properties = propertiesTmp.get();
       if (connect == null) {
         try {
@@ -74,7 +73,6 @@ public class ConnectionManager {
 
     Properties properties = new Properties();
     File file = new File(fileName);
-    System.out.println(file.exists());
 
       InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream(fileName);
 

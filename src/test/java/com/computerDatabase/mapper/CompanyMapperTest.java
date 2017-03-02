@@ -54,13 +54,11 @@ public class CompanyMapperTest extends TestCase {
     Mockito.when(resultSet.getLong("id")).thenReturn(1L);
     Mockito.when(resultSet.getString("name")).thenReturn("company_test");
 
-    List<Optional<Company>> companyList = CompanyMapper.mapListCompany(resultSet);
+    List<Company> companyList = CompanyMapper.mapListCompany(resultSet);
     assertTrue(!companyList.isEmpty());
     //Collection<Company> companyList = companyListO.get();
     assertEquals(companyList.size(), 2);
-    for (Optional<Company> cO: companyList) {
-        assertTrue(cO.isPresent());
-        Company company = cO.get();
+    for (Company company: companyList) {
         assertEquals(company.getId(), 1L);
         assertTrue(company.getName().isPresent());
         assertEquals(company.getName().get(), "company_test");

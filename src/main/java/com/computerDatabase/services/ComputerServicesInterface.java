@@ -11,7 +11,7 @@ public interface ComputerServicesInterface {
    * Methode to get Computer list .
    * @return Optional<Collection<Computer>>
    */
-  List<Optional<Computer>> getComputerList();
+  List<Computer> getComputerList();
 
   /**
    * Method to get Computer details .

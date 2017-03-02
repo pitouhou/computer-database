@@ -30,10 +30,10 @@ public enum ComputerServices implements ComputerServicesInterface {
 
   }
 
-  @Override public List<Optional<Computer>> getComputerList() {
+  @Override public List<Computer> getComputerList() {
 
     ComputerDAO comp = ComputerDAO.getInstance();
-    List<Optional<Computer>> comp1;
+    List<Computer> comp1;
     comp1 = comp.findAll();
     return comp1;
   }

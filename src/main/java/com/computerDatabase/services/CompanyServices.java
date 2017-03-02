@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.computerDatabase.dao.CompanyDAO;
-import com.computerDatabase.dao.ConnectionManager;
 import com.computerDatabase.model.Company;
 
 public enum CompanyServices implements CompanyServicesInterface {
@@ -28,10 +27,10 @@ public enum CompanyServices implements CompanyServicesInterface {
 
   }
 
-  @Override public List<Optional<Company>> getCompanyList() {
+  @Override public List<Company> getCompanyList() {
     CompanyDAO comp = CompanyDAO.getInstance();
 
-    List<Optional<Company>> comp1 = comp.findAll();
+    List<Company> comp1 = comp.findAll();
     return comp1;
 
   }

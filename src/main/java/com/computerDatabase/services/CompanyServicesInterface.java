@@ -11,7 +11,7 @@ public interface CompanyServicesInterface {
    * Method to get Company list .
    * @return : List<Optional<Company>>
    */
-  List<Optional<Company>> getCompanyList();
+  List<Company> getCompanyList();
 
   /**
    * Method to get Company by id .

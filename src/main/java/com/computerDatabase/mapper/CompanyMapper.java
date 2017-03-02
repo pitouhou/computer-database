@@ -24,13 +24,13 @@ public class CompanyMapper {
    * @return : Optional<Collection<Company>>
    * @throws SQLException : e
    */
-  public static List<Optional<Company>> mapListCompany(ResultSet resultSet)
+  public static List<Company> mapListCompany(ResultSet resultSet)
       throws SQLException {
 
-    List<Optional<Company>> companyList = new ArrayList<>();
+    List<Company> companyList = new ArrayList<>();
     while (resultSet.next()) {
       Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
-      companyList.add(Optional.of(company));
+      companyList.add(company);
     }
     LOGGER.info("New company list created from database");
     return companyList;
