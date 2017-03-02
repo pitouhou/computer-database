@@ -1,11 +1,9 @@
 package com.computerDatabase.DAO;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -73,12 +71,12 @@ public class ConnectionManager {
    */
   public static Optional<Properties> getProperties(String fileName)
       throws FileNotFoundException, IOException {
-    
+
     Properties properties = new Properties();
     File file = new File(fileName);
     System.out.println(file.exists());
-    
-      InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream(fileName);;
+
+      InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream(fileName);
 
       try {
 

@@ -19,7 +19,7 @@ public class ComputerMapper {
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ConnectionManager.class);
-  
+
   /**
    * Mapper of Computer class .
    * @param resultSet : resultSet

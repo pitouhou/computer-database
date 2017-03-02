@@ -32,26 +32,24 @@ public class DateUtils {
     return dateOut;
 
   }
-  
-  public static String convertToString(LocalDate dateIn){
+
+  public static String convertToString(LocalDate dateIn) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
     String dateOut = dateIn.format(formatter);
     return dateOut;
   }
-  
-  public static Date convertToSQLDate(String dateIn){
-    
+
+  public static Date convertToSQLDate(String dateIn) {
     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
     java.util.Date parsed = new java.util.Date();
-    try{
+    try {
       parsed = date.parse(dateIn);
-      
-    }catch(ParseException e){
+
+    } catch (ParseException e) {
       e.getStackTrace();
     }
     Date dateOut = new Date(parsed.getTime());
     return dateOut;
-    
   }
 
 }

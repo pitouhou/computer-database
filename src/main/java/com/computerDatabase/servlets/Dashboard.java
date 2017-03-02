@@ -10,30 +10,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.computerDatabase.DTO.ComputerDTO;
-import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.ComputerPager;
 
 @WebServlet(name = "Dashboard", urlPatterns = { "/dashboard" })
 public class Dashboard extends HttpServlet {
-  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int current;
     int range;
-    if(request.getParameter("current")==null){
+    if (request.getParameter("current") == null) {
       current = 1;
-    }else{
+    } else {
       current = Integer.parseInt(request.getParameter("current"));
     }
-    if(request.getParameter("range")==null){
+    if (request.getParameter("range") == null) {
       range = 10;
-    }else{
+    } else {
       range = Integer.parseInt(request.getParameter("range"));
     }
     List<ComputerDTO> list = ComputerPager.getComputerPage(current, range);
-    request.setAttribute( "list", list );
-    request.setAttribute( "nbPage", ComputerPager.getNbPage(range) );
-    request.setAttribute( "current", current );
-    request.setAttribute( "range", range );
-    this.getServletContext().getRequestDispatcher( "/WEB-INF/Dashboard.jsp" ).forward( request, response );
-  
+    request.setAttribute("list", list);
+    request.setAttribute("nbPage", ComputerPager.getNbPage(range));
+    request.setAttribute("current", current);
+    request.setAttribute("range", range);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
+
   }
 }

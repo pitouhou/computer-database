@@ -11,7 +11,7 @@ public class Computer {
   private final LocalDate discontinued;
   private final Company company;
 
-  private Computer(ComputerBuilder builder){
+  private Computer(ComputerBuilder builder) {
     this.id = builder.id;
     this.name = builder.name;
     this.introduced = builder.introduced;
@@ -26,15 +26,15 @@ public class Computer {
   public String getName() {
     return name;
   }
-  
+
   public Optional<LocalDate> getIntroduced() {
     return Optional.ofNullable(introduced);
   }
-  
+
   public Optional<LocalDate> getDiscontinued() {
     return Optional.ofNullable(discontinued);
   }
-  
+
   public Optional<Company> getCompany() {
     return Optional.ofNullable(company);
   }
@@ -50,11 +50,11 @@ public class Computer {
       this.name = name;
     }
 
-    public ComputerBuilder id(long id){
+    public ComputerBuilder id(long id) {
       this.id = id;
       return this;
     }
-    
+
     public ComputerBuilder introduced(LocalDate introduced) {
       this.introduced = introduced;
       return this;
@@ -75,7 +75,7 @@ public class Computer {
     }
 
   }
-  
+
   @Override public boolean equals(Object o) {
 
     if (this == o) {

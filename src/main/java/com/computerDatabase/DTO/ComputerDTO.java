@@ -1,5 +1,7 @@
 package com.computerDatabase.DTO;
 
+import java.util.Objects;
+
 public class ComputerDTO {
   private final String id;
   private final String name;
@@ -7,7 +9,7 @@ public class ComputerDTO {
   private final String discontinued;
   private final CompanyDTO company;
 
-  private ComputerDTO(ComputerDTOBuilder builder){
+  private ComputerDTO(ComputerDTOBuilder builder) {
     this.id = builder.id;
     this.name = builder.name;
     this.introduced = builder.introduced;
@@ -22,15 +24,15 @@ public class ComputerDTO {
   public String getName() {
     return name;
   }
-  
+
   public String getIntroduced() {
     return introduced;
   }
-  
+
   public String getDiscontinued() {
     return discontinued;
   }
-  
+
   public CompanyDTO getCompany() {
     return company;
   }
@@ -46,11 +48,11 @@ public class ComputerDTO {
       this.name = name;
     }
 
-    public ComputerDTOBuilder id(String id){
+    public ComputerDTOBuilder id(String id) {
       this.id = id;
       return this;
     }
-    
+
     public ComputerDTOBuilder introduced(String introduced) {
       this.introduced = introduced;
       return this;
@@ -71,7 +73,7 @@ public class ComputerDTO {
     }
 
   }
-  
+
   @Override public boolean equals(Object o) {
 
     if (this == o) {

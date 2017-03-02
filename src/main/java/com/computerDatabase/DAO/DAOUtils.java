@@ -14,7 +14,7 @@ public class DAOUtils {
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ConnectionManager.class);
-  
+
   /**
    * Method to prepare statement .
    * @param connexion : connexion

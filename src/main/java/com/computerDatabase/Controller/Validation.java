@@ -19,7 +19,7 @@ public class Validation {
    return introduced.isBefore(discontinued);
 
   }
-  
+
   /**
    * Method to check if the company is valid .
    * @param id : id

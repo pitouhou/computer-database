@@ -25,8 +25,8 @@ public class CompanyDAO implements DAO<Company> {
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
-          .getLogger(ConnectionManager.class);
-  
+          .getLogger(CompanyDAO.class);
+
   /**
    * Constructor of CompanyDAO class .
    */

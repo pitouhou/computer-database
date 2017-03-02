@@ -199,12 +199,11 @@ public class Controller {
       System.out.println("Entrez l'identifiant de l'entreprise :");
       long companyId = sc.nextLong();
       Computer computer;
-      
+
       if (Validation.compareDate(introduced, discontinued)) {
 
         Optional<Company> company = Validation.isCompanyValid(companyId);
 
-        
         if (company.isPresent()) {
           computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company.get()).build();
         } else {
@@ -226,7 +225,7 @@ public class Controller {
     }
     return null;
   }
-  
+
   public static Computer getInputComputer(long id) {
 
     try {
@@ -243,12 +242,11 @@ public class Controller {
       System.out.println("Entrez l'identifiant de l'entreprise :");
       long companyId = sc.nextLong();
       Computer computer;
-      
+
       if (Validation.compareDate(introduced, discontinued)) {
 
         Optional<Company> company = Validation.isCompanyValid(companyId);
 
-        
         if (company.isPresent()) {
           computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company.get()).build();
         } else {

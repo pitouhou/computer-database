@@ -37,7 +37,7 @@ public class Display {
           "| id | nom | date d'introduction | date d'arret | id de l'entreprise |");
 
       for (Optional<Computer> comp : listComputer) {
-        if(comp.isPresent()){
+        if (comp.isPresent()) {
           Computer comp1 = comp.get();
           System.out.println("| " + comp1.getId() + " | " + comp1.getName() + " | " + comp1.getIntroduced() + " | " + comp1.getDiscontinued() + " | " + comp1.getCompany().get().getId() + " | " + comp1.getCompany().get().getName().get() + " |");
         }
@@ -57,7 +57,7 @@ public class Display {
     if (!listCompany.isEmpty()) {
       System.out.println("| id | nom | ");
       for (Optional<Company> comp : listCompany) {
-        if(comp.isPresent()){
+        if (comp.isPresent()) {
           System.out.println("| " + comp.get().getId() + " | " + comp.get().getName().get() + " | ");
         }
       }

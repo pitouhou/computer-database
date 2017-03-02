@@ -29,8 +29,8 @@ public class ComputerDAO implements DAO<Computer> {
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
-          .getLogger(ConnectionManager.class);
-  
+          .getLogger(ComputerDAO.class);
+
   /**
    * Constructor of ComputerDAO class .
    */

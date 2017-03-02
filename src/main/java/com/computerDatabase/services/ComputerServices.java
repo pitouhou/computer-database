@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.computerDatabase.DAO.ComputerDAO;
-import com.computerDatabase.DAO.ConnectionManager;
 import com.computerDatabase.model.Computer;
 
 public enum ComputerServices implements ComputerServicesInterface {
@@ -16,8 +15,8 @@ public enum ComputerServices implements ComputerServicesInterface {
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
-          .getLogger(ConnectionManager.class);
-  
+          .getLogger(ComputerServices.class);
+
   public static ComputerServices getInstance() {
 
     return ComputerServices.instance;

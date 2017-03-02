@@ -16,8 +16,8 @@ public enum CompanyServices implements CompanyServicesInterface {
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
-          .getLogger(ConnectionManager.class);
-  
+          .getLogger(CompanyServices.class);
+
   public static CompanyServices getInstance() {
     return CompanyServices.instance;
   }
