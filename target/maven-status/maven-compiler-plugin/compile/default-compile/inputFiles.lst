@@ -1,7 +1,6 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/CompanyServices.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DTO/ComputerDTO.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/DAOException.java
-/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/addComputer.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/Dashboard.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/model/Company.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/Controller/Display.java
@@ -14,6 +13,7 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/DAO.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/DAO/ComputerDAO.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/model/Computer.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/AddComputer.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/ComputerServicesInterface.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/entryUtils/DateUtils.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/CompanyServicesInterface.java
