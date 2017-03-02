@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.computerDatabase.DAO.ConnectionManager;
+import com.computerDatabase.dao.ConnectionManager;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
 

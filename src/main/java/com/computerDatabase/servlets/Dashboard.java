@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.computerDatabase.DTO.ComputerDTO;
+import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.pager.ComputerPager;
 
 @WebServlet(name = "Dashboard", urlPatterns = { "/dashboard" })

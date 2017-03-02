@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.computerDatabase.DTO.CompanyDTO;
+import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.CompanyPager;

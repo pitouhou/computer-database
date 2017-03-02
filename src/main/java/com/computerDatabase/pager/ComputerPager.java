@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.computerDatabase.DTO.CompanyDTO;
-import com.computerDatabase.DTO.ComputerDTO;
+import com.computerDatabase.dto.CompanyDTO;
+import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.ComputerServices;

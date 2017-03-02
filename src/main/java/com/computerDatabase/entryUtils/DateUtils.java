@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import com.computerDatabase.Controller.Controller;
+import com.computerDatabase.controller.Controller;
 
 public class DateUtils {
 

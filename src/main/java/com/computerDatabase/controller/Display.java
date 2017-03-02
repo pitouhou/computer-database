@@ -1,4 +1,4 @@
-package com.computerDatabase.Controller;
+package com.computerDatabase.controller;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.computerDatabase.DAO;
+package com.computerDatabase.dao;
 
-import static com.computerDatabase.DAO.DAOUtils.silentCloses;
-import static com.computerDatabase.DAO.DAOUtils.initPreparedStatement;
+import static com.computerDatabase.dao.DAOUtils.initPreparedStatement;
+import static com.computerDatabase.dao.DAOUtils.silentCloses;
 import static com.computerDatabase.mapper.CompanyMapper.mapCompany;
 import static com.computerDatabase.mapper.CompanyMapper.mapListCompany;
 

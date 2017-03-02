@@ -1,4 +1,4 @@
-import com.computerDatabase.Controller.Controller;
+import com.computerDatabase.controller.Controller;
 
 public class Main {
 

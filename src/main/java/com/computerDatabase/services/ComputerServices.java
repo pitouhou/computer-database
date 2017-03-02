@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.computerDatabase.DAO.ComputerDAO;
+import com.computerDatabase.dao.ComputerDAO;
 import com.computerDatabase.model.Computer;
 
 public enum ComputerServices implements ComputerServicesInterface {

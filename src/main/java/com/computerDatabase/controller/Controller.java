@@ -1,4 +1,4 @@
-package com.computerDatabase.Controller;
+package com.computerDatabase.controller;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;

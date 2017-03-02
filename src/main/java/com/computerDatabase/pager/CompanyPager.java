@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.computerDatabase.DTO.CompanyDTO;
+import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.services.CompanyServices;
 

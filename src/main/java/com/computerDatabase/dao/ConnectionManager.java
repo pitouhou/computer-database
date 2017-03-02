@@ -1,4 +1,4 @@
-package com.computerDatabase.DAO;
+package com.computerDatabase.dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
