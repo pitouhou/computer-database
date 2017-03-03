@@ -37,5 +37,7 @@ public interface ComputerServicesInterface {
    * @param id : id
    */
   void deleteComputer(long id);
+  
+  public int countComputer();
 
 }

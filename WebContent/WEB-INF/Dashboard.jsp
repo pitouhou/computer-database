@@ -21,7 +21,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                Computers found
+                ${ nbComputer } Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -83,7 +83,7 @@
                             <input type="checkbox" name="cb" class="cb" value="0">
                         </td>
                         <td>
-                            <a href="editComputer.html" onclick=""><c:out value="${ computer.getName() }" /></a>
+                            <a href="editComputer?id=${ computer.getId() }" onclick=""><c:out value="${ computer.getName() }" /></a>
                         </td>
                         <td>
 						        <p>${ computer.getIntroduced() }</p>

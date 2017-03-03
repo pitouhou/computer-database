@@ -10,10 +10,13 @@ import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.ComputerServices;
 
 public class ComputerPager {
+  
+  public static int current;
+  public static int nbComputer;
 
-  public static List<ComputerDTO> computerList() {
+  public static List<ComputerDTO> computerList(int current, int range) {
     ComputerServices service = ComputerServices.getInstance();
-    List<Computer> list = service.getComputerList();
+    List<Computer> list = service.getComputerList(current, range);
     List<ComputerDTO> listOut = new ArrayList<>();
     CompanyDTO company;
     String introduced;
@@ -43,24 +46,56 @@ public class ComputerPager {
     return listOut;
   }
 
-  public static int getNbPage(int nb) {
+  public static ComputerDTO getComputer(long id){
+    
+    ComputerServices service = ComputerServices.getInstance();
+    Computer computer = service.getComputerDetails(id).get();
+    CompanyDTO company;
+    String introduced;
+    String discontinued;
+    if (computer.getCompany().get().getId() != 0) {
+      company = new CompanyDTO.CompanyDTOBuilder(Long.toString(computer.getCompany().get().getId()), computer.getCompany().get().getName().get().toString()).build();
+    } else {
+      company = new CompanyDTO.CompanyDTOBuilder("Non définit", "Non définit").build();
+    }
+    if (computer.getIntroduced().isPresent()) {
+      introduced = DateUtils.convertToString(computer.getIntroduced().get());
+    } else {
+      introduced = "Non définit";
+    }
+    if (computer.getDiscontinued().isPresent()) {
+      discontinued = DateUtils.convertToString(computer.getDiscontinued().get());
+    } else {
+      discontinued = "Non définit";
+    }
+    ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder(computer.getName().toString()).id(Long.toString(computer.getId())).introduced(introduced).discontinued(discontinued).company(company).build();
+    return computerDTO;
+  }
+  
+  public static int getNbPage(int range) {
 
     ComputerServices service = ComputerServices.getInstance();
-    List<Computer> list = service.getComputerList();
-    return list.size() / nb;
+    int nb = service.countComputer();
+    return nb/range;
 
   }
 
+  /*
   public static List<ComputerDTO> getComputerPage(int current, int nb) {
 
     List<ComputerDTO> listOut = new ArrayList<>();
-    List<ComputerDTO> listIn = computerList();
+    //List<ComputerDTO> listIn = computerList();
     for (int i = ((current * nb) - nb); i < (current * nb); i++) {
       if (i < listIn.size()) {
         listOut.add(listIn.get(i));
       }
     }
     return listOut;
+  }
+  */
+  public static int getNbComputer(){
+    ComputerServices service = ComputerServices.getInstance();
+    return service.countComputer();
   }
 
 }

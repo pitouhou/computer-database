@@ -29,13 +29,23 @@ public enum ComputerServices implements ComputerServicesInterface {
   ComputerServices() {
 
   }
-
+  
   @Override public List<Computer> getComputerList() {
+    return null;
+  }
+  
+  public List<Computer> getComputerList(int current, int range) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
     List<Computer> comp1;
-    comp1 = comp.findAll();
+    comp1 = comp.findAll(current, range);
     return comp1;
+  }
+
+  @Override
+  public int countComputer(){
+    ComputerDAO comp = ComputerDAO.getInstance();
+    return comp.count();
   }
 
   @Override public Optional<Computer> getComputerDetails(long id) {

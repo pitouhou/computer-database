@@ -11,6 +11,10 @@ public class Computer {
   private final LocalDate discontinued;
   private final Company company;
 
+  /**
+   * Builder of class Computer .
+   * @param builder : ComputerBuilder
+   */
   private Computer(ComputerBuilder builder) {
     this.id = builder.id;
     this.name = builder.name;

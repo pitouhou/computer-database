@@ -40,6 +40,11 @@ public class CompanyDAO implements DAO<Company> {
     return CompanyDAOHolder.INSTANCE;
   }
 
+  @Override
+  public int count(){
+    return 1;
+  }
+  
   @Override public Optional<Company> findById(long id) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;

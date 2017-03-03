@@ -27,12 +27,12 @@ public class Dashboard extends HttpServlet {
     } else {
       range = Integer.parseInt(request.getParameter("range"));
     }
-    List<ComputerDTO> list = ComputerPager.getComputerPage(current, range);
+    List<ComputerDTO> list = ComputerPager.computerList(current, range);
     request.setAttribute("list", list);
     request.setAttribute("nbPage", ComputerPager.getNbPage(range));
     request.setAttribute("current", current);
     request.setAttribute("range", range);
+    request.setAttribute("nbComputer", ComputerPager.getNbComputer());
     this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
-
   }
 }

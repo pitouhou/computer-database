@@ -16,7 +16,7 @@ public class CompanyPager {
     CompanyDTO company;
     if (!list.isEmpty()) {
       for (Company comp : list) {
-        company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.getId()), comp.getName().toString()).build();
+        company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.getId()), comp.getName().get().toString()).build();
         listOut.add(company);
       }
       return listOut;

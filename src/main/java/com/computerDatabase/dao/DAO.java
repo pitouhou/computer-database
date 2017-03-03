@@ -38,4 +38,10 @@ public interface DAO<T> {
    */
   void delete(long id);
 
+  /**
+   * Method to get number of computer .
+   * @return nbComputer
+   */
+  int count();
+
 }

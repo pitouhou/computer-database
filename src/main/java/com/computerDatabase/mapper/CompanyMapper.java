@@ -17,8 +17,7 @@ public class CompanyMapper {
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ConnectionManager.class);
-
-  /**
+ /**
    * Mapper of Company list .
    * @param resultSet : resultSet
    * @return : Optional<Collection<Company>>

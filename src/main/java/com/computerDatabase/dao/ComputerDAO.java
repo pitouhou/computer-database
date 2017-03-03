@@ -22,10 +22,11 @@ import com.computerDatabase.model.Computer;
 public class ComputerDAO implements DAO<Computer> {
 
   private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
-  private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
+  private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT ? OFFSET ?";
   private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
   private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
+  private static final String SQL_COUNT_COMPUTER = "SELECT COUNT(id) FROM computer";
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
@@ -43,6 +44,29 @@ public class ComputerDAO implements DAO<Computer> {
   public static ComputerDAO getInstance() {
     LOGGER.info("ComputerDAO instance created");
     return ComputerDAOHolder.INSTANCE;
+  }
+
+  @Override
+  public int count(){
+    Connection connexion = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    int nbComputer = 1;
+
+    try {
+      connexion = ConnectionManager.getInstance();
+      preparedStatement = initPreparedStatement(connexion, SQL_COUNT_COMPUTER, false);
+      resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+      nbComputer = resultSet.getInt(1);
+      }
+    } catch (SQLException e) {
+      LOGGER.error("SQLException on getting number of computer");
+      //return Optional.empty();
+    } finally {
+      silentCloses(resultSet, preparedStatement, connexion);
+    }
+    return nbComputer;
   }
 
   @Override
@@ -69,6 +93,10 @@ public class ComputerDAO implements DAO<Computer> {
   }
 
   @Override public List<Computer> findAll() {
+    return null;
+  }
+  
+  public List<Computer> findAll(int current, int range) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -77,7 +105,7 @@ public class ComputerDAO implements DAO<Computer> {
     try {
 
       connexion = ConnectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false);
+      preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false, range, current*range);
       resultSet = preparedStatement.executeQuery();
 
       if (resultSet.next()) {
