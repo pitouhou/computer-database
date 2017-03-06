@@ -3,6 +3,7 @@ package com.computerDatabase.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.computerDatabase.controller.Controller;
+import com.computerDatabase.controller.Validation;
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
@@ -23,10 +26,10 @@ import com.computerDatabase.services.ComputerServices;
 public class EditComputer extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  List<CompanyDTO> listIn = CompanyPager.getCompanyPage();
-    request.setAttribute("list", listIn);
+	  List<CompanyDTO> listIn = Controller.getCompanies();
 	  long id = Long.parseLong(request.getParameter("id"));
-	  ComputerDTO computer = ComputerPager.getComputer(id);
+	  ComputerDTO computer = Controller.getComputer(id);
+	  request.setAttribute("list", listIn);
 	  request.setAttribute("computer", computer);
 	  request.setAttribute("introduced", computer.getIntroduced().replaceAll("\\s", "-"));
 	  request.setAttribute("discontinued", computer.getDiscontinued().replaceAll("\\s", "-"));
@@ -34,14 +37,17 @@ public class EditComputer extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  String name = request.getParameter("computerName");
-    LocalDate introduced = DateUtils.convertDate(request.getParameter("introduced"));
-    LocalDate discontinued = DateUtils.convertDate(request.getParameter("discontinued"));
-    long companyId = Integer.parseInt(request.getParameter("companyId"));
-    CompanyServices service1 = CompanyServices.getInstance();
-    Computer computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(service1.getCompany(companyId).get()).build();
+	  Optional<CompanyDTO> company = CompanyPager.getCompany(Integer.parseInt(request.getParameter("companyId")));
+	  CompanyDTO comp;
+	  if(company.isPresent()){
+	    comp = company.get();
+	  }else{
+	    comp = null;
+	  }
+	  ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(request.getParameter("computerName")).id(request.getParameter("computerId")).introduced(request.getParameter("introduced")).discontinued(request.getParameter("discontinued")).company(comp).build();
+    Computer computerUp = Validation.isComputerValid(computer).get();
     ComputerServices service = ComputerServices.getInstance();
-    service.updateComputer(computer);
+    service.updateComputer(computerUp);
     response.sendRedirect("dashboard");
 	}
 }

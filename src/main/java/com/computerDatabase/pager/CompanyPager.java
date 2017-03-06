@@ -2,6 +2,7 @@ package com.computerDatabase.pager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.model.Company;
@@ -23,5 +24,16 @@ public class CompanyPager {
     } else {
       return null;
     }
+  }
+  
+  public static Optional<CompanyDTO> getCompany(long id) {
+    CompanyServices compService = CompanyServices.getInstance();
+    Optional<Company> company = compService.getCompany(id);
+    CompanyDTO companyDto;
+    if(company.isPresent()){
+      companyDto = new CompanyDTO.CompanyDTOBuilder(Long.toString(company.get().getId()), company.get().getName().get().toString()).build();
+      return Optional.of(companyDto);
+    }
+    return Optional.empty();
   }
 }

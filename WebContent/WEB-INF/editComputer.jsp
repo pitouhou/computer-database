@@ -26,11 +26,11 @@
                     <h1>Edit Computer</h1>
 
                     <form action="editComputer" name="newComputer" method="POST">
-                        <input type="hidden" value="0" id="id"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${ computer.getId() }" name="computerId" id="id"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" name="computerName" placeholder="${ computer.getName() }">
+                                <input type="text" class="form-control" id="computerName" value="${ computer.getName() }" name="computerName">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
@@ -42,8 +42,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" name="companyId" >
-                                <option value="">None</option>
+                                <select class="form-control" id="companyId" name="companyId">
+                                <option value="0">None</option>
                                 <c:forEach items="${ list }" var="company">
                                 <c:choose>
 									<c:when test="${ company.getName() }==${ computer.getCompany().getName() }">

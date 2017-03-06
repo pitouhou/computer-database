@@ -17,20 +17,15 @@ public class DateUtils {
    * @return LocalDate
    */
   public static LocalDate convertDate(String dateIn) {
-
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     LocalDate dateOut;
     try {
       dateOut = LocalDate.parse(dateIn, formatter);
     } catch (DateTimeParseException e) {
       System.out.println("Le format de la date n'est pas respecté ! (yyyy-MM-dd)");
-      Controller.menu();
       dateOut = null;
     }
-
     return dateOut;
-
   }
 
   public static String convertToString(LocalDate dateIn) {

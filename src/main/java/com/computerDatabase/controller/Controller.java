@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import com.computerDatabase.dto.CompanyDTO;
+import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
+import com.computerDatabase.pager.CompanyPager;
+import com.computerDatabase.pager.ComputerPager;
 import com.computerDatabase.services.CompanyServices;
 import com.computerDatabase.services.ComputerServices;
 
@@ -19,6 +23,16 @@ public class Controller {
    */
   public Controller() {
 
+  }
+  
+  public static ComputerDTO getComputer(long id){
+    ComputerDTO computer = ComputerPager.getComputer(id);
+    return computer;
+  }
+  
+  public static List<CompanyDTO> getCompanies(){
+    List<CompanyDTO> listIn = CompanyPager.getCompanyPage();
+    return listIn;
   }
 
   /**

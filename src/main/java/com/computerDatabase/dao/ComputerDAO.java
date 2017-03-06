@@ -148,12 +148,30 @@ public class ComputerDAO implements DAO<Computer> {
   @Override public void update(Computer computer) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
+    String companyId;
     int resultSet;
     long id = computer.getId();
     String name = computer.getName();
-    LocalDate introduced = computer.getIntroduced().get();
-    LocalDate discontinued = computer.getDiscontinued().get();
-    long companyId = computer.getCompany().get().getId();
+    LocalDate introduced;
+    LocalDate discontinued;
+    
+    if(computer.getIntroduced().isPresent()){
+      introduced = computer.getIntroduced().get();
+    }else{
+      introduced = null;
+    }
+    
+    if(computer.getDiscontinued().isPresent()){
+      discontinued = computer.getDiscontinued().get();
+    }else{
+      discontinued = null;
+    }
+    
+    if(computer.getCompany().isPresent()){
+      companyId = Long.toString(computer.getCompany().get().getId());
+    }else{
+      companyId = null;
+    }
 
     try {
 

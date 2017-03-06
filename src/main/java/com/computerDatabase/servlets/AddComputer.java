@@ -37,5 +37,4 @@ public class AddComputer extends HttpServlet {
     service.addComputer(computer);
     response.sendRedirect("dashboard");
   }
-
 }
