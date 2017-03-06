@@ -62,7 +62,6 @@ public class ComputerDAO implements DAO<Computer> {
       }
     } catch (SQLException e) {
       LOGGER.error("SQLException on getting number of computer");
-      //return Optional.empty();
     } finally {
       silentCloses(resultSet, preparedStatement, connexion);
     }

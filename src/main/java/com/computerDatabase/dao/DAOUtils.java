@@ -72,6 +72,7 @@ public class DAOUtils {
     if (connexion != null) {
       try {
         connexion.close();
+        ConnectionManager.closeDataSource();
       } catch (SQLException e) {
         LOGGER.error("SQLException on closing connection");
       }
