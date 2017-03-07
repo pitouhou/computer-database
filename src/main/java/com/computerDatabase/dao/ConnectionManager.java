@@ -28,6 +28,23 @@ public class ConnectionManager {
   public static void closeDataSource(){
     ds.close();
   }
+  
+  public static void commit(Connection conn){
+    try{
+      conn.commit();
+    }catch(SQLException e){
+      LOGGER.error("Error on commiting data");
+      rollBack(conn);
+    }
+  }
+  
+  public static void rollBack(Connection conn){
+    try{
+      conn.rollback();
+    }catch(SQLException e){
+      LOGGER.error("Error on transaction rollback");
+    }
+  }
   /**
    * Method to get a new instance of Connection class .
    * @return connect

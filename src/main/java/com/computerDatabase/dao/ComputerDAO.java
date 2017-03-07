@@ -138,8 +138,10 @@ public class ComputerDAO implements DAO<Computer> {
 
     } catch (SQLException e) {
       LOGGER.error("SQLException on creating computer");
+      ConnectionManager.rollBack(connexion);
       throw new DAOException(e);
     } finally {
+      ConnectionManager.commit(connexion);
       silentCloses(preparedStatement, connexion);
     }
   }
@@ -180,8 +182,10 @@ public class ComputerDAO implements DAO<Computer> {
       resultSet = preparedStatement.executeUpdate();
     } catch (SQLException e) {
       LOGGER.error("SQLException on updating computer");
+      ConnectionManager.rollBack(connexion);
       throw new DAOException(e);
     } finally {
+      ConnectionManager.commit(connexion);
       silentCloses(preparedStatement, connexion);
     }
   }
@@ -199,8 +203,10 @@ public class ComputerDAO implements DAO<Computer> {
 
     } catch (SQLException e) {
       LOGGER.error("SQLException on deleting computer");
+      ConnectionManager.rollBack(connexion);
       throw new DAOException(e);
     } finally {
+      ConnectionManager.commit(connexion);
       silentCloses(preparedStatement, connexion);
     }
 
