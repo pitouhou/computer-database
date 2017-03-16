@@ -30,6 +30,8 @@
         <slf4j-api.version>1.7.24</slf4j-api.version>
         <slf4j-simple.version>1.7.24</slf4j-simple.version>
         <HikariCP.version>2.5.1</HikariCP.version>
+        <selenium-java.version>3.2.0</selenium-java.version>
+        <gatling-charts-highcharts.version>2.2.3</gatling-charts-highcharts.version>
     </properties>
  
     <build>
@@ -183,9 +185,20 @@
     <version>${slf4j-simple.version}</version>
 </dependency>
 <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${HikariCP.version}</version>
-        </dependency>
+    <groupId>com.zaxxer</groupId>
+    <artifactId>HikariCP</artifactId>
+    <version>${HikariCP.version}</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>${selenium-java.version}</version>
+</dependency>
+<dependency>
+	<groupId>io.gatling.highcharts</groupId>
+	<artifactId>gatling-charts-highcharts</artifactId>
+	<version>${gatling-charts-highcharts.version}</version>
+</dependency>
     </dependencies>
 </project>

@@ -27,6 +27,7 @@ public class ComputerDAO implements DAO<Computer> {
   private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
   private static final String SQL_COUNT_COMPUTER = "SELECT COUNT(id) FROM computer";
+  private static final String SQL_FIND_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
 
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
@@ -54,7 +55,7 @@ public class ComputerDAO implements DAO<Computer> {
     int nbComputer = 1;
 
     try {
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_COUNT_COMPUTER, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
@@ -63,7 +64,8 @@ public class ComputerDAO implements DAO<Computer> {
     } catch (SQLException e) {
       LOGGER.error("SQLException on getting number of computer");
     } finally {
-      silentCloses(resultSet, preparedStatement, connexion);
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
     }
     return nbComputer;
   }
@@ -76,7 +78,7 @@ public class ComputerDAO implements DAO<Computer> {
     Optional<Computer> computer = Optional.empty();
 
     try {
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
@@ -86,7 +88,8 @@ public class ComputerDAO implements DAO<Computer> {
       LOGGER.error("SQLException on getting computer by id");
       return Optional.empty();
     } finally {
-      silentCloses(resultSet, preparedStatement, connexion);
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
     }
     return computer;
   }
@@ -103,10 +106,10 @@ public class ComputerDAO implements DAO<Computer> {
 
     try {
 
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false, range, current*range);
       resultSet = preparedStatement.executeQuery();
-
+      
       if (resultSet.next()) {
         listComputer = mapListComputer(resultSet);
       }
@@ -115,7 +118,35 @@ public class ComputerDAO implements DAO<Computer> {
       LOGGER.error("SQLException on getting computer list");
       return listComputer;
     } finally {
-      silentCloses(resultSet, preparedStatement, connexion);
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
+    }
+    return listComputer;
+  }
+  
+  public List<Computer> findByName(String name) {
+    String companyName = name;
+    Connection connexion = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    List<Computer> listComputer = new ArrayList<>();
+
+    try {
+
+      connexion = ConnectionManager.INSTANCE.getInstance();
+      preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_NAME, false, name, companyName);
+      resultSet = preparedStatement.executeQuery();
+      System.out.println(resultSet);
+      if (resultSet.next()) {
+        listComputer = mapListComputer(resultSet);
+      }
+
+    } catch (SQLException e) {
+      LOGGER.error("SQLException on getting computer list");
+      return listComputer;
+    } finally {
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
     }
     return listComputer;
   }
@@ -124,25 +155,38 @@ public class ComputerDAO implements DAO<Computer> {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     int resultSet;
+    LocalDate introduced;
+    LocalDate discontinued;
     String name = computer.getName();
-    LocalDate introduced = computer.getIntroduced().get();
-    LocalDate discontinued = computer.getDiscontinued().get();
+    if(computer.getIntroduced().isPresent()){
+      introduced = computer.getIntroduced().get();
+    }else{
+      introduced = null;
+    }
+    
+    if(computer.getDiscontinued().isPresent()){
+      discontinued = computer.getDiscontinued().get();
+    }else{
+      discontinued = null;
+    }
+    
     long companyId = computer.getCompany().get().getId();
 
     try {
 
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_CREATE_COMPUTER, false, name,
           introduced, discontinued, companyId);
       resultSet = preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       LOGGER.error("SQLException on creating computer");
-      ConnectionManager.rollBack(connexion);
+      ConnectionManager.INSTANCE.rollBack();
       throw new DAOException(e);
     } finally {
-      ConnectionManager.commit(connexion);
-      silentCloses(preparedStatement, connexion);
+      ConnectionManager.INSTANCE.commit();
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(preparedStatement);
     }
   }
 
@@ -176,17 +220,18 @@ public class ComputerDAO implements DAO<Computer> {
 
     try {
 
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
     } catch (SQLException e) {
       LOGGER.error("SQLException on updating computer");
-      ConnectionManager.rollBack(connexion);
+      ConnectionManager.INSTANCE.rollBack();
       throw new DAOException(e);
     } finally {
-      ConnectionManager.commit(connexion);
-      silentCloses(preparedStatement, connexion);
+      ConnectionManager.INSTANCE.commit();
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(preparedStatement);
     }
   }
 
@@ -197,17 +242,18 @@ public class ComputerDAO implements DAO<Computer> {
 
     try {
 
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_DELETE_COMPUTER, false, id);
       resultSet = preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       LOGGER.error("SQLException on deleting computer");
-      ConnectionManager.rollBack(connexion);
+      ConnectionManager.INSTANCE.rollBack();
       throw new DAOException(e);
     } finally {
-      ConnectionManager.commit(connexion);
-      silentCloses(preparedStatement, connexion);
+      ConnectionManager.INSTANCE.commit();
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(preparedStatement);
     }
 
   }

@@ -16,31 +16,48 @@ import org.slf4j.LoggerFactory;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-public class ConnectionManager {
+public enum ConnectionManager {
 
-  private static Connection connect;
-  private static HikariDataSource ds;
+  INSTANCE;
+  private ThreadLocal<Connection> connection = new ThreadLocal<Connection>();
+  private HikariDataSource ds;
 
+  ConnectionManager(){
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+      HikariConfig cfg = new HikariConfig("/config.properties");
+      ds = new HikariDataSource(cfg);
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ConnectionManager.class);
   
-  public static void closeDataSource(){
-    ds.close();
-  }
-  
-  public static void commit(Connection conn){
-    try{
-      conn.commit();
-    }catch(SQLException e){
-      LOGGER.error("Error on commiting data");
-      rollBack(conn);
+  public void closeConnexion(){
+    try {
+      LOGGER.info("connection closed");
+      connection.get().close();
+    } catch (SQLException e) {
+      LOGGER.error("Error connection not closed");
     }
   }
   
-  public static void rollBack(Connection conn){
+  public void commit(){
     try{
-      conn.rollback();
+      connection.get().commit();
+    }catch(SQLException e){
+      LOGGER.error("Error on commiting data");
+      rollBack();
+    }
+  }
+  
+  public void rollBack(){
+    try{
+      connection.get().rollback();
     }catch(SQLException e){
       LOGGER.error("Error on transaction rollback");
     }
@@ -49,36 +66,24 @@ public class ConnectionManager {
    * Method to get a new instance of Connection class .
    * @return connect
    */
-  public static Connection getInstance() {
-    /*Optional<Properties> propertiesTmp = ConnectionManager.getProperties("/config.properties");
-    Properties properties = propertiesTmp.get();*/
-    if (connect == null) {
-      try {
-        Class.forName("com.mysql.jdbc.Driver");
-        HikariConfig cfg = new HikariConfig("/config.properties");
-        ds = new HikariDataSource(cfg);
-        connect = ds.getConnection();
-      } catch (SQLException e) {
-        LOGGER.error("SQLException on the creation of connection");
-      } catch (ClassNotFoundException ex) {
-        LOGGER.error("ClassNotFoundException on the creation of connection");
+  public Connection getInstance() {
+    try {
+      if ((connection.get() == null)||(connection.get().isClosed())) {
+        try {
+          connection.set(ds.getConnection());
+          LOGGER.info("connection created");
+        } catch (SQLException e) {
+          LOGGER.error("SQLException on the creation of connection");
+        }
+      } else {
+        
       }
-    } else {
-      try {
-        connect.close();
-        Class.forName("com.mysql.jdbc.Driver");
-        HikariConfig cfg = new HikariConfig("/config.properties");
-        HikariDataSource ds = new HikariDataSource(cfg);
-        Class.forName("com.mysql.jdbc.Driver");
-        connect = ds.getConnection();
-      } catch (SQLException e) {
-        LOGGER.error("SQLException on the creation of connection");
-      } catch (ClassNotFoundException ex) {
-        LOGGER.error("ClassNotFoundException on the creation of connection");
-      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     LOGGER.info("Connection instance created");
-    return connect;
+    return connection.get();
   }
 
   /**

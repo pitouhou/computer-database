@@ -26,7 +26,7 @@ public class DAOUtils {
    */
   public static PreparedStatement initPreparedStatement(Connection connexion, String sql,
       boolean returnGeneratedKeys, Object... objets) throws SQLException {
-
+    
     PreparedStatement preparedStatement = connexion.prepareStatement(sql,
         returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 
@@ -72,7 +72,7 @@ public class DAOUtils {
     if (connexion != null) {
       try {
         connexion.close();
-        ConnectionManager.closeDataSource();
+        //ConnectionManager.closeDataSource();
       } catch (SQLException e) {
         LOGGER.error("SQLException on closing connection");
       }
@@ -84,9 +84,8 @@ public class DAOUtils {
    * @param statement : statement
    * @param connexion : connexion
    */
-  public static void silentCloses(Statement statement, Connection connexion) {
+  public static void silentCloses(Statement statement) {
     silentClose(statement);
-    silentClose(connexion);
   }
 
   /**
@@ -95,10 +94,9 @@ public class DAOUtils {
    * @param statement : statement
    * @param connexion : connexion
    */
-  public static void silentCloses(ResultSet resultSet, Statement statement, Connection connexion) {
+  public static void silentCloses(ResultSet resultSet, Statement statement) {
     silentClose(resultSet);
     silentClose(statement);
-    silentClose(connexion);
   }
 
 }

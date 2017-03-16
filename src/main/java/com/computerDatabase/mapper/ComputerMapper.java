@@ -49,7 +49,7 @@ public class ComputerMapper {
       throws SQLException {
 
     List<Computer> computerList = new ArrayList<>();
-    while (resultSet.next()) {
+    do{
       LocalDate introduced = null;
       LocalDate discontinued = null;
       if (resultSet.getDate("introduced") != null) {
@@ -61,7 +61,8 @@ public class ComputerMapper {
       Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
       Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
       computerList.add(computer);
-    }
+    }while(resultSet.next());
+    
     LOGGER.info("New computer list created from database");
     return computerList;
   }

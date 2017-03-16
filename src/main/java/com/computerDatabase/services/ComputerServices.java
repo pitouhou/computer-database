@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.computerDatabase.dao.ComputerDAO;
+import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.model.Computer;
 
 public enum ComputerServices implements ComputerServicesInterface {
@@ -39,6 +40,14 @@ public enum ComputerServices implements ComputerServicesInterface {
     ComputerDAO comp = ComputerDAO.getInstance();
     List<Computer> comp1;
     comp1 = comp.findAll(current, range);
+    return comp1;
+  }
+  
+  public List<Computer> getByName(String name) {
+
+    ComputerDAO comp = ComputerDAO.getInstance();
+    List<Computer> comp1;
+    comp1 = comp.findByName(name);
     return comp1;
   }
 

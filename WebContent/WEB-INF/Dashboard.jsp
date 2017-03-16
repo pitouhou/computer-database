@@ -25,7 +25,7 @@
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
-                    <form id="searchForm" action="#" method="GET" class="form-inline">
+                    <form id="Search" action="Search" method="GET" class="form-inline">
 
                         <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
                         <input type="submit" id="searchsubmit" value="Filter by name"
@@ -39,8 +39,8 @@
             </div>
         </div>
 
-        <form id="deleteForm" action="#" method="POST">
-            <input type="hidden" name="selection" value="">
+        <form id="deleteForm" action="Delete" method="POST">
+            <input type="hidden" id="selection" name="selection" value="">
         </form>
 
         <div class="container" style="margin-top: 10px;">
@@ -53,7 +53,7 @@
                         <th class="editMode" style="width: 60px; height: 22px;">
                             <input type="checkbox" id="selectall" /> 
                             <span style="vertical-align: top;">
-                                 -  <a href="#" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                                 -  <a href="Delete" id="deleteSelected" onclick="$.fn.deleteSelected();">
                                         <i class="fa fa-trash-o fa-lg"></i>
                                     </a>
                             </span>
@@ -80,7 +80,7 @@
                 <c:forEach items="${ list }" var="computer">
                     <tr>
                         <td class="editMode">
-                            <input type="checkbox" name="cb" class="cb" value="0">
+                            <input type="checkbox" name="cb" class="cb" value="${ computer.getId() }">
                         </td>
                         <td>
                             <a href="editComputer?id=${ computer.getId() }" onclick=""><c:out value="${ computer.getName() }" /></a>

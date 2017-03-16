@@ -25,6 +25,11 @@ public class Controller {
 
   }
   
+  public static void delete(long id){
+    ComputerServices service = ComputerServices.instance;
+    service.deleteComputer(id);
+  }
+  
   public static ComputerDTO getComputer(long id){
     ComputerDTO computer = ComputerPager.getComputer(id);
     return computer;

@@ -85,7 +85,29 @@ public class Validation {
       }
       newComputer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company).build();
       return Optional.of(newComputer);
+    }else{
+      
+      name = computer.getName();
+      
+      if(computer.getIntroduced().length()>9){
+        introduced = DateUtils.convertDate(computer.getIntroduced());
+      }else{
+        introduced = null;
+      }
+      
+      if(computer.getDiscontinued().length()>9){
+        discontinued = DateUtils.convertDate(computer.getDiscontinued());
+      }else{
+        discontinued = null;
+      }
+      
+      if(computer.getCompany()!=null){
+        company = compService.getCompany(Long.parseLong(computer.getCompany().getId())).get();
+      }else{
+        company = null;
+      }
+      newComputer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company).build();
+      return Optional.of(newComputer);
     }
-    return Optional.empty();
   }
 }

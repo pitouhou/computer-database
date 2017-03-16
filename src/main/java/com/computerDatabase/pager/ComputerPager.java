@@ -46,6 +46,39 @@ public class ComputerPager {
     return listOut;
   }
 
+  public static List<ComputerDTO> searchByName(String name) {
+    ComputerServices service = ComputerServices.getInstance();
+    List<Computer> list = service.getByName(name);
+    List<ComputerDTO> listOut = new ArrayList<>();
+    CompanyDTO company;
+    String introduced;
+    String discontinued;
+    if (!list.isEmpty()) {
+
+      for (Computer comp : list) {
+          if (comp.getCompany().get().getId() != 0) {
+            company = new CompanyDTO.CompanyDTOBuilder(Long.toString(comp.getCompany().get().getId()), comp.getCompany().get().getName().get().toString()).build();
+          } else {
+            company = new CompanyDTO.CompanyDTOBuilder("Non définit", "Non définit").build();
+          }
+          if (comp.getIntroduced().isPresent()) {
+            introduced = DateUtils.convertToString(comp.getIntroduced().get());
+          } else {
+            introduced = "Non définit";
+          }
+          if (comp.getDiscontinued().isPresent()) {
+            discontinued = DateUtils.convertToString(comp.getDiscontinued().get());
+          } else {
+            discontinued = "Non définit";
+          }
+          ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(comp.getName().toString()).id(Long.toString(comp.getId())).introduced(introduced).discontinued(discontinued).company(company).build();
+          System.out.println("computer added");
+          listOut.add(computer);
+      }
+    }
+    return listOut;
+  }
+  
   public static ComputerDTO getComputer(long id){
     
     ComputerServices service = ComputerServices.getInstance();

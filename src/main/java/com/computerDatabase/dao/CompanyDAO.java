@@ -52,7 +52,7 @@ public class CompanyDAO implements DAO<Company> {
 
     try {
 
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
       resultSet = preparedStatement.executeQuery();
 
@@ -65,7 +65,8 @@ public class CompanyDAO implements DAO<Company> {
       LOGGER.error("SQLException on getting company by id");
       return Optional.empty();
     } finally {
-      silentCloses(resultSet, preparedStatement, connexion);
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
     }
     return Optional.empty();
   }
@@ -76,7 +77,7 @@ public class CompanyDAO implements DAO<Company> {
     ResultSet resultSet = null;
     List<Company> listCompany = new ArrayList<>();
     try {
-      connexion = ConnectionManager.getInstance();
+      connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
@@ -88,7 +89,8 @@ public class CompanyDAO implements DAO<Company> {
       LOGGER.error("SQLException on getting company list");
       return listCompany;
     } finally {
-      silentCloses(resultSet, preparedStatement, connexion);
+      ConnectionManager.INSTANCE.closeConnexion();
+      silentCloses(resultSet, preparedStatement);
     }
     return listCompany;
   }
