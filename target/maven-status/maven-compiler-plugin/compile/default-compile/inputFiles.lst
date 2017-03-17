@@ -7,6 +7,7 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dao/ConnectionManager.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/Dashboard.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/model/Company.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/Delete.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/ComputerServices.java
 /home/excilys/excilys/computer-database-db/src/main/java/Main.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dao/DAOConfigurationException.java
@@ -14,6 +15,7 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/controller/Controller.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/model/Computer.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/AddComputer.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/servlets/Search.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/ComputerServicesInterface.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dto/ComputerDTO.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/entryUtils/DateUtils.java

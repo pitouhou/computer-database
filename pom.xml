@@ -4,7 +4,7 @@
  
     <groupId>com.computerDatabase</groupId>
     <artifactId>computer-database-db</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>war</packaging>
 
     <name>computer-database-db</name>
