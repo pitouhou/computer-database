@@ -1,0 +1,5 @@
+sudo cp -r * /test
+sudo docker run -v test1:/test maven mvn package -Dmaven.test.skip=true
+
+sudo cp /test/target/computer-database-db-1.0.1.war /prod
+sudo docker run -d -v production:/usr/local/tomcat/webapps -p 8888:8080 --net=prod-network tomcat

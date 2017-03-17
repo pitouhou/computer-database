@@ -66,8 +66,7 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getString("company.name")).thenReturn("company_test");
 
     List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
-    assertTrue(!computerList.isEmpty());
-    assertEquals(computerList.size(), 2);
+    assertEquals(3, computerList.size());
     for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
@@ -119,8 +118,7 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getString("company.name")).thenReturn("company_test");
 
     List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
-    assertTrue(!computerList.isEmpty());
-    assertEquals(computerList.size(), 2);
+    assertEquals(3, computerList.size());
     for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
@@ -172,8 +170,7 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getString("company.name")).thenReturn("null");
 
     List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
-    assertTrue(!computerList.isEmpty());
-    assertEquals(computerList.size(), 2);
+    assertEquals(3, computerList.size());
     for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
@@ -225,8 +222,7 @@ private ResultSet resultSet;
     Mockito.when(resultSet.getString("company.name")).thenReturn("null");
 
     List<Computer> computerList = ComputerMapper.mapListComputer(resultSet);
-    assertTrue(!computerList.isEmpty());
-    assertEquals(computerList.size(), 2);
+    assertEquals(3, computerList.size());
     for (Computer computer: computerList) {
       assertEquals(computer.getId(), 1L);
       assertEquals(computer.getName(), "computer_test");
