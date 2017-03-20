@@ -1,0 +1,46 @@
+build:
+  context: ./docker
+services:
+ mysql:  
+  image: mysql
+  container_name: database
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_PASSWORD=password
+  networks:
+   prod-network:
+    aliases:
+     - db
+ maven:
+  image: maven
+  container_name: my_maven
+  volumes:
+   - data-test:/test
+ jenkins:
+  image: jenkins
+  container_name: jenkins
+  environment:
+    - DOCK="which docker"
+  volumes:
+   - data-test:/test
+   - data-prod:/prod
+   - /var/run/docker.sock:/var/run/docker.sock
+   - "$(DOCK)":/usr/bin/docker
+  ports:
+   -"9000:8080"
+ tomcat:
+  image: tomcat
+  container_name: tomcat
+  volumes:
+   -
+  networks:
+   prod-network
+  ports:
+   - "8888:8080"
+
+volumes:
+  data-test:
+  data-prod:
+
+networks:
+  prod-network:
