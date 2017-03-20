@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.computerDatabase.controller.Controller;
+import com.computerDatabase.cli.Controller;
 
 /**
  * Servlet implementation class Delete

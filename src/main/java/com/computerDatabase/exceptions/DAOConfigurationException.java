@@ -1,4 +1,4 @@
-package com.computerDatabase.dao;
+package com.computerDatabase.exceptions;
 
 public class DAOConfigurationException extends RuntimeException {
 

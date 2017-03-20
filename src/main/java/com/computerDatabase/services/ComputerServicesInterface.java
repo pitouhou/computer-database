@@ -8,10 +8,10 @@ import com.computerDatabase.model.Computer;
 public interface ComputerServicesInterface {
 
   /**
-   * Methode to get Computer list .
-   * @return Optional<Collection<Computer>>
+   * Method to get Computer list .
+   * @return List<Computer>
    */
-  List<Computer> getComputerList();
+  List<Computer> getComputerList(int current, int range);
 
   /**
    * Method to get Computer details .
@@ -38,6 +38,10 @@ public interface ComputerServicesInterface {
    */
   void deleteComputer(long id);
   
+  /**
+   * Method to get number of computers .
+   * @return nbComputer
+   */
   public int countComputer();
 
 }

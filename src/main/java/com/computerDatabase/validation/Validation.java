@@ -1,4 +1,4 @@
-package com.computerDatabase.controller;
+package com.computerDatabase.validation;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -44,6 +44,11 @@ public class Validation {
     }
   }
   
+  /**
+   * Method to check if a computer is valid .
+   * @param computer
+   * @return Optional<Computer>
+   */
   public static Optional<Computer> isComputerValid(ComputerDTO computer){
     ComputerServices service = ComputerServices.instance;
     CompanyServices compService = CompanyServices.instance;
@@ -54,9 +59,9 @@ public class Validation {
     LocalDate introduced;
     LocalDate discontinued;
     Company company;
-    if(computer.getId()!=null){
-      comp = service.getComputerDetails(Long.parseLong(computer.getId()));
-      id = Long.parseLong(computer.getId());
+    if(computer.getId()!=0){
+      comp = service.getComputerDetails(computer.getId());
+      id = computer.getId();
       if(computer.getName()==null){
         name = comp.get().getName();
       }else{
@@ -79,7 +84,7 @@ public class Validation {
         discontinued = null;
       }
       if(computer.getCompany()!=null){
-        company = compService.getCompany(Long.parseLong(computer.getCompany().getId())).get();
+        company = compService.getCompany(computer.getCompany().getId()).get();
       }else{
         company = null;
       }
@@ -102,7 +107,7 @@ public class Validation {
       }
       
       if(computer.getCompany()!=null){
-        company = compService.getCompany(Long.parseLong(computer.getCompany().getId())).get();
+        company = compService.getCompany(computer.getCompany().getId()).get();
       }else{
         company = null;
       }

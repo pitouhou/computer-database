@@ -8,7 +8,7 @@
     <packaging>war</packaging>
 
     <name>computer-database-db</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/pitouhou/computer-database</url>
  
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,16 +27,14 @@
         <jstl.version>1.2</jstl.version>
         <standard.version>1.1.2</standard.version>
         <dbunit.version>2.4.9</dbunit.version>
-        <slf4j-api.version>1.7.24</slf4j-api.version>
-        <slf4j-simple.version>1.7.24</slf4j-simple.version>
+        <slf4j.version>1.7.24</slf4j.version>
         <HikariCP.version>2.5.1</HikariCP.version>
         <selenium-java.version>3.2.0</selenium-java.version>
         <gatling-charts-highcharts.version>2.2.3</gatling-charts-highcharts.version>
     </properties>
- 
+
     <build>
         <plugins>
-            <!-- Compilateur JDK Java -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
@@ -45,8 +43,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
- 
-            <!-- Générateur de Rapport -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -55,17 +51,14 @@
                     <locales>en,fr</locales>
                 </configuration>
             </plugin>
- 			
-		      <plugin>
+		    <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-war-plugin</artifactId>
 		        <version>3.0.0</version>
 		        <configuration>
 		          <webappDirectory>/home/excilys/excilys/computer-database-db/WebContent</webappDirectory>
 		        </configuration>
-		      </plugin>
-		    
-            <!-- Ajout du checkStyle au projet -->
+		    </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -82,19 +75,15 @@
                 </dependencies>
             </plugin>
         </plugins>
-        
     </build>
- 
+
     <reporting>
         <plugins>
-            <!-- Rapports de résultats de tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
             </plugin>
- 
-            <!-- Vérificaion de styles -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -102,7 +91,6 @@
                 <configuration>
                     <configLocation>${maven-checkstyle-plugin.configLocation}</configLocation>
                 </configuration>
- 
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -111,17 +99,11 @@
                     </reportSet>
                 </reportSets>
             </plugin>
- 
-            <!--&lt;!&ndash; Permet d'ajouter des liens vers le code source dans le
-                rapport -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>${maven-jxr-plugin.version}</version>
             </plugin>
-            <!--&ndash;&gt; -->
- 
-            <!-- Ajout de la javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -129,18 +111,18 @@
             </plugin>
         </plugins>
     </reporting>
-   
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
         </dependency>
- 	<dependency>
-	    <groupId>org.mockito</groupId>
-	    <artifactId>mockito-all</artifactId>
-	    <version>${mockito-all.version}</version>
-        <scope>test</scope>
+ 		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>${mockito-all.version}</version>
+	        <scope>test</scope>
     	</dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -148,57 +130,53 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>${javax.servlet-api.version}</version>
-    <scope>provided</scope>
-</dependency>
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-    <version>${jstl.version}</version>
-</dependency>
-<dependency>
-	<groupId>taglibs</groupId>
-	<artifactId>standard</artifactId>
-	<version>${standard.version}</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
-<dependency>
-    <groupId>org.dbunit</groupId>
-    <artifactId>dbunit</artifactId>
-    <version>${dbunit.version}</version>
-    <scope>test</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>${slf4j-api.version}</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-simple</artifactId>
-    <version>${slf4j-simple.version}</version>
-</dependency>
-<dependency>
-    <groupId>com.zaxxer</groupId>
-    <artifactId>HikariCP</artifactId>
-    <version>${HikariCP.version}</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-<dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-java</artifactId>
-    <version>${selenium-java.version}</version>
-</dependency>
-<dependency>
-	<groupId>io.gatling.highcharts</groupId>
-	<artifactId>gatling-charts-highcharts</artifactId>
-	<version>${gatling-charts-highcharts.version}</version>
-</dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>${javax.servlet-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${standard.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.dbunit</groupId>
+		    <artifactId>dbunit</artifactId>
+		    <version>${dbunit.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		    <version>${HikariCP.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.seleniumhq.selenium</groupId>
+		    <artifactId>selenium-java</artifactId>
+		    <version>${selenium-java.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.gatling.highcharts</groupId>
+			<artifactId>gatling-charts-highcharts</artifactId>
+			<version>${gatling-charts-highcharts.version}</version>
+		</dependency>
     </dependencies>
 </project>

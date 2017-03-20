@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.computerDatabase.controller.Controller;
-import com.computerDatabase.controller.Validation;
+import com.computerDatabase.cli.Controller;
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
@@ -21,6 +20,7 @@ import com.computerDatabase.pager.CompanyPager;
 import com.computerDatabase.pager.ComputerPager;
 import com.computerDatabase.services.CompanyServices;
 import com.computerDatabase.services.ComputerServices;
+import com.computerDatabase.validation.Validation;
 
 @WebServlet("/editComputer")
 public class EditComputer extends HttpServlet {
@@ -44,7 +44,7 @@ public class EditComputer extends HttpServlet {
 	  }else{
 	    comp = null;
 	  }
-	  ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(request.getParameter("computerName")).id(request.getParameter("computerId")).introduced(request.getParameter("introduced")).discontinued(request.getParameter("discontinued")).company(comp).build();
+	  ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder(request.getParameter("computerName")).id(Long.parseLong(request.getParameter("computerId"))).introduced(request.getParameter("introduced")).discontinued(request.getParameter("discontinued")).company(comp).build();
     Computer computerUp = Validation.isComputerValid(computer).get();
     ComputerServices service = ComputerServices.getInstance();
     service.updateComputer(computerUp);

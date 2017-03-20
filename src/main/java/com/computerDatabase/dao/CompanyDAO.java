@@ -1,7 +1,7 @@
 package com.computerDatabase.dao;
 
-import static com.computerDatabase.dao.DAOUtils.initPreparedStatement;
-import static com.computerDatabase.dao.DAOUtils.silentCloses;
+import static com.computerDatabase.dao.connection.DAOUtils.closeAll;
+import static com.computerDatabase.dao.connection.DAOUtils.initPreparedStatement;
 import static com.computerDatabase.mapper.CompanyMapper.mapCompany;
 import static com.computerDatabase.mapper.CompanyMapper.mapListCompany;
 
@@ -16,9 +16,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.computerDatabase.dao.connection.ConnectionManager;
+import com.computerDatabase.dao.interfaces.CompanyDAOImpl;
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Company;
 
-public class CompanyDAO implements DAO<Company> {
+public class CompanyDAO implements CompanyDAOImpl {
 
   private static final String SQL_FIND_ALL_COMPANY = "SELECT * FROM company";
   private static final String SQL_FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
@@ -45,7 +48,8 @@ public class CompanyDAO implements DAO<Company> {
     return 1;
   }
   
-  @Override public Optional<Company> findById(long id) {
+  @Override 
+  public Optional<Company> findById(long id) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -62,16 +66,15 @@ public class CompanyDAO implements DAO<Company> {
       }
 
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting company by id");
-      return Optional.empty();
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return Optional.empty();
   }
 
-  @Override public List<Company> findAll() {
+  @Override 
+  public List<Company> findAll() throws DAOException {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -86,24 +89,25 @@ public class CompanyDAO implements DAO<Company> {
       }
 
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting company list");
-      return listCompany;
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return listCompany;
   }
 
-  @Override public void create(Company obj) {
+  @Override 
+  public void create(Company obj) {
 
   }
 
-  @Override public void update(Company obj) {
+  @Override 
+  public void update(Company obj) {
 
   }
 
-  @Override public void delete(long id) {
+  @Override 
+  public void delete(long id) {
 
   }
 }

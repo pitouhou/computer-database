@@ -3,6 +3,7 @@ package com.computerDatabase.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Company;
 
 public interface CompanyServicesInterface {
@@ -11,7 +12,7 @@ public interface CompanyServicesInterface {
    * Method to get Company list .
    * @return : List<Optional<Company>>
    */
-  List<Company> getCompanyList();
+  List<Company> getCompanyList() throws DAOException ;
 
   /**
    * Method to get Company by id .

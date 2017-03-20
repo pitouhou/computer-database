@@ -3,7 +3,7 @@ package com.computerDatabase.dto;
 import java.util.Objects;
 
 public class ComputerDTO {
-  private final String id;
+  private final long id;
   private final String name;
   private final String introduced;
   private final String discontinued;
@@ -17,7 +17,7 @@ public class ComputerDTO {
     this.company = builder.company;
   }
 
-  public String getId() {
+  public long getId() {
     return id;
   }
 
@@ -38,7 +38,7 @@ public class ComputerDTO {
   }
 
   public static class ComputerDTOBuilder {
-    private String id;
+    private long id;
     private final String name;
     private String introduced;
     private String discontinued;
@@ -48,7 +48,7 @@ public class ComputerDTO {
       this.name = name;
     }
 
-    public ComputerDTOBuilder id(String id) {
+    public ComputerDTOBuilder id(long id) {
       this.id = id;
       return this;
     }

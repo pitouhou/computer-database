@@ -1,7 +1,9 @@
 package com.computerDatabase.dao;
 
-import static com.computerDatabase.dao.DAOUtils.initPreparedStatement;
-import static com.computerDatabase.dao.DAOUtils.silentCloses;
+import static com.computerDatabase.dao.connection.DAOUtils.initPreparedStatement;
+import static com.computerDatabase.dao.connection.DAOUtils.closeAll;
+import static com.computerDatabase.dao.connection.DAOUtils.commit;
+import static com.computerDatabase.dao.connection.DAOUtils.rollBack;
 import static com.computerDatabase.mapper.ComputerMapper.mapComputer;
 import static com.computerDatabase.mapper.ComputerMapper.mapListComputer;
 
@@ -17,9 +19,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.computerDatabase.dao.connection.ConnectionManager;
+import com.computerDatabase.dao.interfaces.ComputerDAOImpl;
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Computer;
 
-public class ComputerDAO implements DAO<Computer> {
+public class ComputerDAO implements ComputerDAOImpl {
 
   private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
   private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT ? OFFSET ?";
@@ -59,13 +64,12 @@ public class ComputerDAO implements DAO<Computer> {
       preparedStatement = initPreparedStatement(connexion, SQL_COUNT_COMPUTER, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
-      nbComputer = resultSet.getInt(1);
+        nbComputer = resultSet.getInt(1);
       }
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting number of computer");
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return nbComputer;
   }
@@ -85,19 +89,14 @@ public class ComputerDAO implements DAO<Computer> {
         computer = mapComputer(resultSet);
       }
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting computer by id");
-      return Optional.empty();
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return computer;
   }
-
-  @Override public List<Computer> findAll() {
-    return null;
-  }
   
+  @Override
   public List<Computer> findAll(int current, int range) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
@@ -115,15 +114,14 @@ public class ComputerDAO implements DAO<Computer> {
       }
 
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting computer list");
-      return listComputer;
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return listComputer;
   }
   
+  @Override
   public List<Computer> findByName(String name) {
     String companyName = name;
     Connection connexion = null;
@@ -136,17 +134,14 @@ public class ComputerDAO implements DAO<Computer> {
       connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_NAME, false, name, companyName);
       resultSet = preparedStatement.executeQuery();
-      System.out.println(resultSet);
       if (resultSet.next()) {
         listComputer = mapListComputer(resultSet);
       }
 
     } catch (SQLException e) {
-      LOGGER.error("SQLException on getting computer list");
-      return listComputer;
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(resultSet, preparedStatement);
+      closeAll(resultSet, preparedStatement, connexion);
     }
     return listComputer;
   }
@@ -178,15 +173,12 @@ public class ComputerDAO implements DAO<Computer> {
       preparedStatement = initPreparedStatement(connexion, SQL_CREATE_COMPUTER, false, name,
           introduced, discontinued, companyId);
       resultSet = preparedStatement.executeUpdate();
-
+      commit(connexion);
     } catch (SQLException e) {
-      LOGGER.error("SQLException on creating computer");
-      ConnectionManager.INSTANCE.rollBack();
-      throw new DAOException(e);
+      rollBack(connexion);
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.commit();
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(preparedStatement);
+      closeAll(preparedStatement, connexion);
     }
   }
 
@@ -224,14 +216,12 @@ public class ComputerDAO implements DAO<Computer> {
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
+      commit(connexion);
     } catch (SQLException e) {
-      LOGGER.error("SQLException on updating computer");
-      ConnectionManager.INSTANCE.rollBack();
-      throw new DAOException(e);
+      rollBack(connexion);
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.commit();
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(preparedStatement);
+      closeAll(preparedStatement, connexion);
     }
   }
 
@@ -245,15 +235,12 @@ public class ComputerDAO implements DAO<Computer> {
       connexion = ConnectionManager.INSTANCE.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_DELETE_COMPUTER, false, id);
       resultSet = preparedStatement.executeUpdate();
-
+      commit(connexion);
     } catch (SQLException e) {
-      LOGGER.error("SQLException on deleting computer");
-      ConnectionManager.INSTANCE.rollBack();
-      throw new DAOException(e);
+      rollBack(connexion);
+      throw new DAOException("Problème lors de l'accès aux données");
     } finally {
-      ConnectionManager.INSTANCE.commit();
-      ConnectionManager.INSTANCE.closeConnexion();
-      silentCloses(preparedStatement);
+      closeAll(preparedStatement, connexion);
     }
 
   }

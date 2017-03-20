@@ -1,6 +1,6 @@
-package com.computerDatabase.dao;
+package com.computerDatabase.exceptions;
 
-public class DAOException extends RuntimeException {
+public class DAOException extends Exception {
 
   /**
    * Method to handle DAOException .

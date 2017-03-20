@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.computerDatabase.dao.ConnectionManager;
+import com.computerDatabase.dao.connection.ConnectionManager;
 import com.computerDatabase.model.Company;
 
 public class CompanyMapper {

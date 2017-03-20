@@ -1,4 +1,4 @@
-package com.computerDatabase.dao;
+package com.computerDatabase.dao.interfaces;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +13,6 @@ public interface DAO<T> {
    * @return object
    */
   Optional<T> findById(long id);
-
-  /**
-   * Method to get all object .
-   * @return Collection<Object>
-   */
-  List<T> findAll();
 
   /**
    * Method to create an object .

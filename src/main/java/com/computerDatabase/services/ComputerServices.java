@@ -31,10 +31,6 @@ public enum ComputerServices implements ComputerServicesInterface {
 
   }
   
-  @Override public List<Computer> getComputerList() {
-    return null;
-  }
-  
   public List<Computer> getComputerList(int current, int range) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
@@ -57,7 +53,8 @@ public enum ComputerServices implements ComputerServicesInterface {
     return comp.count();
   }
 
-  @Override public Optional<Computer> getComputerDetails(long id) {
+  @Override
+  public Optional<Computer> getComputerDetails(long id) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
     Optional<Computer> comp1;
@@ -70,7 +67,8 @@ public enum ComputerServices implements ComputerServicesInterface {
     return comp1;
   }
 
-  @Override public void addComputer(Computer computer) {
+  @Override
+  public void addComputer(Computer computer) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
     try {
@@ -81,7 +79,8 @@ public enum ComputerServices implements ComputerServicesInterface {
     }
   }
 
-  @Override public void updateComputer(Computer computer) {
+  @Override
+  public void updateComputer(Computer computer) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
 
@@ -93,7 +92,8 @@ public enum ComputerServices implements ComputerServicesInterface {
     }
   }
 
-  @Override public void deleteComputer(long id) {
+  @Override
+  public void deleteComputer(long id) {
 
     ComputerDAO comp = ComputerDAO.getInstance();
     try {

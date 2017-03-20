@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class CompanyDTO {
 
-  private final String id;
+  private final long id;
   private final String name;
 
   /**
@@ -16,7 +16,7 @@ public class CompanyDTO {
     this.name = builder.name;
   }
 
-  public String getId() {
+  public long getId() {
     return id;
   }
 
@@ -25,7 +25,7 @@ public class CompanyDTO {
   }
 
   public static class CompanyDTOBuilder {
-    private final String id;
+    private final long id;
     private final String name;
 
     /**
@@ -33,7 +33,7 @@ public class CompanyDTO {
      * @param id : id
      * @param name : name
      */
-    public CompanyDTOBuilder(String id, String name) {
+    public CompanyDTOBuilder(long id, String name) {
       this.id = id;
       this.name = name;
     }
