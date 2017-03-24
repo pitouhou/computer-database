@@ -5,6 +5,7 @@ com/computerDatabase/dto/CompanyDTO.class
 com/computerDatabase/controller/MainController.class
 com/computerDatabase/dao/interfaces/DAO.class
 com/computerDatabase/dao/ComputerDAO.class
+com/computerDatabase/controller/DeleteComputerController.class
 com/computerDatabase/dao/connection/ConnectionManager.class
 com/computerDatabase/pager/ComputerPager.class
 com/computerDatabase/pager/CompanyPager.class

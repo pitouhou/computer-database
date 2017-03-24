@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +41,9 @@
             </div>
         </div>
 
-        <form id="deleteForm" action="Delete" method="POST">
+        <form:form id="deleteForm" action="/computer-database-db/delete" commandName="computer" method="POST">
             <input type="hidden" id="selection" name="selection" value="">
-        </form>
+        </form:form>
 
         <div class="container" style="margin-top: 10px;">
             <table class="table table-striped table-bordered">
@@ -54,7 +55,7 @@
                         <th class="editMode" style="width: 60px; height: 22px;">
                             <input type="checkbox" id="selectall" /> 
                             <span style="vertical-align: top;">
-                                 -  <a href="Delete" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                                 -  <a href="/computer-database-db/delete" id="deleteSelected" onclick="$.fn.deleteSelected();">
                                         <i class="fa fa-trash-o fa-lg"></i>
                                     </a>
                             </span>

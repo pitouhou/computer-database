@@ -3,6 +3,7 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/CompanyServices.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/cli/Display.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dao/ComputerDAO.java
+/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/controller/DeleteComputerController.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/controller/MainController.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/controller/EditComputerController.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dao/connection/ConnectionManager.java

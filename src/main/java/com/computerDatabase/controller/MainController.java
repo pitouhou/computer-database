@@ -1,12 +1,17 @@
 package com.computerDatabase.controller;
 
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.computerDatabase.dto.ComputerDTO;
+import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.ComputerPager;
+import com.computerDatabase.services.ComputerServices;
 
 import java.util.List;
 
@@ -19,6 +24,9 @@ public class MainController {
 
   @Autowired
   private ComputerPager computerPager;
+  
+  @Autowired
+  private ComputerServices computerServices;
   
   @RequestMapping(method = RequestMethod.GET)
   public String dashboard(ModelMap model) {
