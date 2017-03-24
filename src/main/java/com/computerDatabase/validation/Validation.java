@@ -3,6 +3,9 @@ package com.computerDatabase.validation;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.model.Company;
@@ -10,7 +13,14 @@ import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.CompanyServices;
 import com.computerDatabase.services.ComputerServices;
 
+@Component
 public class Validation {
+  
+  @Autowired
+  private ComputerServices computerServices;
+  
+  @Autowired
+  private CompanyServices companyServices;
 
   /**
    * Method to compare two LocalDate .
@@ -29,10 +39,9 @@ public class Validation {
    * @param id : id
    * @return Company
    */
-  public static Optional<Company> isCompanyValid(long id) {
+  public Optional<Company> isCompanyValid(long id) {
 
-    CompanyServices compService = CompanyServices.getInstance();
-    Optional<Company> company = compService.getCompany(id);
+    Optional<Company> company = companyServices.getCompany(id);
     if (company.isPresent()) {
 
       return company;
@@ -49,9 +58,7 @@ public class Validation {
    * @param computer
    * @return Optional<Computer>
    */
-  public static Optional<Computer> isComputerValid(ComputerDTO computer){
-    ComputerServices service = ComputerServices.instance;
-    CompanyServices compService = CompanyServices.instance;
+  public Optional<Computer> isComputerValid(ComputerDTO computer){
     Optional<Computer> comp;
     Computer newComputer;
     long id;
@@ -60,7 +67,7 @@ public class Validation {
     LocalDate discontinued;
     Company company;
     if(computer.getId()!=0){
-      comp = service.getComputerDetails(computer.getId());
+      comp = computerServices.getComputerDetails(computer.getId());
       id = computer.getId();
       if(computer.getName()==null){
         name = comp.get().getName();
@@ -84,7 +91,7 @@ public class Validation {
         discontinued = null;
       }
       if(computer.getCompany()!=null){
-        company = compService.getCompany(computer.getCompany().getId()).get();
+        company = companyServices.getCompany(computer.getCompany().getId()).get();
       }else{
         company = null;
       }
@@ -106,8 +113,8 @@ public class Validation {
         discontinued = null;
       }
       
-      if(computer.getCompany()!=null){
-        company = compService.getCompany(computer.getCompany().getId()).get();
+      if(computer.getCompany().getId()!=0){
+        company = companyServices.getCompany(computer.getCompany().getId()).get();
       }else{
         company = null;
       }

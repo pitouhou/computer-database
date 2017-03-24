@@ -5,24 +5,22 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.computerDatabase.dao.ComputerDAO;
 import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.model.Computer;
 
-public enum ComputerServices implements ComputerServicesInterface {
+@Component
+public class ComputerServices implements ComputerServicesInterface {
 
-  instance;
-
+  @Autowired
+  private ComputerDAO computerDAO;
+  
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ComputerServices.class);
-
-  public static ComputerServices getInstance() {
-
-    return ComputerServices.instance;
-
-  }
 
   /**
    * Constructor of ComputerServices class .
@@ -33,33 +31,29 @@ public enum ComputerServices implements ComputerServicesInterface {
   
   public List<Computer> getComputerList(int current, int range) {
 
-    ComputerDAO comp = ComputerDAO.getInstance();
     List<Computer> comp1;
-    comp1 = comp.findAll(current, range);
+    comp1 = computerDAO.findAll(current, range);
     return comp1;
   }
   
   public List<Computer> getByName(String name) {
 
-    ComputerDAO comp = ComputerDAO.getInstance();
     List<Computer> comp1;
-    comp1 = comp.findByName(name);
+    comp1 = computerDAO.findByName(name);
     return comp1;
   }
 
   @Override
   public int countComputer(){
-    ComputerDAO comp = ComputerDAO.getInstance();
-    return comp.count();
+    return computerDAO.count();
   }
 
   @Override
   public Optional<Computer> getComputerDetails(long id) {
 
-    ComputerDAO comp = ComputerDAO.getInstance();
     Optional<Computer> comp1;
     try {
-      comp1 = comp.findById(id);
+      comp1 = computerDAO.findById(id);
     } catch (NullPointerException e) {
       LOGGER.error("NullPointerException on getting computer by id");
       return Optional.empty();
@@ -69,10 +63,9 @@ public enum ComputerServices implements ComputerServicesInterface {
 
   @Override
   public void addComputer(Computer computer) {
-
-    ComputerDAO comp = ComputerDAO.getInstance();
+    
     try {
-      comp.create(computer);
+      computerDAO.create(computer);
       LOGGER.info("Success on adding computer");
     } catch (NullPointerException e) {
       LOGGER.error("NullPointerException on adding computer");
@@ -82,10 +75,8 @@ public enum ComputerServices implements ComputerServicesInterface {
   @Override
   public void updateComputer(Computer computer) {
 
-    ComputerDAO comp = ComputerDAO.getInstance();
-
     try {
-      comp.update(computer);
+      computerDAO.update(computer);
       LOGGER.info("Success on updating computer");
     } catch (NullPointerException e) {
       LOGGER.error("NullPointerException on updating computer");
@@ -95,9 +86,8 @@ public enum ComputerServices implements ComputerServicesInterface {
   @Override
   public void deleteComputer(long id) {
 
-    ComputerDAO comp = ComputerDAO.getInstance();
     try {
-      comp.delete(id);
+      computerDAO.delete(id);
       LOGGER.info("Success on deleting computer");
     } catch (NullPointerException e) {
       LOGGER.error("NullPointerException on deleting computer");

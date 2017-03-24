@@ -15,17 +15,23 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.computerDatabase.dao.connection.ConnectionManager;
 import com.computerDatabase.dao.interfaces.CompanyDAOImpl;
 import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Company;
 
+@Component
 public class CompanyDAO implements CompanyDAOImpl {
 
   private static final String SQL_FIND_ALL_COMPANY = "SELECT * FROM company";
   private static final String SQL_FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
 
+  @Autowired
+  private ConnectionManager connectionManager;
+  
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(CompanyDAO.class);
@@ -34,14 +40,6 @@ public class CompanyDAO implements CompanyDAOImpl {
    * Constructor of CompanyDAO class .
    */
   private CompanyDAO() { }
-
-  private static class CompanyDAOHolder {
-    private static final CompanyDAO INSTANCE = new CompanyDAO();
-  }
-
-  public static CompanyDAO getInstance() {
-    return CompanyDAOHolder.INSTANCE;
-  }
 
   @Override
   public int count(){
@@ -56,7 +54,7 @@ public class CompanyDAO implements CompanyDAOImpl {
 
     try {
 
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
       resultSet = preparedStatement.executeQuery();
 
@@ -66,7 +64,7 @@ public class CompanyDAO implements CompanyDAOImpl {
       }
 
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -80,7 +78,7 @@ public class CompanyDAO implements CompanyDAOImpl {
     ResultSet resultSet = null;
     List<Company> listCompany = new ArrayList<>();
     try {
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {

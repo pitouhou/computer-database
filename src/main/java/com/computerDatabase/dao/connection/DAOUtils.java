@@ -47,7 +47,7 @@ public class DAOUtils {
       try {
         resultSet.close();
       } catch (SQLException e) {
-        throw new DAOException("Problème lors de la fermeture de la connexion à la base de données");
+        
       }
     }
   }
@@ -61,7 +61,7 @@ public class DAOUtils {
       try {
         statement.close();
       } catch (SQLException e) {
-        throw new DAOException("Problème lors de la fermeture de la connexion à la base de données");
+        
       }
     }
   }
@@ -69,9 +69,11 @@ public class DAOUtils {
   public static void closeConnection(Connection connexion){
     try {
       LOGGER.info("connection closed");
-      connexion.close();
+      if(connexion!=null){
+        connexion.close();
+      }
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de la fermeture de la connexion à la base de données");
+      
     }
   }
   
@@ -106,7 +108,7 @@ public class DAOUtils {
       connexion.commit();
     }catch(SQLException e){
       rollBack(connexion);
-      throw new DAOException("Problème lors de l'ajout de données");
+      
     }
   }
   
@@ -118,7 +120,7 @@ public class DAOUtils {
     try{
       connexion.rollback();
     }catch(SQLException e){
-      throw new DAOException("Problème lors de l'ajout de données");
+      
     }
   }
 }

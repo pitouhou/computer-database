@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class CompanyDTO {
 
-  private final long id;
-  private final String name;
+  private long id;
+  private String name;
 
-  /**
-   * Builder of CompanyDTO class .
-   * @param builder : builder
-   */
-  private CompanyDTO(CompanyDTOBuilder builder) {
-    this.id = builder.id;
-    this.name = builder.name;
+  public CompanyDTO(){
+    this.setName("company");
   }
-
+  
+  public CompanyDTO(long id, String name){
+    this.setId(id);
+    this.setName(name);
+  }
+  
   public long getId() {
     return id;
   }
@@ -23,29 +23,13 @@ public class CompanyDTO {
   public String getName() {
     return name;
   }
+  
+  public void setId(long id) {
+    this.id = id;
+  }
 
-  public static class CompanyDTOBuilder {
-    private final long id;
-    private final String name;
-
-    /**
-     * Method to build CompanyDTO object .
-     * @param id : id
-     * @param name : name
-     */
-    public CompanyDTOBuilder(long id, String name) {
-      this.id = id;
-      this.name = name;
-    }
-
-    /**
-     * Method to build CompanyDTO object .
-     * @return new instance of Company
-     */
-    public CompanyDTO build() {
-      return new CompanyDTO(this);
-    }
-
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override public boolean equals(Object o) {
@@ -65,11 +49,13 @@ public class CompanyDTO {
     return Objects.equals(id, company.id) && Objects.equals(name, company.name);
   }
 
-  @Override public int hashCode() {
+  @Override 
+  public int hashCode() {
     return Objects.hash(id, name);
   }
 
-  @Override public String toString() {
+  /*@Override 
+  public String toString() {
     return String.valueOf(this);
-  }
+  }*/
 }

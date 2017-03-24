@@ -3,18 +3,22 @@ package com.computerDatabase.dto;
 import java.util.Objects;
 
 public class ComputerDTO {
-  private final long id;
-  private final String name;
-  private final String introduced;
-  private final String discontinued;
-  private final CompanyDTO company;
-
-  private ComputerDTO(ComputerDTOBuilder builder) {
-    this.id = builder.id;
-    this.name = builder.name;
-    this.introduced = builder.introduced;
-    this.discontinued = builder.discontinued;
-    this.company = builder.company;
+  private long id;
+  private String name;
+  private String introduced;
+  private String discontinued;
+  private CompanyDTO company;
+  
+  public ComputerDTO(){
+    
+  }
+  
+  public ComputerDTO(long id, String name, String introduced, String discontinued, CompanyDTO company){
+    this.setId(id);
+    this.setName(name);
+    this.setIntroduced(introduced);
+    this.setDiscontinued(discontinued);
+    this.setCompany(company);
   }
 
   public long getId() {
@@ -36,42 +40,25 @@ public class ComputerDTO {
   public CompanyDTO getCompany() {
     return company;
   }
+  
+  public void setId(long id) {
+    this.id = id;
+  }
 
-  public static class ComputerDTOBuilder {
-    private long id;
-    private final String name;
-    private String introduced;
-    private String discontinued;
-    private CompanyDTO company;
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public ComputerDTOBuilder(String name) {
-      this.name = name;
-    }
+  public void setIntroduced(String introduced) {
+    this.introduced = introduced;
+  }
 
-    public ComputerDTOBuilder id(long id) {
-      this.id = id;
-      return this;
-    }
+  public void setDiscontinued(String discontinued) {
+    this.discontinued = discontinued;
+  }
 
-    public ComputerDTOBuilder introduced(String introduced) {
-      this.introduced = introduced;
-      return this;
-    }
-
-    public ComputerDTOBuilder discontinued(String discontinued) {
-      this.discontinued = discontinued;
-      return this;
-    }
-
-    public ComputerDTOBuilder company(CompanyDTO company) {
-      this.company = company;
-      return this;
-    }
-
-    public ComputerDTO build() {
-      return new ComputerDTO(this);
-    }
-
+  public void setCompany(CompanyDTO company) {
+    this.company = company;
   }
 
   @Override public boolean equals(Object o) {

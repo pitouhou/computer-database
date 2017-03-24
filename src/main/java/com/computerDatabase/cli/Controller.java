@@ -1,14 +1,19 @@
 package com.computerDatabase.cli;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.dto.ComputerDTO;
 import com.computerDatabase.entryUtils.DateUtils;
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.CompanyPager;
@@ -17,8 +22,24 @@ import com.computerDatabase.services.CompanyServices;
 import com.computerDatabase.services.ComputerServices;
 import com.computerDatabase.validation.Validation;
 
+@Component
 public class Controller {
 
+  @Autowired
+  private ComputerServices computerServices;
+  
+  @Autowired
+  private ComputerPager computerPager;
+  
+  @Autowired
+  private CompanyServices companyServices;
+  
+  @Autowired
+  private CompanyPager companyPager;
+  
+  @Autowired
+  private Validation validation;
+  
   /**
    * Constructor of Controller class .
    */
@@ -26,18 +47,23 @@ public class Controller {
 
   }
   
-  public static void delete(long id){
-    ComputerServices service = ComputerServices.instance;
-    service.deleteComputer(id);
+  public void delete(long id){
+    computerServices.deleteComputer(id);
   }
   
-  public static ComputerDTO getComputer(long id){
-    ComputerDTO computer = ComputerPager.getComputer(id);
+  public ComputerDTO getComputer(long id){
+    ComputerDTO computer = computerPager.getComputer(id);
     return computer;
   }
   
-  public static List<CompanyDTO> getCompanies(){
-    List<CompanyDTO> listIn = CompanyPager.getCompanyPage();
+  public List<CompanyDTO> getCompanies(){
+    List<CompanyDTO> listIn = new ArrayList<>();
+    try {
+      listIn = companyPager.getCompanyPage();
+    } catch (DAOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return listIn;
   }
 
@@ -57,27 +83,27 @@ public class Controller {
     switch (pt) {
       case 1:
         sc.reset();
-        listComputers();
+        //listComputers();
         break;
       case 2:
         sc.reset();
-        listCompanies();
+        //listCompanies();
         break;
       case 3:
         sc.reset();
-        computerDetails();
+        //computerDetails();
         break;
       case 4:
         sc.reset();
-        createComputer();
+        //createComputer();
         break;
       case 5:
         sc.reset();
-        updateComputer();
+        //updateComputer();
         break;
       case 6:
         sc.reset();
-        deleteComputer();
+        //deleteComputer();
         break;
 
       default:
@@ -90,10 +116,9 @@ public class Controller {
   /**
    * Method to get Computer list .
    */
-  public static void listComputers() {
+  public void listComputers() {
 
-    ComputerServices service = ComputerServices.getInstance();
-    List<Computer> list = service.getComputerList();
+    List<Computer> list = computerServices.getComputerList(1, 10);
     Display.displayComputers(list);
     menu();
 
@@ -102,13 +127,12 @@ public class Controller {
   /**
    * Method to get Computer details .
    */
-  public static void computerDetails() {
+  public void computerDetails() {
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Entrez l'identifiant de l'ordinateur :");
     long id = sc.nextLong();
-    ComputerServices service = ComputerServices.getInstance();
-    Optional<Computer> computer = service.getComputerDetails(id);
+    Optional<Computer> computer = computerServices.getComputerDetails(id);
     Display.displayComputer(computer);
     sc.reset();
     menu();
@@ -118,32 +142,30 @@ public class Controller {
   /**
    * Method to get create Computer menu .
    */
-  public static void createComputer() {
+  public void createComputer() {
 
     Optional<Computer> computer = getInputComputer();
     if(computer.isPresent()){
       Computer computer1 = computer.get();
-      ComputerServices service = ComputerServices.getInstance();
-      service.addComputer(computer1);
+      computerServices.addComputer(computer1);
     }
   }
 
   /**
    * Method to get update Computer menu .
    */
-  public static void updateComputer() {
+  public void updateComputer() {
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
     long id = sc.nextLong();
-    ComputerServices service = ComputerServices.getInstance();
-    Optional<Computer> computer = service.getComputerDetails(id);
+    Optional<Computer> computer = computerServices.getComputerDetails(id);
     if (computer.isPresent()) {
 
       Optional<Computer> computerOp = getInputComputer(id);
       if(computerOp.isPresent()){
         Computer computer1 = computerOp.get();
-        service.updateComputer(computer1);
+        computerServices.updateComputer(computer1);
         sc.reset();
         menu();
       }
@@ -160,14 +182,13 @@ public class Controller {
   /**
    * Method to get delete Computer menu .
    */
-  public static void deleteComputer() {
+  public void deleteComputer() {
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Veuillez saisir le numéro d'identification de l'ordinateur à modifier :");
     long id = sc.nextLong();
-    ComputerServices service = ComputerServices.getInstance();
     Optional<Computer> computer = Optional.empty();
-    computer = service.getComputerDetails(id);
+    computer = computerServices.getComputerDetails(id);
     if (computer.isPresent()) {
 
       Computer computer1 = computer.get();
@@ -177,7 +198,7 @@ public class Controller {
       System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
       int rep = sc.nextInt();
       if (rep == 1) {
-        service.deleteComputer(id);
+        computerServices.deleteComputer(id);
         System.out.println("Ordinateur supprimé !");
         sc.reset();
         menu();
@@ -197,10 +218,9 @@ public class Controller {
   /**
    * Method to get Company list .
    */
-  public static void listCompanies() {
+  public void listCompanies() {
 
-    CompanyServices compService = CompanyServices.getInstance();
-    List<Company> list = compService.getCompanyList();
+    List<Company> list = companyServices.getCompanyList();
     Display.displayCompanies(list);
     menu();
 
@@ -210,7 +230,7 @@ public class Controller {
    * Method to get the input details of a computer .
    * @return computer
    */
-  public static Optional<Computer> getInputComputer() {
+  public Optional<Computer> getInputComputer() {
 
     try {
 
@@ -229,7 +249,7 @@ public class Controller {
 
       if (Validation.compareDate(introduced, discontinued)) {
 
-        Optional<Company> company = Validation.isCompanyValid(companyId);
+        Optional<Company> company = validation.isCompanyValid(companyId);
 
         if (company.isPresent()) {
           computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company.get()).build();
@@ -253,7 +273,7 @@ public class Controller {
     return Optional.empty();
   }
 
-  public static Optional<Computer> getInputComputer(long id) {
+  public Optional<Computer> getInputComputer(long id) {
 
     try {
 
@@ -272,7 +292,7 @@ public class Controller {
 
       if (Validation.compareDate(introduced, discontinued)) {
 
-        Optional<Company> company = Validation.isCompanyValid(companyId);
+        Optional<Company> company = validation.isCompanyValid(companyId);
 
         if (company.isPresent()) {
           computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company.get()).build();

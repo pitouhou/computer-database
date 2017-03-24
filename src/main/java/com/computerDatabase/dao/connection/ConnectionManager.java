@@ -5,25 +5,22 @@ import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.computerDatabase.exceptions.DAOException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-public enum ConnectionManager {
+@Component
+public class ConnectionManager {
 
-  INSTANCE;
   private ThreadLocal<Connection> connection = new ThreadLocal<Connection>();
-  private HikariDataSource ds;
+  @Autowired
+  private datasource ds;
 
   ConnectionManager(){
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-      HikariConfig cfg = new HikariConfig("/config.properties");
-      ds = new HikariDataSource(cfg);
-    } catch (ClassNotFoundException e) {
-      throw new DAOException("Problème lors de la connexion à la base de données");
-    }
+    
   }
   
   /** The Constant LOGGER. */
@@ -41,7 +38,7 @@ public enum ConnectionManager {
           connection.set(ds.getConnection());
           LOGGER.info("connection created");
         } catch (SQLException e) {
-          throw new DAOException("Problème lors de la connexion à la base de données");
+          
         }
       } else {
         

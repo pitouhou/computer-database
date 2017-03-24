@@ -18,12 +18,16 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.computerDatabase.dao.connection.ConnectionManager;
+import com.computerDatabase.dao.connection.datasource;
 import com.computerDatabase.dao.interfaces.ComputerDAOImpl;
 import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Computer;
 
+@Component
 public class ComputerDAO implements ComputerDAOImpl {
 
   private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
@@ -33,7 +37,10 @@ public class ComputerDAO implements ComputerDAOImpl {
   private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
   private static final String SQL_COUNT_COMPUTER = "SELECT COUNT(id) FROM computer";
   private static final String SQL_FIND_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
-
+  
+  @Autowired
+  private ConnectionManager connectionManager;
+  
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
           .getLogger(ComputerDAO.class);
@@ -43,15 +50,6 @@ public class ComputerDAO implements ComputerDAOImpl {
    */
   private ComputerDAO() { }
 
-  private static class ComputerDAOHolder {
-    private static final ComputerDAO INSTANCE = new ComputerDAO();
-  }
-
-  public static ComputerDAO getInstance() {
-    LOGGER.info("ComputerDAO instance created");
-    return ComputerDAOHolder.INSTANCE;
-  }
-
   @Override
   public int count(){
     Connection connexion = null;
@@ -60,14 +58,14 @@ public class ComputerDAO implements ComputerDAOImpl {
     int nbComputer = 1;
 
     try {
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_COUNT_COMPUTER, false);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
         nbComputer = resultSet.getInt(1);
       }
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -82,14 +80,14 @@ public class ComputerDAO implements ComputerDAOImpl {
     Optional<Computer> computer = Optional.empty();
 
     try {
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
         computer = mapComputer(resultSet);
       }
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -104,8 +102,8 @@ public class ComputerDAO implements ComputerDAOImpl {
     List<Computer> listComputer = new ArrayList<>();
 
     try {
-
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
+      LOGGER.info("hello connexion");
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false, range, current*range);
       resultSet = preparedStatement.executeQuery();
       
@@ -114,7 +112,7 @@ public class ComputerDAO implements ComputerDAOImpl {
       }
 
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -131,7 +129,7 @@ public class ComputerDAO implements ComputerDAOImpl {
 
     try {
 
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_NAME, false, name, companyName);
       resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
@@ -139,7 +137,7 @@ public class ComputerDAO implements ComputerDAOImpl {
       }
 
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -149,6 +147,7 @@ public class ComputerDAO implements ComputerDAOImpl {
   @Override public void create(Computer computer) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
+    long companyId;
     int resultSet;
     LocalDate introduced;
     LocalDate discontinued;
@@ -165,18 +164,23 @@ public class ComputerDAO implements ComputerDAOImpl {
       discontinued = null;
     }
     
-    long companyId = computer.getCompany().get().getId();
+    if(computer.getCompany().isPresent()){
+      companyId = computer.getCompany().get().getId();
+    }else{
+      companyId = 0;
+    }
+    
 
     try {
 
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_CREATE_COMPUTER, false, name,
           introduced, discontinued, companyId);
       resultSet = preparedStatement.executeUpdate();
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(preparedStatement, connexion);
     }
@@ -212,14 +216,14 @@ public class ComputerDAO implements ComputerDAOImpl {
 
     try {
 
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(preparedStatement, connexion);
     }
@@ -232,13 +236,13 @@ public class ComputerDAO implements ComputerDAOImpl {
 
     try {
 
-      connexion = ConnectionManager.INSTANCE.getInstance();
+      connexion = connectionManager.getInstance();
       preparedStatement = initPreparedStatement(connexion, SQL_DELETE_COMPUTER, false, id);
       resultSet = preparedStatement.executeUpdate();
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      throw new DAOException("Problème lors de l'accès aux données");
+      
     } finally {
       closeAll(preparedStatement, connexion);
     }

@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.computerDatabase.dto.CompanyDTO;
 import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.model.Company;
 import com.computerDatabase.services.CompanyServices;
 
+@Component
 public class CompanyPager {
+  
+  @Autowired
+  private CompanyServices companyServices;
 
-  public static List<CompanyDTO> getCompanyPage() throws DAOException {
-    CompanyServices compService = CompanyServices.getInstance();
-    List<Company> list = compService.getCompanyList();
+  public List<CompanyDTO> getCompanyPage() throws DAOException {
+    List<Company> list = companyServices.getCompanyList();
     List<CompanyDTO> listOut = new ArrayList<>();
     CompanyDTO company;
     if (!list.isEmpty()) {
       for (Company comp : list) {
-        company = new CompanyDTO.CompanyDTOBuilder(comp.getId(), comp.getName().get().toString()).build();
+        company = new CompanyDTO(comp.getId(), comp.getName().get().toString());
         listOut.add(company);
       }
       return listOut;
@@ -27,12 +33,11 @@ public class CompanyPager {
     }
   }
   
-  public static Optional<CompanyDTO> getCompany(long id) {
-    CompanyServices compService = CompanyServices.getInstance();
-    Optional<Company> company = compService.getCompany(id);
+  public Optional<CompanyDTO> getCompany(long id) {
+    Optional<Company> company = companyServices.getCompany(id);
     CompanyDTO companyDto;
     if(company.isPresent()){
-      companyDto = new CompanyDTO.CompanyDTOBuilder(company.get().getId(), company.get().getName().get().toString()).build();
+      companyDto = new CompanyDTO(company.get().getId(), company.get().getName().get().toString());
       return Optional.of(companyDto);
     }
     return Optional.empty();

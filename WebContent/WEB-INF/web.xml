@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>AppConfiguration</param-name>
+        <param-value>
+            com.computerDatabase.config.AppConfiguration
+        </param-value>
+    </context-param>
+    <servlet>
+    	<servlet-name>contextConfigLocation</servlet-name>
+    	<servlet-class>
+        	com.computerDatabase.servlets.Dashboard
+    	</servlet-class>
+    </servlet>
+    <listener>
+ 		<listener-class>
+  			org.springframework.web.context.ContextLoaderListener
+ 		</listener-class>
+ 	</listener>
+ 	<listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+  </listener>
+</web-app>
