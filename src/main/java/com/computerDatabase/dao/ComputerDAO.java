@@ -103,7 +103,6 @@ public class ComputerDAO implements ComputerDAOImpl {
 
     try {
       connexion = connectionManager.getInstance();
-      LOGGER.info("hello connexion");
       preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false, range, current*range);
       resultSet = preparedStatement.executeQuery();
       
@@ -196,6 +195,8 @@ public class ComputerDAO implements ComputerDAOImpl {
     LocalDate introduced;
     LocalDate discontinued;
     
+    System.out.println(computer.getIntroduced());
+    
     if(computer.getIntroduced().isPresent()){
       introduced = computer.getIntroduced().get();
     }else{
@@ -220,6 +221,8 @@ public class ComputerDAO implements ComputerDAOImpl {
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
+      System.out.println("hello mon");
+      System.out.println(resultSet);
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);

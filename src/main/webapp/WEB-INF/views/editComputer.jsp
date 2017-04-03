@@ -27,11 +27,11 @@
                     <h1>Edit Computer</h1>
 
                     <form:form action="/computer-database-db/editComputer" commandName="computer" method="POST">
-                        <input type="hidden" value="${ computer.getId() }" name="computerId" id="computerId"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${ computer.getId() }" name="id" id="computerId"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" value="${ computer.getName() }" name="computerName">
+                                <input type="text" class="form-control" id="computerName" value="${ computer.getName() }" name="name">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>

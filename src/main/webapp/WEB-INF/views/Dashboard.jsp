@@ -55,7 +55,7 @@
                         <th class="editMode" style="width: 60px; height: 22px;">
                             <input type="checkbox" id="selectall" /> 
                             <span style="vertical-align: top;">
-                                 -  <a href="/computer-database-db/delete" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                                 -  <a id="deleteSelected" onclick="$.fn.deleteSelected();">
                                         <i class="fa fa-trash-o fa-lg"></i>
                                     </a>
                             </span>
@@ -85,7 +85,7 @@
                             <input type="checkbox" name="cb" class="cb" value="${ computer.getId() }">
                         </td>
                         <td>
-                            <a href="/computer-database-db/id/${ computer.getId() }" onclick=""><c:out value="${ computer.getName() }" /></a>
+                            <a href="/computer-database-db/editComputer/id/${ computer.getId() }" onclick=""><c:out value="${ computer.getName() }" /></a>
                         </td>
                         <td>
 						        <p>${ computer.getIntroduced() }</p>

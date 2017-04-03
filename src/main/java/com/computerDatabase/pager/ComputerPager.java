@@ -22,7 +22,6 @@ public class ComputerPager {
   public static int nbComputer;
 
   public List<ComputerDTO> computerList(int current, int range) {
-    System.out.println("hello billy 222222222222222222!!!!!!!!!!");
     List<Computer> list = computerServices.getComputerList(current, range);
     List<ComputerDTO> listOut = new ArrayList<>();
     CompanyDTO company;
@@ -77,7 +76,6 @@ public class ComputerPager {
             discontinued = "Non définit";
           }
           ComputerDTO computer = new ComputerDTO(comp.getId(), comp.getName().toString(), introduced, discontinued, company);
-          System.out.println("computer added");
           listOut.add(computer);
       }
     }
@@ -97,11 +95,13 @@ public class ComputerPager {
     }
     if (computer.getIntroduced().isPresent()) {
       introduced = DateUtils.convertToString(computer.getIntroduced().get());
+      introduced = introduced.replace(" ", "-");
     } else {
       introduced = "Non définit";
     }
     if (computer.getDiscontinued().isPresent()) {
       discontinued = DateUtils.convertToString(computer.getDiscontinued().get());
+      discontinued = discontinued.replace(" ", "-");
     } else {
       discontinued = "Non définit";
     }

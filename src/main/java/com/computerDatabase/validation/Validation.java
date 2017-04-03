@@ -77,7 +77,7 @@ public class Validation {
       if(computer.getIntroduced().length()>9){
         introduced = DateUtils.convertDate(computer.getIntroduced());
       }
-      if((computer.getIntroduced().length()<9)&&(comp.get().getIntroduced().isPresent())){
+      else if((computer.getIntroduced().length()<9)&&(comp.get().getIntroduced().isPresent())){
         introduced = comp.get().getIntroduced().get();
       }else{
         introduced = null;
@@ -85,12 +85,12 @@ public class Validation {
       if(computer.getDiscontinued().length()>9){
         discontinued = DateUtils.convertDate(computer.getDiscontinued());
       }
-      if((computer.getDiscontinued().length()<9)&&(comp.get().getDiscontinued().isPresent())){
+      else if((computer.getDiscontinued().length()<9)&&(comp.get().getDiscontinued().isPresent())){
         discontinued = comp.get().getDiscontinued().get();
       }else{
         discontinued = null;
       }
-      if(computer.getCompany()!=null){
+      if(computer.getCompany().getId()!=0){
         company = companyServices.getCompany(computer.getCompany().getId()).get();
       }else{
         company = null;
