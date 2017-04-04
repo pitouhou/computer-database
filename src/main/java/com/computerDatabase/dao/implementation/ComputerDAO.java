@@ -1,11 +1,11 @@
-package com.computerDatabase.dao;
+package com.computerDatabase.dao.implementation;
 
 import static com.computerDatabase.dao.connection.DAOUtils.initPreparedStatement;
 import static com.computerDatabase.dao.connection.DAOUtils.closeAll;
 import static com.computerDatabase.dao.connection.DAOUtils.commit;
 import static com.computerDatabase.dao.connection.DAOUtils.rollBack;
-import static com.computerDatabase.mapper.ComputerMapper.mapComputer;
-import static com.computerDatabase.mapper.ComputerMapper.mapListComputer;
+import static com.computerDatabase.entity.mapper.ComputerMapper.mapComputer;
+import static com.computerDatabase.entity.mapper.ComputerMapper.mapListComputer;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -21,14 +21,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.computerDatabase.dao.ComputerDAOInterface;
 import com.computerDatabase.dao.connection.ConnectionManager;
 import com.computerDatabase.dao.connection.datasource;
-import com.computerDatabase.dao.interfaces.ComputerDAOImpl;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Computer;
 
 @Component
-public class ComputerDAO implements ComputerDAOImpl {
+public class ComputerDAO implements ComputerDAOInterface {
 
   private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
   private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT ? OFFSET ?";
@@ -65,7 +65,10 @@ public class ComputerDAO implements ComputerDAOImpl {
         nbComputer = resultSet.getInt(1);
       }
     } catch (SQLException e) {
-      
+      LOGGER.error("error on request");
+      throw new DAOException("Error on counting the number of computer");
+    }catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
     } finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
@@ -73,7 +76,7 @@ public class ComputerDAO implements ComputerDAOImpl {
   }
 
   @Override
-  public Optional<Computer> findById(long id) {
+  public Optional<Computer> findById(long id){
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -87,8 +90,12 @@ public class ComputerDAO implements ComputerDAOImpl {
         computer = mapComputer(resultSet);
       }
     } catch (SQLException e) {
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on finding computer with id : "+id);
+    } catch (DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
     return computer;
@@ -110,9 +117,13 @@ public class ComputerDAO implements ComputerDAOImpl {
         listComputer = mapListComputer(resultSet);
       }
 
+    } catch (DAOException ex){
+      throw new DAOException("Error on connection to database");
     } catch (SQLException e) {
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on finding list of computers");
+    }
+    finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
     return listComputer;
@@ -136,8 +147,12 @@ public class ComputerDAO implements ComputerDAOImpl {
       }
 
     } catch (SQLException e) {
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on finding computer or company named : " + name);
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
     return listComputer;
@@ -179,8 +194,12 @@ public class ComputerDAO implements ComputerDAOImpl {
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on creating computer named : " + name);
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(preparedStatement, connexion);
     }
   }
@@ -194,8 +213,6 @@ public class ComputerDAO implements ComputerDAOImpl {
     String name = computer.getName();
     LocalDate introduced;
     LocalDate discontinued;
-    
-    System.out.println(computer.getIntroduced());
     
     if(computer.getIntroduced().isPresent()){
       introduced = computer.getIntroduced().get();
@@ -221,13 +238,15 @@ public class ComputerDAO implements ComputerDAOImpl {
       preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
           introduced, discontinued, companyId, id);
       resultSet = preparedStatement.executeUpdate();
-      System.out.println("hello mon");
-      System.out.println(resultSet);
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on updating computer : " + id);
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(preparedStatement, connexion);
     }
   }
@@ -245,8 +264,12 @@ public class ComputerDAO implements ComputerDAOImpl {
       commit(connexion);
     } catch (SQLException e) {
       rollBack(connexion);
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on deleting computer : " + id);
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(preparedStatement, connexion);
     }
 

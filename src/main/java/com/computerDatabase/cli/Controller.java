@@ -10,12 +10,13 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.computerDatabase.dto.CompanyDTO;
-import com.computerDatabase.dto.ComputerDTO;
+
+import com.computerDatabase.entity.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.ComputerDTO;
+import com.computerDatabase.entity.model.Company;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.entryUtils.DateUtils;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Company;
-import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.CompanyPager;
 import com.computerDatabase.pager.ComputerPager;
 import com.computerDatabase.services.CompanyServices;
@@ -52,7 +53,7 @@ public class Controller {
   }
   
   public ComputerDTO getComputer(long id){
-    ComputerDTO computer = computerPager.getComputer(id);
+    ComputerDTO computer = computerPager.getComputer(id).get();
     return computer;
   }
   

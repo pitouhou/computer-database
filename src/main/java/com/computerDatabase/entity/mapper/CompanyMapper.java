@@ -1,4 +1,4 @@
-package com.computerDatabase.mapper;
+package com.computerDatabase.entity.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.computerDatabase.dao.connection.ConnectionManager;
-import com.computerDatabase.model.Company;
+import com.computerDatabase.entity.model.Company;
 
 public class CompanyMapper {
 

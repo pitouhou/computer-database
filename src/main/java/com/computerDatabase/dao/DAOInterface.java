@@ -1,9 +1,12 @@
-package com.computerDatabase.dao.interfaces;
+package com.computerDatabase.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<T> {
+import com.computerDatabase.exceptions.DAOException;
+
+public interface DAOInterface<T> {
 
   // public Connection connect = ConnectionManager.getInstance();
 

@@ -31,20 +31,23 @@ public class ConnectionManager {
    * Method to get a new instance of Connection class .
    * @return connect
    */
-  public Connection getInstance() {
+  public Connection getInstance(){
     try {
       if ((connection.get() == null)||(connection.get().isClosed())) {
         try {
           connection.set(ds.getConnection());
           LOGGER.info("connection created");
         } catch (SQLException e) {
-          
+          LOGGER.error("connection error");
+          throw new DAOException("Error on connection to database");
         }
       } else {
-        
+        LOGGER.error("connection error");
+        throw new DAOException("Error on connection to database");
       }
     } catch (SQLException e) {
-      e.printStackTrace();
+      LOGGER.error("connection error");
+      throw new DAOException("Error on connection to database");
     }
     LOGGER.info("Connection instance created");
     return connection.get();

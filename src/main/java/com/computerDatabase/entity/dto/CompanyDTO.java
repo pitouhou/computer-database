@@ -1,4 +1,4 @@
-package com.computerDatabase.dto;
+package com.computerDatabase.entity.dto;
 
 import java.util.Objects;
 

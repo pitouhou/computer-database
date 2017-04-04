@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.computerDatabase.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.CompanyDTO;
+import com.computerDatabase.entity.model.Company;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Company;
 import com.computerDatabase.services.CompanyServices;
 
 @Component

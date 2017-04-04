@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.computerDatabase.dao.CompanyDAO;
+import com.computerDatabase.dao.implementation.CompanyDAO;
+import com.computerDatabase.entity.model.Company;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Company;
 
 @Component
 public class CompanyServices implements CompanyServicesInterface {

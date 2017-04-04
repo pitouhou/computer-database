@@ -1,4 +1,4 @@
-package com.computerDatabase.mapper;
+package com.computerDatabase.entity.mapper;
 
 import java.time.LocalDate;
 import java.sql.ResultSet;
@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.computerDatabase.dao.connection.ConnectionManager;
-import com.computerDatabase.model.Company;
-import com.computerDatabase.model.Computer;
+import com.computerDatabase.entity.model.Company;
+import com.computerDatabase.entity.model.Computer;
 
 public class ComputerMapper {
 

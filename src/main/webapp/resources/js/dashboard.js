@@ -8,6 +8,10 @@ $(function() {
         $('.cb').prop('checked', this.checked);
     });
 
+    $("#fermer").click(function(){
+        $(".error").hide();
+    });
+    
     // Click on a checkbox
     $(".cb").click(function() {
         if ($(".cb").length == $(".cb:checked").length) {
@@ -23,6 +27,7 @@ $(function() {
     });
 
 });
+
 
 
 // Function setCheckboxValues

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.services.ComputerServices;
 
 @Controller
@@ -24,10 +25,14 @@ public class DeleteComputerController {
   @RequestMapping(method = RequestMethod.POST)
   public String deleteComputer(ModelMap model, @ModelAttribute("selection") String selection) {
     String[] id = selection.split(",");
-    for(int i = 0; i<id.length; i++){
-      computerServices.deleteComputer(Long.parseLong(id[i], 10));
+    try{
+      for(int i = 0; i<id.length; i++){
+        computerServices.deleteComputer(Long.parseLong(id[i], 10));
+      }
+      return "redirect:/";
+    } catch (DAOException e){
+      model.addAttribute("error", e.getMessage());
+      return "redirect:/";
     }
-    return "redirect:/";
   }
-  
 }

@@ -3,8 +3,8 @@ package com.computerDatabase.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.computerDatabase.entity.model.Company;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Company;
 
 public interface CompanyServicesInterface {
 

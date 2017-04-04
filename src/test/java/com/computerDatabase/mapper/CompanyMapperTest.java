@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.computerDatabase.model.Company;
+import com.computerDatabase.entity.mapper.CompanyMapper;
+import com.computerDatabase.entity.model.Company;
 
 import junit.framework.TestCase;
 

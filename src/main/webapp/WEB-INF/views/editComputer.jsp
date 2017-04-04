@@ -27,19 +27,19 @@
                     <h1>Edit Computer</h1>
 
                     <form:form action="/computer-database-db/editComputer" commandName="computer" method="POST">
-                        <input type="hidden" value="${ computer.getId() }" name="id" id="computerId"/> <!-- TODO: Change this value with the computer id -->
+                        <form:input type="hidden" value="${ computerId }" path="id" id="computerId"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" value="${ computer.getName() }" name="name">
+                                <form:input type="text" class="form-control" id="computerName" value="${ computerName }" path="name" />
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced" value="${ computer.getIntroduced() }">
+                                <form:input type="date" class="form-control" id="introduced" path="introduced" value="${ computerIntroduced }" />
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued" value="${ computer.getDiscontinued() }">
+                                <form:input type="date" class="form-control" id="discontinued" path="discontinued" value="${ computerDiscontinued }" />
                             </div>
                             <div class="form-group">
                                 <label>Company</label>

@@ -10,8 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.computerDatabase.entity.mapper.ComputerMapper;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.entryUtils.DateUtils;
-import com.computerDatabase.model.Computer;
 
 import junit.framework.TestCase;
 

@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.computerDatabase.dto.ComputerDTO;
-import com.computerDatabase.model.Computer;
+import com.computerDatabase.entity.dto.ComputerDTO;
+import com.computerDatabase.entity.model.Computer;
+import com.computerDatabase.exceptions.DAOException;
 import com.computerDatabase.pager.ComputerPager;
 import com.computerDatabase.services.ComputerServices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,28 +32,40 @@ public class MainController {
   private ComputerServices computerServices;
   
   @RequestMapping(method = RequestMethod.GET)
-  public String dashboard(ModelMap model) {
+  public String dashboard(ModelMap model, @RequestParam(value="error", required=false) String error) {
     int current = 1;
     int range = 10;
-    List<ComputerDTO> list = computerPager.computerList(current, range);
-    model.addAttribute("list", list);
-    model.addAttribute("nbPage", computerPager.getNbPage(range));
-    model.addAttribute("current", current);
-    model.addAttribute("range", range);
-    model.addAttribute("nbComputer", computerPager.getNbComputer());
-  
-    return "Dashboard";
+    try{
+      List<ComputerDTO> list = computerPager.computerList(current, range);
+      model.addAttribute("list", list);
+      model.addAttribute("nbPage", computerPager.getNbPage(range));
+      model.addAttribute("current", current);
+      model.addAttribute("range", range);
+      model.addAttribute("nbComputer", computerPager.getNbComputer());
+    
+      return "Dashboard";
+    }catch(DAOException ex){
+      model.addAttribute("error", ex.getMessage());
+      return "Dashboard";
+    }
+    
+    
   }
 
   @RequestMapping(value = "/current/{current}/range/{range}", method = RequestMethod.GET)
   public String dashboard(@PathVariable("current") int current, @PathVariable("range") int range, ModelMap model) {
-    List<ComputerDTO> list = computerPager.computerList(current, range);
-    model.addAttribute("list", list);
-    model.addAttribute("nbPage", computerPager.getNbPage(range));
-    model.addAttribute("current", current);
-    model.addAttribute("range", range);
-    model.addAttribute("nbComputer", computerPager.getNbComputer());
-  
-    return "Dashboard";
+    try{
+      List<ComputerDTO> list = computerPager.computerList(current, range);
+      model.addAttribute("list", list);
+      model.addAttribute("nbPage", computerPager.getNbPage(range));
+      model.addAttribute("current", current);
+      model.addAttribute("range", range);
+      model.addAttribute("nbComputer", computerPager.getNbComputer());
+    
+      return "Dashboard";
+    }catch(DAOException ex){
+      model.addAttribute("error", ex.getMessage());
+      return "Dashboard";
+    }
   }
 }

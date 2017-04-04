@@ -1,4 +1,4 @@
-package com.computerDatabase.model;
+package com.computerDatabase.entity.model;
 
 import java.util.Objects;
 import java.util.Optional;

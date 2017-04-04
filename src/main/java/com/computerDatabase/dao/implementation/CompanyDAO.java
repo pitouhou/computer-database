@@ -1,9 +1,9 @@
-package com.computerDatabase.dao;
+package com.computerDatabase.dao.implementation;
 
 import static com.computerDatabase.dao.connection.DAOUtils.closeAll;
 import static com.computerDatabase.dao.connection.DAOUtils.initPreparedStatement;
-import static com.computerDatabase.mapper.CompanyMapper.mapCompany;
-import static com.computerDatabase.mapper.CompanyMapper.mapListCompany;
+import static com.computerDatabase.entity.mapper.CompanyMapper.mapCompany;
+import static com.computerDatabase.entity.mapper.CompanyMapper.mapListCompany;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.computerDatabase.dao.CompanyDAOInterface;
 import com.computerDatabase.dao.connection.ConnectionManager;
-import com.computerDatabase.dao.interfaces.CompanyDAOImpl;
+import com.computerDatabase.entity.model.Company;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Company;
 
 @Component
-public class CompanyDAO implements CompanyDAOImpl {
+public class CompanyDAO implements CompanyDAOInterface {
 
   private static final String SQL_FIND_ALL_COMPANY = "SELECT * FROM company";
   private static final String SQL_FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
@@ -48,7 +48,7 @@ public class CompanyDAO implements CompanyDAOImpl {
   }
   
   @Override 
-  public Optional<Company> findById(long id) {
+  public Optional<Company> findById(long id){
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -65,15 +65,19 @@ public class CompanyDAO implements CompanyDAOImpl {
       }
 
     } catch (SQLException e) {
-      
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on finding company : " + id);
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
     return Optional.empty();
   }
 
   @Override 
-  public List<Company> findAll() throws DAOException {
+  public List<Company> findAll(){
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -88,8 +92,12 @@ public class CompanyDAO implements CompanyDAOImpl {
       }
 
     } catch (SQLException e) {
-      throw new DAOException("Problème lors de l'accès aux données");
-    } finally {
+      LOGGER.error("error on request");
+      throw new DAOException("Error on finding companies" );
+    } catch(DAOException ex){
+      throw new DAOException("Error on connection to database");
+    }
+    finally {
       closeAll(resultSet, preparedStatement, connexion);
     }
     return listCompany;

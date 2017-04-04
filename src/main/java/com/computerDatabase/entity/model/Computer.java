@@ -1,4 +1,4 @@
-package com.computerDatabase.model;
+package com.computerDatabase.entity.model;
 
 import java.time.LocalDate;
 import java.util.Objects;

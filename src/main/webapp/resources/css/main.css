@@ -27,3 +27,20 @@ input[type='checkbox'] {
     border-radius: 5px;
     white-space: nowrap;
 }
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+	border: 1px solid;
+	margin: 10px 0px;
+	padding:0px 10px 0px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	display: inline-block;
+}
+
+#fermer {
+	float: right;
+	display: inline-block;
+	margin-left: 100px;
+}

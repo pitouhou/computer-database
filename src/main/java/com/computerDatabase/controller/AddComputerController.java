@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.computerDatabase.dto.CompanyDTO;
-import com.computerDatabase.dto.ComputerDTO;
+import com.computerDatabase.entity.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.ComputerDTO;
+import com.computerDatabase.entity.mapper.ComputerDTOMapper;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.exceptions.DAOException;
-import com.computerDatabase.model.Computer;
 import com.computerDatabase.pager.CompanyPager;
 import com.computerDatabase.services.ComputerServices;
 import com.computerDatabase.validation.Validation;
@@ -42,17 +43,26 @@ public class AddComputerController {
       listIn = companyPager.getCompanyPage();
       model.addAttribute("computer", computer);
       model.addAttribute("list", listIn);
+      return "addComputer";
     } catch (DAOException e) {
+      model.addAttribute("error", e.getMessage());
+      return "redirect:/";
     }
-    return "addComputer";
+    
   }
   
   
   @RequestMapping(method = RequestMethod.POST)
   public String addComputer(ModelMap model, @ModelAttribute("computer") @Validated ComputerDTO computer, BindingResult result) {
     
-    Computer computerUp = validation.isComputerValid(computer).get();
-    computerServices.addComputer(computerUp);
-    return "redirect:/";
+    try{
+      ComputerDTO computerUp = validation.isComputerValid(computer).get();
+      Computer newComputer = ComputerDTOMapper.mapperToComputer(computerUp);
+      computerServices.addComputer(newComputer);
+      return "redirect:/";
+    } catch (DAOException e){
+      model.addAttribute("error", e.getMessage());
+      return "redirect:/";
+    }
   }
 }

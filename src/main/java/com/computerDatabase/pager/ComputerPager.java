@@ -2,14 +2,16 @@ package com.computerDatabase.pager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.computerDatabase.dto.CompanyDTO;
-import com.computerDatabase.dto.ComputerDTO;
+import com.computerDatabase.entity.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.ComputerDTO;
+import com.computerDatabase.entity.mapper.ComputerDTOMapper;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.entryUtils.DateUtils;
-import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.ComputerServices;
 
 @Component
@@ -82,31 +84,15 @@ public class ComputerPager {
     return listOut;
   }
   
-  public ComputerDTO getComputer(long id){
+  public Optional<ComputerDTO> getComputer(long id){
     
-    Computer computer = computerServices.getComputerDetails(id).get();
-    CompanyDTO company;
-    String introduced;
-    String discontinued;
-    if (computer.getCompany().get().getId() != 0) {
-      company = new CompanyDTO(computer.getCompany().get().getId(), computer.getCompany().get().getName().get().toString());
-    } else {
-      company = new CompanyDTO(0, "Non définit");
+    if(computerServices.getComputerDetails(id).isPresent()){
+      Computer computer = computerServices.getComputerDetails(id).get();
+      ComputerDTO computerDTO = ComputerDTOMapper.mapperToDTO(computer);
+      return Optional.of(computerDTO);
+    }else{
+      return Optional.empty();
     }
-    if (computer.getIntroduced().isPresent()) {
-      introduced = DateUtils.convertToString(computer.getIntroduced().get());
-      introduced = introduced.replace(" ", "-");
-    } else {
-      introduced = "Non définit";
-    }
-    if (computer.getDiscontinued().isPresent()) {
-      discontinued = DateUtils.convertToString(computer.getDiscontinued().get());
-      discontinued = discontinued.replace(" ", "-");
-    } else {
-      discontinued = "Non définit";
-    }
-    ComputerDTO computerDTO = new ComputerDTO(computer.getId(), computer.getName().toString(), introduced, discontinued, company);
-    return computerDTO;
   }
   
   public int getNbPage(int range) {

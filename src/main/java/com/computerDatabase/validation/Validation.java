@@ -6,10 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.computerDatabase.dto.ComputerDTO;
+import com.computerDatabase.entity.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.ComputerDTO;
+import com.computerDatabase.entity.model.Company;
+import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.entryUtils.DateUtils;
-import com.computerDatabase.model.Company;
-import com.computerDatabase.model.Computer;
 import com.computerDatabase.services.CompanyServices;
 import com.computerDatabase.services.ComputerServices;
 
@@ -58,14 +59,14 @@ public class Validation {
    * @param computer
    * @return Optional<Computer>
    */
-  public Optional<Computer> isComputerValid(ComputerDTO computer){
+  public Optional<ComputerDTO> isComputerValid(ComputerDTO computer){
     Optional<Computer> comp;
-    Computer newComputer;
+    ComputerDTO newComputer;
     long id;
     String name;
-    LocalDate introduced;
-    LocalDate discontinued;
-    Company company;
+    String introduced;
+    String discontinued;
+    CompanyDTO company = new CompanyDTO();
     if(computer.getId()!=0){
       comp = computerServices.getComputerDetails(computer.getId());
       id = computer.getId();
@@ -75,50 +76,52 @@ public class Validation {
         name = computer.getName();
       }
       if(computer.getIntroduced().length()>9){
-        introduced = DateUtils.convertDate(computer.getIntroduced());
+        introduced = computer.getIntroduced();
       }
       else if((computer.getIntroduced().length()<9)&&(comp.get().getIntroduced().isPresent())){
-        introduced = comp.get().getIntroduced().get();
+        introduced = comp.get().getIntroduced().get().toString();
       }else{
         introduced = null;
       }
       if(computer.getDiscontinued().length()>9){
-        discontinued = DateUtils.convertDate(computer.getDiscontinued());
+        discontinued = computer.getDiscontinued();
       }
       else if((computer.getDiscontinued().length()<9)&&(comp.get().getDiscontinued().isPresent())){
-        discontinued = comp.get().getDiscontinued().get();
+        discontinued = comp.get().getDiscontinued().get().toString();
       }else{
         discontinued = null;
       }
       if(computer.getCompany().getId()!=0){
-        company = companyServices.getCompany(computer.getCompany().getId()).get();
+        company.setId(companyServices.getCompany(computer.getCompany().getId()).get().getId());
+        company.setName(companyServices.getCompany(computer.getCompany().getId()).get().getName().get());
       }else{
         company = null;
       }
-      newComputer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company).build();
+      newComputer = new ComputerDTO( id, name, introduced, discontinued, company);
       return Optional.of(newComputer);
     }else{
       
       name = computer.getName();
       
       if(computer.getIntroduced().length()>9){
-        introduced = DateUtils.convertDate(computer.getIntroduced());
+        introduced = computer.getIntroduced();
       }else{
         introduced = null;
       }
       
       if(computer.getDiscontinued().length()>9){
-        discontinued = DateUtils.convertDate(computer.getDiscontinued());
+        discontinued = computer.getDiscontinued();
       }else{
         discontinued = null;
       }
       
       if(computer.getCompany().getId()!=0){
-        company = companyServices.getCompany(computer.getCompany().getId()).get();
+        company.setId(companyServices.getCompany(computer.getCompany().getId()).get().getId());
+        company.setName(companyServices.getCompany(computer.getCompany().getId()).get().getName().get());
       }else{
         company = null;
       }
-      newComputer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company).build();
+      newComputer = new ComputerDTO( 0, name, introduced, discontinued, company);
       return Optional.of(newComputer);
     }
   }

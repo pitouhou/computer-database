@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 
-import com.computerDatabase.dto.CompanyDTO;
+import com.computerDatabase.entity.dto.CompanyDTO;
 import com.computerDatabase.pager.CompanyPager;
 
 @Component

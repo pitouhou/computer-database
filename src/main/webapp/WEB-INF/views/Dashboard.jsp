@@ -19,9 +19,13 @@
             <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
         </div>
     </header>
-
+	
     <section id="main">
+    
         <div class="container">
+        <c:if test="${error != null}">
+   			<div class="error">${error}<img id="fermer" alt="close" src="<c:url value="/resources/fonts/fermer.png" />"></div>
+		</c:if>
             <h1 id="homeTitle">
                 ${ nbComputer } Computers found
             </h1>

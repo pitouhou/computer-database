@@ -3,8 +3,8 @@ package com.computerDatabase.cli;
 import java.util.List;
 import java.util.Optional;
 
-import com.computerDatabase.model.Company;
-import com.computerDatabase.model.Computer;
+import com.computerDatabase.entity.model.Company;
+import com.computerDatabase.entity.model.Computer;
 
 public class Display {
 

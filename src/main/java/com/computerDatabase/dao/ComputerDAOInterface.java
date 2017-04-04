@@ -1,10 +1,10 @@
-package com.computerDatabase.dao.interfaces;
+package com.computerDatabase.dao;
 
 import java.util.List;
 
-import com.computerDatabase.model.Computer;
+import com.computerDatabase.entity.model.Computer;
 
-public interface ComputerDAOImpl extends DAO<Computer> {
+public interface ComputerDAOInterface extends DAOInterface<Computer> {
 
   /**
    * Method to get all object .
