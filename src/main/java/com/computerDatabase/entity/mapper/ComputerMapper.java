@@ -34,7 +34,7 @@ public class ComputerMapper {
     if (resultSet.getDate("discontinued") != null) {
       discontinued = resultSet.getDate("discontinued").toLocalDate();
     }
-    Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
+    Company company = new Company(resultSet.getLong("company.id"), resultSet.getString("company.name"));
     Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
     return Optional.of(computer);
   }
@@ -58,7 +58,7 @@ public class ComputerMapper {
       if (resultSet.getDate("discontinued") != null) {
         discontinued = resultSet.getDate("discontinued").toLocalDate();
       }
-      Company company = new Company.CompanyBuilder(resultSet.getLong("company.id"), resultSet.getString("company.name")).build();
+      Company company = new Company(resultSet.getLong("company.id"), resultSet.getString("company.name"));
       Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
       computerList.add(computer);
     }while(resultSet.next());

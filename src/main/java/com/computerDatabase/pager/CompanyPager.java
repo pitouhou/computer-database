@@ -20,6 +20,7 @@ public class CompanyPager {
 
   public List<CompanyDTO> getCompanyPage() throws DAOException {
     List<Company> list = companyServices.getCompanyList();
+    
     List<CompanyDTO> listOut = new ArrayList<>();
     CompanyDTO company;
     if (!list.isEmpty()) {

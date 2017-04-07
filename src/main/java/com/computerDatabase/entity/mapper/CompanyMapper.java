@@ -28,7 +28,7 @@ public class CompanyMapper {
 
     List<Company> companyList = new ArrayList<>();
     while (resultSet.next()) {
-      Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
+      Company company = new Company(resultSet.getLong("id"), resultSet.getString("name"));
       companyList.add(company);
     }
     LOGGER.info("New company list created from database");
@@ -43,7 +43,7 @@ public class CompanyMapper {
    */
   public static Optional<Company> mapCompany(ResultSet resultSet) throws SQLException {
 
-    Company company = new Company.CompanyBuilder(resultSet.getLong("id"), resultSet.getString("name")).build();
+    Company company = new Company(resultSet.getLong("id"), resultSet.getString("name"));
     LOGGER.info("New company created from database");
     return Optional.of(company);
   }

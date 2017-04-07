@@ -14,33 +14,31 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.computerDatabase.formatter.CompanyDTOFormatter;
 
-
-@Configuration
-@EnableWebMvc
-@ComponentScan({ "com.computerDatabase" })
+@Configuration 
+@EnableWebMvc 
+@ComponentScan({ "com.computerDatabase" }) 
 @EnableTransactionManagement
-
 public class AppConfiguration extends WebMvcConfigurerAdapter {
-  
-  @Bean
-  public ViewResolver viewResolver() {
-      InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-      viewResolver.setViewClass(JstlView.class);
-      viewResolver.setPrefix("/WEB-INF/views/");
-      viewResolver.setSuffix(".jsp");
 
-      return viewResolver;
-  }
-
-  @Override
-  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-      registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-  }
-  
   @Bean 
-  public FormattingConversionService formattingConversionService () {
-      FormattingConversionService service = new FormattingConversionService();
-      service.addFormatter(new CompanyDTOFormatter());
-      return service;
+  public ViewResolver viewResolver() {
+    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    viewResolver.setViewClass(JstlView.class);
+    viewResolver.setPrefix("/WEB-INF/views/");
+    viewResolver.setSuffix(".jsp");
+
+    return viewResolver;
+  }
+
+  @Override 
+  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+  }
+
+  @Bean 
+  public FormattingConversionService formattingConversionService() {
+    FormattingConversionService service = new FormattingConversionService();
+    service.addFormatter(new CompanyDTOFormatter());
+    return service;
   }
 }

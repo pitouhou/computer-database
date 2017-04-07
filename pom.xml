@@ -29,6 +29,10 @@
         <gatling-charts-highcharts.version>2.2.3</gatling-charts-highcharts.version>
         <org.apache.tomcat.maven.version>2.2</org.apache.tomcat.maven.version>
         <org.springframework.version>4.3.7.RELEASE</org.springframework.version>
+        <org.hibernate.version>5.2.1.Final</org.hibernate.version>
+        <blaze-persistence.version>1.2.0-Alpha2</blaze-persistence.version>
+        <blaze-persistence-integration-hibernate-5.2.version>1.2.0-Alpha2</blaze-persistence-integration-hibernate-5.2.version>
+        <org.eclipse.persistence.jpa.version>2.6.4</org.eclipse.persistence.jpa.version>
     </properties>
     <build>
         <plugins>
@@ -146,11 +150,13 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>${standard.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
@@ -248,10 +254,10 @@
                     <groupId>com.sun.jmx</groupId>
                     <artifactId>jmxri</artifactId>
                 </exclusion>
-                    <exclusion>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
-    </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+            </exclusion>
             </exclusions>
             <scope>runtime</scope>
         </dependency>
@@ -264,6 +270,40 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>0.9.26</version>
+        </dependency>
+        <dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-core</artifactId>   
+    		<version>${org.hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.el</groupId>
+                    <artifactId>el-api</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+		<dependency>
+    		<groupId>com.blazebit</groupId>
+    		<artifactId>blaze-persistence-core-api</artifactId>
+    		<version>${blaze-persistence.version}</version>
+    		<scope>compile</scope>
+		</dependency>
+		<dependency>
+    		<groupId>com.blazebit</groupId>
+    		<artifactId>blaze-persistence-core-impl</artifactId>
+    		<version>${blaze-persistence.version}</version>
+    		<scope>runtime</scope>
+		</dependency>
+		<dependency>
+    		<groupId>com.blazebit</groupId>
+    		<artifactId>blaze-persistence-integration-hibernate-5.2</artifactId>
+    		<version>${blaze-persistence-integration-hibernate-5.2.version}</version>
+    		<scope>runtime</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>${org.eclipse.persistence.jpa.version}</version>
         </dependency>
     </dependencies>
 </project>

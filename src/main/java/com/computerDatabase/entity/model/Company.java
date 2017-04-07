@@ -3,19 +3,35 @@ package com.computerDatabase.entity.model;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "company")
 public class Company {
 
-  private final long id;
-  private final String name;
+  @Id
+  private long id;
+  
+  @Column(name = "name")
+  private String name;
 
+  public Company(){
+    
+  }
+  
+  public Company(long id, String name){
+    this.id = id;
+    this.name = name;
+  }
+  
   /**
    * Builder of Company class .
    * @param builder : builder
    */
-  private Company(CompanyBuilder builder) {
-    this.id = builder.id;
-    this.name = builder.name;
-  }
+  
 
   public long getId() {
     return id;
@@ -23,30 +39,6 @@ public class Company {
 
   public Optional<String> getName() {
     return Optional.ofNullable(name);
-  }
-
-  public static class CompanyBuilder {
-    private final long id;
-    private final String name;
-
-    /**
-     * Method to build Company object .
-     * @param id : id
-     * @param name : name
-     */
-    public CompanyBuilder(long id, String name) {
-      this.id = id;
-      this.name = name;
-    }
-
-    /**
-     * Method to build Company object .
-     * @return new instance of Company
-     */
-    public Company build() {
-      return new Company(this);
-    }
-
   }
 
   @Override public boolean equals(Object o) {

@@ -1,7 +1,6 @@
 com/computerDatabase/dao/connection/DAOUtils.class
 com/computerDatabase/controller/MainController.class
 com/computerDatabase/controller/DeleteComputerController.class
-com/computerDatabase/entity/model/Company$CompanyBuilder.class
 com/computerDatabase/dao/connection/ConnectionManager.class
 com/computerDatabase/pager/ComputerPager.class
 com/computerDatabase/dao/DAOInterface.class
@@ -24,13 +23,13 @@ com/computerDatabase/cli/Display.class
 com/computerDatabase/dao/CompanyDAOInterface.class
 com/computerDatabase/entity/mapper/ComputerDTOMapper.class
 com/computerDatabase/services/ComputerServicesInterface.class
+com/computerDatabase/config/BlazePersistenceConfiguration.class
 com/computerDatabase/entity/model/Company.class
 com/computerDatabase/entity/dto/ComputerDTO.class
 com/computerDatabase/dao/ComputerDAOInterface.class
 com/computerDatabase/entity/model/Computer.class
 com/computerDatabase/dao/connection/datasource.class
 com/computerDatabase/validation/Validation.class
-com/computerDatabase/entity/model/Company$1.class
 com/computerDatabase/controller/EditComputerController.class
 com/computerDatabase/services/CompanyServices.class
 com/computerDatabase/entity/model/Computer$ComputerBuilder.class

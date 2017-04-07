@@ -131,7 +131,8 @@ public class ComputerDAO implements ComputerDAOInterface {
   
   @Override
   public List<Computer> findByName(String name) {
-    String companyName = name;
+    String companyName = "%"+name+"%";
+    name = "%"+name+"%";
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -161,8 +162,8 @@ public class ComputerDAO implements ComputerDAOInterface {
   @Override public void create(Computer computer) {
     Connection connexion = null;
     PreparedStatement preparedStatement = null;
-    long companyId;
     int resultSet;
+    String companyId;
     LocalDate introduced;
     LocalDate discontinued;
     String name = computer.getName();
@@ -179,11 +180,10 @@ public class ComputerDAO implements ComputerDAOInterface {
     }
     
     if(computer.getCompany().isPresent()){
-      companyId = computer.getCompany().get().getId();
+      companyId = Long.toString(computer.getCompany().get().getId());
     }else{
-      companyId = 0;
+      companyId = null;
     }
-    
 
     try {
 
@@ -231,7 +231,6 @@ public class ComputerDAO implements ComputerDAOInterface {
     }else{
       companyId = null;
     }
-
     try {
 
       connexion = connectionManager.getInstance();

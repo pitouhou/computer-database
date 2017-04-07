@@ -4,11 +4,32 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "computer")
 public class Computer {
+  
+  @Id
   private final long id;
+  
+  @Column(name = "name")
   private final String name;
+  
+  @Column(name = "introduced")
   private final LocalDate introduced;
+  
+  @Column(name = "discontinued")
   private final LocalDate discontinued;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
   private final Company company;
 
   /**

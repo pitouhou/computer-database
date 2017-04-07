@@ -1,7 +1,6 @@
 package com.computerDatabase.entity.mapper;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import com.computerDatabase.entity.dto.CompanyDTO;
 import com.computerDatabase.entity.dto.ComputerDTO;
@@ -29,14 +28,14 @@ public class ComputerDTOMapper {
       discontinued = null;
     }
     if(computer.getCompany() != null){
-      company = new Company.CompanyBuilder(computer.getCompany().getId(), computer.getCompany().getName()).build();
+      company = new Company(computer.getCompany().getId(), computer.getCompany().getName());
     }else{
       company = null;
     }
     if(computer.getId() != 0){
-      comp = new Computer.ComputerBuilder(computer.getName()).introduced(introduced).discontinued(discontinued).company(company).build();
-    }else{
       comp = new Computer.ComputerBuilder(computer.getName()).id(computer.getId()).introduced(introduced).discontinued(discontinued).company(company).build();
+    }else{
+      comp = new Computer.ComputerBuilder(computer.getName()).introduced(introduced).discontinued(discontinued).company(company).build();
     }
     
     return comp;
