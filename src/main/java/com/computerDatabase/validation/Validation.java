@@ -91,7 +91,10 @@ public class Validation {
       }else{
         discontinued = null;
       }
-      if(computer.getCompany().getId()!=0){
+      System.out.println("///////////////////////////////////////////");
+      System.out.println("///////////////////////////////////////////");
+      System.out.println(computer.getCompany());
+      if(computer.getCompany().getId() != 0){
         company.setId(companyServices.getCompany(computer.getCompany().getId()).get().getId());
         company.setName(companyServices.getCompany(computer.getCompany().getId()).get().getName().get());
       }else{

@@ -11,7 +11,6 @@ com/computerDatabase/entity/mapper/CompanyMapper.class
 com/computerDatabase/dao/implementation/ComputerDAO.class
 com/computerDatabase/services/ComputerServices.class
 com/computerDatabase/entryUtils/DateUtils.class
-com/computerDatabase/entity/model/Computer$1.class
 com/computerDatabase/controller/AddComputerController.class
 com/computerDatabase/config/AppConfiguration.class
 com/computerDatabase/exceptions/DAOConfigurationException.class
@@ -32,7 +31,6 @@ com/computerDatabase/dao/connection/datasource.class
 com/computerDatabase/validation/Validation.class
 com/computerDatabase/controller/EditComputerController.class
 com/computerDatabase/services/CompanyServices.class
-com/computerDatabase/entity/model/Computer$ComputerBuilder.class
 com/computerDatabase/formatter/CompanyDTOFormatter.class
 com/computerDatabase/services/CompanyServicesInterface.class
 com/computerDatabase/cli/Controller.class

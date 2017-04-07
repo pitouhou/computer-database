@@ -20,13 +20,6 @@ public class BlazePersistenceConfiguration {
   private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cdb");
 
   @Bean 
-  @Lazy(false) 
-  public CriteriaBuilderFactory createCriteriaBuilderFactory() {
-    CriteriaBuilderConfiguration config = Criteria.getDefault();
-    return config.createCriteriaBuilderFactory(entityManagerFactory);
-  }
-
-  @Bean 
   public EntityManager getEntityManager() {
     return entityManagerFactory.createEntityManager();
   }

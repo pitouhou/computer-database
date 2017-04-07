@@ -33,9 +33,9 @@ public class ComputerDTOMapper {
       company = null;
     }
     if(computer.getId() != 0){
-      comp = new Computer.ComputerBuilder(computer.getName()).id(computer.getId()).introduced(introduced).discontinued(discontinued).company(company).build();
+      comp = new Computer(computer.getId(), computer.getName(), introduced, discontinued, company);
     }else{
-      comp = new Computer.ComputerBuilder(computer.getName()).introduced(introduced).discontinued(discontinued).company(company).build();
+      comp = new Computer(computer.getName(), introduced, discontinued, company);
     }
     
     return comp;

@@ -16,14 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaUpdate;
 import com.computerDatabase.dao.ComputerDAOInterface;
 import com.computerDatabase.dao.connection.ConnectionManager;
-import com.computerDatabase.dao.connection.datasource;
+import com.computerDatabase.entity.model.Company;
 import com.computerDatabase.entity.model.Computer;
 import com.computerDatabase.exceptions.DAOException;
 
@@ -39,7 +46,8 @@ public class ComputerDAO implements ComputerDAOInterface {
   private static final String SQL_FIND_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
   
   @Autowired
-  private ConnectionManager connectionManager;
+  EntityManager em;
+  
   
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
@@ -50,165 +58,33 @@ public class ComputerDAO implements ComputerDAOInterface {
    */
   private ComputerDAO() { }
 
-  @Override
-  public int count(){
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    int nbComputer = 1;
+  @Override public Optional<Computer> findById(long id) {
+    CriteriaBuilder builder = em.getCriteriaBuilder();
 
-    try {
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_COUNT_COMPUTER, false);
-      resultSet = preparedStatement.executeQuery();
-      if (resultSet.next()) {
-        nbComputer = resultSet.getInt(1);
-      }
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on counting the number of computer");
-    }catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    } finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return nbComputer;
+    CriteriaQuery<Computer> criteria = builder.createQuery( Computer.class );
+    Root<Computer> root = criteria.from( Computer.class );
+    criteria.select( root );
+    criteria.where( builder.equal( root.get( "id" ), id ) );
+
+    Computer computer = em.createQuery( criteria ).getSingleResult();
+    return Optional.ofNullable(computer);
   }
 
-  @Override
-  public Optional<Computer> findById(long id){
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    Optional<Computer> computer = Optional.empty();
-
-    try {
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
-      resultSet = preparedStatement.executeQuery();
-      if (resultSet.next()) {
-        computer = mapComputer(resultSet);
-      }
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on finding computer with id : "+id);
-    } catch (DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return computer;
-  }
-  
-  @Override
-  public List<Computer> findAll(int current, int range) {
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    List<Computer> listComputer = new ArrayList<>();
-
-    try {
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPUTER, false, range, current*range);
-      resultSet = preparedStatement.executeQuery();
-      
-      if (resultSet.next()) {
-        listComputer = mapListComputer(resultSet);
-      }
-
-    } catch (DAOException ex){
-      throw new DAOException("Error on connection to database");
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on finding list of computers");
-    }
-    finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return listComputer;
-  }
-  
-  @Override
-  public List<Computer> findByName(String name) {
-    String companyName = "%"+name+"%";
-    name = "%"+name+"%";
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    List<Computer> listComputer = new ArrayList<>();
-
-    try {
-
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_NAME, false, name, companyName);
-      resultSet = preparedStatement.executeQuery();
-      if (resultSet.next()) {
-        listComputer = mapListComputer(resultSet);
-      }
-
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on finding computer or company named : " + name);
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return listComputer;
-  }
-
-  @Override public void create(Computer computer) {
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    int resultSet;
-    String companyId;
-    LocalDate introduced;
-    LocalDate discontinued;
-    String name = computer.getName();
-    if(computer.getIntroduced().isPresent()){
-      introduced = computer.getIntroduced().get();
-    }else{
-      introduced = null;
-    }
+  @Override public void create(Computer obj) {
+    // TODO Auto-generated method stub
     
-    if(computer.getDiscontinued().isPresent()){
-      discontinued = computer.getDiscontinued().get();
-    }else{
-      discontinued = null;
-    }
-    
-    if(computer.getCompany().isPresent()){
-      companyId = Long.toString(computer.getCompany().get().getId());
-    }else{
-      companyId = null;
-    }
-
-    try {
-
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_CREATE_COMPUTER, false, name,
-          introduced, discontinued, companyId);
-      resultSet = preparedStatement.executeUpdate();
-      commit(connexion);
-    } catch (SQLException e) {
-      rollBack(connexion);
-      LOGGER.error("error on request");
-      throw new DAOException("Error on creating computer named : " + name);
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(preparedStatement, connexion);
-    }
   }
 
   @Override public void update(Computer computer) {
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    String companyId;
-    int resultSet;
+    CriteriaBuilder builder = em.getCriteriaBuilder();
+    
+    // create update
+    CriteriaUpdate<Computer> update = builder.createCriteriaUpdate(Computer.class);
+    
+    // set the root class
+    Root<Computer> root = update.from(Computer.class);
+    
+    Company companyId;
     long id = computer.getId();
     String name = computer.getName();
     LocalDate introduced;
@@ -227,51 +103,145 @@ public class ComputerDAO implements ComputerDAOInterface {
     }
     
     if(computer.getCompany().isPresent()){
-      companyId = Long.toString(computer.getCompany().get().getId());
+      companyId = computer.getCompany().get();
     }else{
       companyId = null;
     }
-    try {
-
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_UPDATE_COMPUTER, false, name,
-          introduced, discontinued, companyId, id);
-      resultSet = preparedStatement.executeUpdate();
-      commit(connexion);
-    } catch (SQLException e) {
-      rollBack(connexion);
-      LOGGER.error("error on request");
-      throw new DAOException("Error on updating computer : " + id);
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(preparedStatement, connexion);
-    }
+    // set update and where clause
+    update.set("name", name);
+    update.set("introduced", introduced);
+    update.set("discontinued", discontinued);
+    update.set("company", companyId);
+    update.where(builder.equal( root.get( "id" ), computer.getId() ));
+    em.getTransaction().begin();
+    em.createQuery(update).executeUpdate();
+    em.getTransaction().commit();
   }
 
   @Override public void delete(long id) {
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    int resultSet;
+    CriteriaBuilder builder = em.getCriteriaBuilder();
 
-    try {
+    CriteriaDelete<Computer> delete = builder.createCriteriaDelete(Computer.class);
 
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_DELETE_COMPUTER, false, id);
-      resultSet = preparedStatement.executeUpdate();
-      commit(connexion);
-    } catch (SQLException e) {
-      rollBack(connexion);
-      LOGGER.error("error on request");
-      throw new DAOException("Error on deleting computer : " + id);
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(preparedStatement, connexion);
-    }
+    Root<Computer> root = delete.from(Computer.class);
 
+    delete.where(builder.equal( root.get( "id" ), id ));
+    em.getTransaction().begin();
+    em.createQuery(delete).executeUpdate();
+    em.getTransaction().commit();
   }
+
+  @Override public int count() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override public List<Computer> findAll(int current, int range) {
+    CriteriaBuilder builder = em.getCriteriaBuilder();
+
+    CriteriaQuery<Computer> criteria = builder.createQuery( Computer.class );
+    Root<Computer> root = criteria.from( Computer.class );
+    criteria.select( root );
+
+    List<Computer> list = em.createQuery( criteria ).setFirstResult((current*range)-range).setMaxResults(range).getResultList();
+    return list;
+  }
+
+  @Override public List<Computer> findByName(String name) {
+    CriteriaBuilder builder = em.getCriteriaBuilder();
+
+    CriteriaQuery<Computer> criteria = builder.createQuery( Computer.class );
+    Root<Computer> root = criteria.from( Computer.class );
+    criteria.select( root );
+    criteria.where( builder.like(root.<String>get("name"), "%"+name+"%") );
+    List<Computer> list = em.createQuery( criteria ).getResultList();
+    System.out.println(list.size());
+    return list;
+  }
+
+//  @Override
+//  public int count(){
+//    int cb = cbf.create(em, Computer.class).getMaxResults();
+//    return cb;
+//  }
+//
+//  @Override
+//  public Optional<Computer> findById(long id){
+//    CriteriaBuilder<Computer> cb = cbf.create(em, Computer.class).where("computer.id").like().value(id).noEscape();
+//    return Optional.of(cb.getSingleResult());
+//  }
+//  
+//  @Override
+//  public List<Computer> findAll(int current, int range) {
+////    System.out.println("////////////////////////////////////////////////////");
+////    System.out.println("////////////////////////////////////////////////////");
+////    System.out.println("////////////////////////////////////////////////////");
+////    
+////    CriteriaBuilder<Computer> cb = cbf.create(em, Computer.class).from(Computer.class, "computer").orderByAsc("id").setFirstResult((current*range)-range).setMaxResults(range);
+//    return null;
+//  }
+//  
+//  @Override
+//  public List<Computer> findByName(String name) {
+//    CriteriaBuilder<Computer> cb = cbf.create(em, Computer.class).where("computer.name").like().value(name).noEscape();
+//    return cb.getResultList();
+//  }
+//
+//  @Override public void create(Computer computer) {
+//    String companyId;
+//    LocalDate introduced;
+//    LocalDate discontinued;
+//    String name = computer.getName();
+//    if(computer.getIntroduced().isPresent()){
+//      introduced = computer.getIntroduced().get();
+//    }else{
+//      introduced = null;
+//    }
+//    
+//    if(computer.getDiscontinued().isPresent()){
+//      discontinued = computer.getDiscontinued().get();
+//    }else{
+//      discontinued = null;
+//    }
+//    
+//    if(computer.getCompany().isPresent()){
+//      companyId = Long.toString(computer.getCompany().get().getId());
+//    }else{
+//      companyId = null;
+//    }
+//    
+//  }
+//
+//  @Override public void update(Computer computer) {
+//   
+//    String companyId;
+//    long id = computer.getId();
+//    String name = computer.getName();
+//    LocalDate introduced;
+//    LocalDate discontinued;
+//    
+//    if(computer.getIntroduced().isPresent()){
+//      introduced = computer.getIntroduced().get();
+//    }else{
+//      introduced = null;
+//    }
+//    
+//    if(computer.getDiscontinued().isPresent()){
+//      discontinued = computer.getDiscontinued().get();
+//    }else{
+//      discontinued = null;
+//    }
+//    
+//    if(computer.getCompany().isPresent()){
+//      companyId = Long.toString(computer.getCompany().get().getId());
+//    }else{
+//      companyId = null;
+//    }
+//    cbf.update(em, Computer.class, "computer").set("name", computer.getName()).set("introduced", computer.getIntroduced()).set("discontinued", computer.getDiscontinued()).set("company", computer.getCompany());
+//  }
+//
+//  @Override public void delete(long id) {
+//    cbf.delete(em, Computer.class, "computer").where("computer.id").like().value(id);
+//  }
 
 }

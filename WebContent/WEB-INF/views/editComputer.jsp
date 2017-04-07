@@ -1,14 +1,15 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="./styles/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="./styles/css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="./styles/css/main.css" rel="stylesheet" media="screen">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" media="screen">
+<link href="<c:url value="/resources/css/font-awesome.css" />" rel="stylesheet" media="screen">
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet" media="screen">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -25,36 +26,27 @@
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form action="editComputer" name="newComputer" method="POST">
-                        <input type="hidden" value="${ computer.getId() }" name="computerId" id="computerId"/> <!-- TODO: Change this value with the computer id -->
+                    <form:form action="/computer-database-db/editComputer" commandName="computer" method="POST">
+                        <form:input type="hidden" value="${ computerId }" path="id" id="computerId"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" value="${ computer.getName() }" name="computerName">
+                                <form:input type="text" class="form-control" id="computerName" value="${ computerName }" path="name" />
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced" value="${ introduced }">
+                                <form:input type="date" class="form-control" id="introduced" path="introduced" value="${ computerIntroduced }" />
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued" value="${ discontinued }">
+                                <form:input type="date" class="form-control" id="discontinued" path="discontinued" value="${ computerDiscontinued }" />
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" name="companyId">
-                                <option value="0">None</option>
-                                <c:forEach items="${ list }" var="company">
-                                <c:choose>
-									<c:when test="${ company.getName() }==${ computer.getCompany().getName() }">
-										<option selected="selected" value="${ company.getId() }">${ company.getName() }</option>
-									</c:when>
-									<c:otherwise>
-									    <option value="${ company.getId() }">${ company.getName() }</option>
-									</c:otherwise>
-								  </c:choose>
-                                </c:forEach>
-                                </select>
+                                <label>Company</label>
+                                <form:select path="company.id">
+                                	<form:option value="0" label="--- Select ---"/>
+   									<form:options items="${ list }" itemValue="id" itemLabel="name"/>
+								</form:select>
                             </div>            
                         </fieldset>
                         <div class="actions pull-right">
@@ -62,7 +54,7 @@
                             or
                             <a href="dashboard" class="btn btn-default">Cancel</a>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

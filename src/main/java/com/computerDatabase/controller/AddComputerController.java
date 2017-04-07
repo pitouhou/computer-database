@@ -35,6 +35,12 @@ public class AddComputerController {
   
   @RequestMapping(method = RequestMethod.GET)
   public String addComputer(ModelMap model) {
+    System.out.println("/////////////////////////////////////////////");
+    System.out.println("/////////////////////////////////////////////");
+    System.out.println("/////////////////////////////////////////////");
+    System.out.println("/////////////////////////////////////////////");
+    System.out.println("/////////////////////////////////////////////");
+    System.out.println("/////////////////////////////////////////////");
     List<CompanyDTO> listIn;
     ComputerDTO computer = new ComputerDTO();
     CompanyDTO company = new CompanyDTO();

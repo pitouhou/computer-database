@@ -80,10 +80,14 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>${org.apache.tomcat.maven.version}</version>
                 <configuration>
+                    <!-- <server>cdb-server</server> -->
                     <url>http://localhost:8080/manager/text</url>
+                    <server>tomcat</server>
                     <username>admin</username>
                     <password>admin</password>
                     <update>true</update>
+ 
+                    <path>/computer-database-db</path>
                 </configuration>
             </plugin>
         </plugins>

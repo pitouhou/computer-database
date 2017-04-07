@@ -17,8 +17,8 @@ import com.computerDatabase.entity.model.Computer;
 public class ComputerMapper {
 
   /** The Constant LOGGER. */
-  public static final Logger LOGGER = LoggerFactory
-          .getLogger(ConnectionManager.class);
+  public static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
+
  /**
    * Mapper of Computer class .
    * @param resultSet : resultSet
@@ -35,7 +35,7 @@ public class ComputerMapper {
       discontinued = resultSet.getDate("discontinued").toLocalDate();
     }
     Company company = new Company(resultSet.getLong("company.id"), resultSet.getString("company.name"));
-    Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
+    Computer computer = new Computer(resultSet.getLong("id"), resultSet.getString("name"), introduced, discontinued, company);
     return Optional.of(computer);
   }
 
@@ -59,7 +59,7 @@ public class ComputerMapper {
         discontinued = resultSet.getDate("discontinued").toLocalDate();
       }
       Company company = new Company(resultSet.getLong("company.id"), resultSet.getString("company.name"));
-      Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).id(resultSet.getLong("id")).introduced(introduced).discontinued(discontinued).company(company).build();
+      Computer computer = new Computer(resultSet.getLong("id"), resultSet.getString("name"), introduced, discontinued, company);
       computerList.add(computer);
     }while(resultSet.next());
     

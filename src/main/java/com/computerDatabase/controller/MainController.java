@@ -42,10 +42,9 @@ public class MainController {
     int current = 1;
     int range = 10;
     try{
-      //List<ComputerDTO> list = computerPager.computerList(current, range);
-      //CriteriaBuilder<Computer> cb = cbf.create(em, Computer.class);
+      List<ComputerDTO> list = computerPager.computerList(current, range);
       model.addAttribute("error", error);
-      //model.addAttribute("list", cb);
+      model.addAttribute("list", list);
       model.addAttribute("nbPage", computerPager.getNbPage(range));
       model.addAttribute("current", current);
       model.addAttribute("range", range);

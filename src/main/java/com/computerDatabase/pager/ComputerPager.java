@@ -31,7 +31,7 @@ public class ComputerPager {
     String discontinued;
     if (!list.isEmpty()) {
       for (Computer comp : list) {
-          if (comp.getCompany().get().getId() != 0) {
+          if (comp.getCompany().isPresent()) {
             company = new CompanyDTO(comp.getCompany().get().getId(), comp.getCompany().get().getName().get().toString());
           } else {
             company = new CompanyDTO(0, "Non définit");
@@ -62,7 +62,7 @@ public class ComputerPager {
     if (!list.isEmpty()) {
 
       for (Computer comp : list) {
-          if (comp.getCompany().get().getId() != 0) {
+          if (comp.getCompany().isPresent()) {
             company = new CompanyDTO(comp.getCompany().get().getId(), comp.getCompany().get().getName().get().toString());
           } else {
             company = new CompanyDTO(0, "Non définit");

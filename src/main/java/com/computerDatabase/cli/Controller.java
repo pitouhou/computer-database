@@ -253,9 +253,9 @@ public class Controller {
         Optional<Company> company = validation.isCompanyValid(companyId);
 
         if (company.isPresent()) {
-          computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).company(company.get()).build();
+          computer = new Computer(name, introduced, discontinued, company.get());
         } else {
-          computer = new Computer.ComputerBuilder(name).introduced(introduced).discontinued(discontinued).build();
+          computer = new Computer(name, introduced, discontinued, company.get());
         }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
@@ -296,9 +296,9 @@ public class Controller {
         Optional<Company> company = validation.isCompanyValid(companyId);
 
         if (company.isPresent()) {
-          computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).company(company.get()).build();
+          computer = new Computer(name, introduced, discontinued, company.get());
         } else {
-          computer = new Computer.ComputerBuilder(name).id(id).introduced(introduced).discontinued(discontinued).build();
+          computer = new Computer(name, introduced, discontinued, company.get());
         }
 
         System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");

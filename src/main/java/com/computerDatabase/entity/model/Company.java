@@ -40,6 +40,14 @@ public class Company {
   public Optional<String> getName() {
     return Optional.ofNullable(name);
   }
+  
+  public void setId(long id){
+    this.id = id;
+  }
+  
+  public void setName(String name){
+    this.name = name;
+  }
 
   @Override public boolean equals(Object o) {
 

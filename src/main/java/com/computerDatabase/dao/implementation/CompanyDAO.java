@@ -1,13 +1,5 @@
 package com.computerDatabase.dao.implementation;
 
-import static com.computerDatabase.dao.connection.DAOUtils.closeAll;
-import static com.computerDatabase.dao.connection.DAOUtils.initPreparedStatement;
-import static com.computerDatabase.entity.mapper.CompanyMapper.mapCompany;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.blazebit.persistence.CriteriaBuilder;
-import com.blazebit.persistence.CriteriaBuilderFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import com.computerDatabase.dao.CompanyDAOInterface;
-import com.computerDatabase.dao.connection.ConnectionManager;
 import com.computerDatabase.entity.model.Company;
-import com.computerDatabase.exceptions.DAOException;
+import com.computerDatabase.entity.model.Computer;
 
 @Component
 public class CompanyDAO implements CompanyDAOInterface {
@@ -34,11 +27,7 @@ public class CompanyDAO implements CompanyDAOInterface {
   @Autowired
   EntityManager em;
   
-  @Autowired
-  CriteriaBuilderFactory cbf;
   
-  @Autowired
-  private ConnectionManager connectionManager;
   
   /** The Constant LOGGER. */
   public static final Logger LOGGER = LoggerFactory
@@ -56,61 +45,32 @@ public class CompanyDAO implements CompanyDAOInterface {
   
   @Override 
   public Optional<Company> findById(long id){
-    Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+    CriteriaBuilder builder = em.getCriteriaBuilder();
 
-    try {
+    CriteriaQuery<Company> criteria = builder.createQuery( Company.class );
+    Root<Company> root = criteria.from( Company.class );
+    criteria.select( root );
+    criteria.where( builder.equal( root.get( "id" ), id ) );
 
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_BY_ID, false, id);
-      resultSet = preparedStatement.executeQuery();
-
-      if (resultSet.next()) {
-        Optional<Company> company = mapCompany(resultSet);
-        return company;
-      }
-
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on finding company : " + id);
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return Optional.empty();
+    Company company = em.createQuery( criteria ).getSingleResult();
+    return Optional.ofNullable(company);
+    
   }
 
   @Override 
   public List<Company> findAll(){
     
-    CriteriaBuilder<Company> cb = cbf.create(em, Company.class);
-    return cb.getResultList();
-    /*Connection connexion = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    List<Company> listCompany = new ArrayList<>();
-    try {
-      connexion = connectionManager.getInstance();
-      preparedStatement = initPreparedStatement(connexion, SQL_FIND_ALL_COMPANY, false);
-      resultSet = preparedStatement.executeQuery();
-      if (resultSet.next()) {
-        listCompany = mapListCompany(resultSet);
-        return listCompany;
-      }
+    CriteriaBuilder builder = em.getCriteriaBuilder();
 
-    } catch (SQLException e) {
-      LOGGER.error("error on request");
-      throw new DAOException("Error on finding companies" );
-    } catch(DAOException ex){
-      throw new DAOException("Error on connection to database");
-    }
-    finally {
-      closeAll(resultSet, preparedStatement, connexion);
-    }
-    return listCompany;*/
+    CriteriaQuery<Company> criteria = builder.createQuery( Company.class );
+    Root<Company> root = criteria.from( Company.class );
+    criteria.select( root );
+
+    List<Company> persons = em.createQuery( criteria ).getResultList();
+    
+    
+    return persons;
+    
   }
 
   @Override 
