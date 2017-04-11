@@ -2,7 +2,7 @@ package com.computerDatabase.dao;
 
 import java.util.List;
 
-import com.computerDatabase.entity.model.Computer;
+import com.computerDatabase.core.model.Computer;
 
 public interface ComputerDAOInterface extends DAOInterface<Computer> {
 

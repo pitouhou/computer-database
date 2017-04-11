@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.computerDatabase.core.dto.ComputerDTO;
+import com.computerDatabase.core.model.Computer;
 import com.computerDatabase.dao.implementation.ComputerDAO;
-import com.computerDatabase.entity.dto.ComputerDTO;
-import com.computerDatabase.entity.model.Computer;
 
 @Component
 public class ComputerServices implements ComputerServicesInterface {

@@ -3,8 +3,8 @@ package com.computerDatabase.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.computerDatabase.entity.model.Company;
-import com.computerDatabase.exceptions.DAOException;
+import com.computerDatabase.core.model.Company;
+import com.computerDatabase.dao.exceptions.DAOException;
 
 public interface CompanyDAOInterface extends DAOInterface<Company> {
 

@@ -14,8 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.computerDatabase.core.model.Company;
 import com.computerDatabase.dao.CompanyDAOInterface;
-import com.computerDatabase.entity.model.Company;
 
 @Component
 public class CompanyDAO implements CompanyDAOInterface {

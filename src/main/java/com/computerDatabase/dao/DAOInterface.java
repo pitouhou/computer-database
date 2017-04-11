@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import com.computerDatabase.exceptions.DAOException;
+import com.computerDatabase.dao.exceptions.DAOException;
 
 public interface DAOInterface<T> {
 

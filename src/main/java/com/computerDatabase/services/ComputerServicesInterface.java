@@ -3,7 +3,7 @@ package com.computerDatabase.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.computerDatabase.entity.model.Computer;
+import com.computerDatabase.core.model.Computer;
 
 public interface ComputerServicesInterface {
 

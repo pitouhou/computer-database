@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -18,22 +17,14 @@ import org.springframework.stereotype.Component;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaUpdate;
+
+import com.computerDatabase.core.model.Company;
+import com.computerDatabase.core.model.Computer;
 import com.computerDatabase.dao.ComputerDAOInterface;
-import com.computerDatabase.entity.model.Company;
-import com.computerDatabase.entity.model.Computer;
-import com.computerDatabase.exceptions.DAOException;
 
 @Component
 public class ComputerDAO implements ComputerDAOInterface {
 
-  private static final String SQL_FIND_BY_ID = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ?";
-  private static final String SQL_FIND_ALL_COMPUTER = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT ? OFFSET ?";
-  private static final String SQL_CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( ?, ?, ?, ?)";
-  private static final String SQL_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ?";
-  private static final String SQL_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
-  private static final String SQL_COUNT_COMPUTER = "SELECT COUNT(id) FROM computer";
-  private static final String SQL_FIND_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
-  
   @Autowired
   EntityManager em;
   
@@ -61,12 +52,12 @@ public class ComputerDAO implements ComputerDAOInterface {
 
   @Override public void create(Computer computer) {
       if(!em.getTransaction().isActive()) em.getTransaction().begin();
+      System.out.println("///////////////////////////////////////");
+      System.out.println("///////////////////////////////////////");
+      System.out.println(computer.getId());
       em.persist(computer);
-      //em.createNativeQuery("INSERT INTO computer (name, introduced, discontinued, company_id) VALUES ( "+name+", "+introduced+", "+discontinued+", "+companyId+")").executeUpdate();
-      
       em.refresh(computer);
       em.getTransaction().commit();
-      
   }
 
   @Override public void update(Computer computer) {
@@ -108,7 +99,6 @@ public class ComputerDAO implements ComputerDAOInterface {
     update.where(builder.equal( root.get( "id" ), computer.getId() ));
     if(!em.getTransaction().isActive()) em.getTransaction().begin();
     em.createQuery(update).executeUpdate();
-    //em.flush();
     em.getTransaction().commit();
   }
 

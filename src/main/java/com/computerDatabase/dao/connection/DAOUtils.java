@@ -9,7 +9,7 @@ import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.computerDatabase.exceptions.DAOException;
+import com.computerDatabase.dao.exceptions.DAOException;
 
 public class DAOUtils {
 
