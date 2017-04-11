@@ -35,12 +35,6 @@ public class AddComputerController {
   
   @RequestMapping(method = RequestMethod.GET)
   public String addComputer(ModelMap model) {
-    System.out.println("/////////////////////////////////////////////");
-    System.out.println("/////////////////////////////////////////////");
-    System.out.println("/////////////////////////////////////////////");
-    System.out.println("/////////////////////////////////////////////");
-    System.out.println("/////////////////////////////////////////////");
-    System.out.println("/////////////////////////////////////////////");
     List<CompanyDTO> listIn;
     ComputerDTO computer = new ComputerDTO();
     CompanyDTO company = new CompanyDTO();
@@ -60,7 +54,6 @@ public class AddComputerController {
   
   @RequestMapping(method = RequestMethod.POST)
   public String addComputer(ModelMap model, @ModelAttribute("computer") @Validated ComputerDTO computer, BindingResult result) {
-    
     try{
       ComputerDTO computerUp = validation.isComputerValid(computer).get();
       Computer newComputer = ComputerDTOMapper.mapperToComputer(computerUp);

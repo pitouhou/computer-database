@@ -46,19 +46,19 @@ public static ComputerDTO mapperToDTO(Computer computer){
     CompanyDTO company;
     String introduced;
     String discontinued;
-    if (computer.getCompany().get().getId() != 0) {
-      company = new CompanyDTO(computer.getCompany().get().getId(), computer.getCompany().get().getName().get().toString());
+    if (computer.getCompany()!=null) {
+      company = new CompanyDTO(computer.getCompany().getId(), computer.getCompany().getName().get().toString());
     } else {
       company = new CompanyDTO(0, "Non définit");
     }
-    if (computer.getIntroduced().isPresent()) {
-      introduced = DateUtils.convertToString(computer.getIntroduced().get());
+    if (computer.getIntroduced()!=null) {
+      introduced = DateUtils.convertToString(computer.getIntroduced());
       introduced = introduced.replace(" ", "-");
     } else {
       introduced = "Non définit";
     }
-    if (computer.getDiscontinued().isPresent()) {
-      discontinued = DateUtils.convertToString(computer.getDiscontinued().get());
+    if (computer.getDiscontinued()!=null) {
+      discontinued = DateUtils.convertToString(computer.getDiscontinued());
       discontinued = discontinued.replace(" ", "-");
     } else {
       discontinued = "Non définit";

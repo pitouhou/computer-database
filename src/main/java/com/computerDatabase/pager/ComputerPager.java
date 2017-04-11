@@ -31,20 +31,20 @@ public class ComputerPager {
     String discontinued;
     if (!list.isEmpty()) {
       for (Computer comp : list) {
-          if (comp.getCompany().isPresent()) {
-            company = new CompanyDTO(comp.getCompany().get().getId(), comp.getCompany().get().getName().get().toString());
+          if ((comp.getCompany()!=null)&&(comp.getCompany().getId()!=0)) {
+            company = new CompanyDTO(comp.getCompany().getId(), comp.getCompany().getName().get().toString());
           } else {
-            company = new CompanyDTO(0, "Non définit");
+            company = new CompanyDTO(0, "Non défini");
           }
-          if (comp.getIntroduced().isPresent()) {
-            introduced = DateUtils.convertToString(comp.getIntroduced().get());
+          if (comp.getIntroduced()!=null) {
+            introduced = DateUtils.convertToString(comp.getIntroduced());
           } else {
-            introduced = "Non définit";
+            introduced = "Non défini";
           }
-          if (comp.getDiscontinued().isPresent()) {
-            discontinued = DateUtils.convertToString(comp.getDiscontinued().get());
+          if (comp.getDiscontinued()!=null) {
+            discontinued = DateUtils.convertToString(comp.getDiscontinued());
           } else {
-            discontinued = "Non définit";
+            discontinued = "Non défini";
           }
           ComputerDTO computer = new ComputerDTO(comp.getId(), comp.getName().toString(), introduced, discontinued, company);
           listOut.add(computer);
@@ -62,18 +62,18 @@ public class ComputerPager {
     if (!list.isEmpty()) {
 
       for (Computer comp : list) {
-          if (comp.getCompany().isPresent()) {
-            company = new CompanyDTO(comp.getCompany().get().getId(), comp.getCompany().get().getName().get().toString());
+          if (comp.getCompany()!=null) {
+            company = new CompanyDTO(comp.getCompany().getId(), comp.getCompany().getName().get().toString());
           } else {
             company = new CompanyDTO(0, "Non définit");
           }
-          if (comp.getIntroduced().isPresent()) {
-            introduced = DateUtils.convertToString(comp.getIntroduced().get());
+          if (comp.getIntroduced()!=null) {
+            introduced = DateUtils.convertToString(comp.getIntroduced());
           } else {
             introduced = "Non définit";
           }
-          if (comp.getDiscontinued().isPresent()) {
-            discontinued = DateUtils.convertToString(comp.getDiscontinued().get());
+          if (comp.getDiscontinued()!=null) {
+            discontinued = DateUtils.convertToString(comp.getDiscontinued());
           } else {
             discontinued = "Non définit";
           }

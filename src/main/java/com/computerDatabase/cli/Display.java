@@ -18,7 +18,7 @@ public class Display {
       Computer computer1 = computer.get();
       System.out.println(
           "| id | nom | date d'introduction | date d'arret | id de l'entreprise |");
-      System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | " + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | " + computer1.getCompany().get().getId() + " | " + computer1.getCompany().get().getName() + " | ");
+      System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | " + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | " + computer1.getCompany().getId() + " | " + computer1.getCompany().getName() + " | ");
     } else {
       System.out.println("L'ordinateur spécifié n'a pas été trouvé!");
     }
@@ -35,7 +35,7 @@ public class Display {
           "| id | nom | date d'introduction | date d'arret | id de l'entreprise |");
 
       for (Computer comp : listComputer) {
-          System.out.println("| " + comp.getId() + " | " + comp.getName() + " | " + comp.getIntroduced() + " | " + comp.getDiscontinued() + " | " + comp.getCompany().get().getId() + " | " + comp.getCompany().get().getName().get() + " |");
+          System.out.println("| " + comp.getId() + " | " + comp.getName() + " | " + comp.getIntroduced() + " | " + comp.getDiscontinued() + " | " + comp.getCompany().getId() + " | " + comp.getCompany().getName().get() + " |");
       }
   }
 

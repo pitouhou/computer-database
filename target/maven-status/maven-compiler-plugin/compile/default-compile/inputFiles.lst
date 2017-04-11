@@ -18,7 +18,6 @@
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/exceptions/DAOException.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/entity/model/Company.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/ComputerServicesInterface.java
-/home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/config/BlazePersistenceConfiguration.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/dao/connection/datasource.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/entryUtils/DateUtils.java
 /home/excilys/excilys/computer-database-db/src/main/java/com/computerDatabase/services/CompanyServicesInterface.java

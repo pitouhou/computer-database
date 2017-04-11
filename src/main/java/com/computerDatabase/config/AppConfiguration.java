@@ -1,5 +1,10 @@
 package com.computerDatabase.config;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +25,7 @@ import com.computerDatabase.formatter.CompanyDTOFormatter;
 @EnableTransactionManagement
 public class AppConfiguration extends WebMvcConfigurerAdapter {
 
-  @Bean 
+  @Bean
   public ViewResolver viewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
     viewResolver.setViewClass(JstlView.class);
@@ -30,15 +35,23 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     return viewResolver;
   }
 
-  @Override 
+  @Override
   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   }
 
-  @Bean 
+  @Bean
   public FormattingConversionService formattingConversionService() {
     FormattingConversionService service = new FormattingConversionService();
     service.addFormatter(new CompanyDTOFormatter());
     return service;
+  }
+
+  @PersistenceUnit(name = "cdb")
+  private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cdb");
+
+  @Bean
+  public EntityManager getEntityManager() {
+    return entityManagerFactory.createEntityManager();
   }
 }

@@ -195,7 +195,7 @@ public class Controller {
       Computer computer1 = computer.get();
       System.out.println("| " + computer1.getId() + " | " + computer1.getName() + " | "
           + computer1.getIntroduced() + " | " + computer1.getDiscontinued() + " | "
-          + computer1.getCompany().get().getId() + " | " + computer1.getCompany().get().getName() + " |");
+          + computer1.getCompany().getId() + " | " + computer1.getCompany().getName() + " |");
       System.out.println("Etes vous sûr de vouloir supprimer cette ordinateur ? (1) oui (2) non");
       int rep = sc.nextInt();
       if (rep == 1) {
@@ -258,7 +258,7 @@ public class Controller {
           computer = new Computer(name, introduced, discontinued, company.get());
         }
 
-        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
+        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
         return Optional.of(computer);
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");
@@ -301,7 +301,7 @@ public class Controller {
           computer = new Computer(name, introduced, discontinued, company.get());
         }
 
-        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().get().getId() + " | " + computer.getCompany().get().getName() + " |");
+        System.out.println(" | " + computer.getName() + " | " + computer.getIntroduced() + " | " + computer.getDiscontinued() + " | " + computer.getCompany().getId() + " | " + computer.getCompany().getName() + " |");
         return Optional.of(computer);
       } else {
         System.out.println("La date d'introduction ne peut pas être supérieur a la date d'arrêt");

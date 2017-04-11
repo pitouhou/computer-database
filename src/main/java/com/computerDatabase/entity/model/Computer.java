@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,6 +18,8 @@ import javax.persistence.Table;
 public class Computer {
   
   @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   
   @Column(name = "name")
@@ -61,16 +65,16 @@ public Computer(String name, LocalDate introduced, LocalDate discontinued, Compa
     return name;
   }
 
-  public Optional<LocalDate> getIntroduced() {
-    return Optional.ofNullable(introduced);
+  public LocalDate getIntroduced() {
+    return introduced;
   }
 
-  public Optional<LocalDate> getDiscontinued() {
-    return Optional.ofNullable(discontinued);
+  public LocalDate getDiscontinued() {
+    return discontinued;
   }
 
-  public Optional<Company> getCompany() {
-    return Optional.ofNullable(company);
+  public Company getCompany() {
+    return company;
   }
   
   public void setId(long id){

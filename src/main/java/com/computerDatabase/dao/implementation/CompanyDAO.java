@@ -16,7 +16,6 @@ import javax.persistence.criteria.Root;
 
 import com.computerDatabase.dao.CompanyDAOInterface;
 import com.computerDatabase.entity.model.Company;
-import com.computerDatabase.entity.model.Computer;
 
 @Component
 public class CompanyDAO implements CompanyDAOInterface {
@@ -59,18 +58,15 @@ public class CompanyDAO implements CompanyDAOInterface {
 
   @Override 
   public List<Company> findAll(){
-    
+
     CriteriaBuilder builder = em.getCriteriaBuilder();
 
     CriteriaQuery<Company> criteria = builder.createQuery( Company.class );
     Root<Company> root = criteria.from( Company.class );
     criteria.select( root );
+    List<Company> list = em.createQuery( criteria ).getResultList();
 
-    List<Company> persons = em.createQuery( criteria ).getResultList();
-    
-    
-    return persons;
-    
+    return list;
   }
 
   @Override 

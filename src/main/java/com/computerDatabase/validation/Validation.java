@@ -78,22 +78,19 @@ public class Validation {
       if(computer.getIntroduced().length()>9){
         introduced = computer.getIntroduced();
       }
-      else if((computer.getIntroduced().length()<9)&&(comp.get().getIntroduced().isPresent())){
-        introduced = comp.get().getIntroduced().get().toString();
+      else if((computer.getIntroduced().length()<9)&&(comp.get().getIntroduced()!=null)){
+        introduced = comp.get().getIntroduced().toString();
       }else{
         introduced = null;
       }
       if(computer.getDiscontinued().length()>9){
         discontinued = computer.getDiscontinued();
       }
-      else if((computer.getDiscontinued().length()<9)&&(comp.get().getDiscontinued().isPresent())){
-        discontinued = comp.get().getDiscontinued().get().toString();
+      else if((computer.getDiscontinued().length()<9)&&(comp.get().getDiscontinued()!=null)){
+        discontinued = comp.get().getDiscontinued().toString();
       }else{
         discontinued = null;
       }
-      System.out.println("///////////////////////////////////////////");
-      System.out.println("///////////////////////////////////////////");
-      System.out.println(computer.getCompany());
       if(computer.getCompany().getId() != 0){
         company.setId(companyServices.getCompany(computer.getCompany().getId()).get().getId());
         company.setName(companyServices.getCompany(computer.getCompany().getId()).get().getName().get());
