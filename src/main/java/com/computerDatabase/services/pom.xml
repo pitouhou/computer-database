@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-
+instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+     <modelVersion>4.0.0</modelVersion>
+     <parent>
+          <relativePath>../../pom.xml</relativePath>
+          <artifactId>computer-database-db</artifactId>
+          <groupId>com.computerDatabase</groupId>
+          <version>1.0.2</version>
+     </parent>
+
+     <artifactId>services</artifactId>
+     <packaging>war</packaging>
+     <name>services - computer-database-db</name>
+     <dependencies>
+          <dependency>
+               <groupId>${project.parent.groupId}</groupId>
+               <artifactId>core</artifactId>
+               <version>${project.parent.version}</version>
+          </dependency>
+          <dependency>
+               <groupId>${project.parent.groupId}</groupId>
+               <artifactId>dao</artifactId>
+               <version>${project.parent.version}</version>
+          </dependency>
+     </dependencies>
+</project>

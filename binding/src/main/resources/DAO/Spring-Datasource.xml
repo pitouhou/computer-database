@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull" />
+		<property name="username" value="admincdb" />
+		<property name="password" value="qwerty1234" />
+		<property name="autoCommit" value="false" />
+		<property name="cachePrepStmts" value="true" />
+		<property name="prepStmtCacheSize" value="250" />
+		<property name="prepStmtCacheSqlLimit" value="2048" />
+	</bean>
+
+</beans>

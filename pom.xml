@@ -3,12 +3,21 @@
     <groupId>com.computerDatabase</groupId>
     <artifactId>computer-database-db</artifactId>
     <version>1.0.2</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <name>computer-database-db</name>
     <url>https://github.com/pitouhou/computer-database</url>
+    <modules>
+          <module>binding</module>
+          <module>console</module>
+          <module>core</module>
+          <module>persistence</module>
+          <module>service</module>
+          <module>webapp</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <org.apache.maven.plugins.version>3.0.0</org.apache.maven.plugins.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-site-plugin.version>3.5</maven-site-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
@@ -23,7 +32,7 @@
         <jstl.version>1.2</jstl.version>
         <standard.version>1.1.2</standard.version>
         <dbunit.version>2.4.9</dbunit.version>
-        <slf4j.version>1.7.20</slf4j.version>
+        <slf4j.version>1.6.1</slf4j.version>
         <HikariCP.version>2.5.1</HikariCP.version>
         <selenium-java.version>3.2.0</selenium-java.version>
         <gatling-charts-highcharts.version>2.2.3</gatling-charts-highcharts.version>
@@ -33,6 +42,8 @@
         <blaze-persistence.version>1.2.0-Alpha2</blaze-persistence.version>
         <blaze-persistence-integration-hibernate-5.2.version>1.2.0-Alpha2</blaze-persistence-integration-hibernate-5.2.version>
         <org.eclipse.persistence.jpa.version>2.6.4</org.eclipse.persistence.jpa.version>
+        <log4j.version>1.2.15</log4j.version>
+        <ch.qos.logback.version>0.9.26</ch.qos.logback.version>
     </properties>
     <build>
         <plugins>
@@ -55,7 +66,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${org.apache.maven.plugins.version}</version>
                 <configuration>
                     <webappDirectory>/home/excilys/excilys/computer-database-db/WebContent</webappDirectory>
                 </configuration>
@@ -237,18 +248,18 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.6.1</version>
+            <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>${log4j.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.jdmk</groupId>
@@ -268,12 +279,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>0.9.26</version>
+            <version>${ch.qos.logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>0.9.26</version>
+            <version>${ch.qos.logback.version}</version>
         </dependency>
         <dependency>
     		<groupId>org.hibernate</groupId>
